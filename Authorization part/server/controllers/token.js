@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt');
 
 module.exports = {
 	create(req,res) {
-		
+
 		return Token
 			.create({
 				content: bcrypt.hashSync("key"+req.body.username+parseInt(Math.random()*100000),10),

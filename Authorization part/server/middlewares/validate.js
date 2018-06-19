@@ -12,11 +12,11 @@ module.exports = {
 			else
 				res.status(401).send({
 			message: "Key not Authorized"
-		});		
+		});
 		})
 		.catch(error => res.status(401).send({
-			message: "Authorization Error!!"
+			message: "Authorization Error!!3"
 		}));
 	},
-	
+
 };

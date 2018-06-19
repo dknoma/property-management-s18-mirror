@@ -23,11 +23,11 @@ module.exports = {
 			else
 				res.status(401).send({
 			message: "UnAuthorized User!!"
-		});		
+		});
 		})
 		.catch(error => res.status(401).send({
-			message: "Authorization Error!!"
+			message: "Authorization Error!!2"
 		}));
 	},
-	
+
 };

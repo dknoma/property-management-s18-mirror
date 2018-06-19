@@ -1,5 +1,9 @@
 const bcrypt = require('bcrypt');
 const User = require('../models').user;
+const bcryptSalt     = 10;
+
+
+
 
 module.exports = {
 	create(req,res) {
@@ -14,13 +18,13 @@ module.exports = {
 						message: "User Already Exists with Username!!"
 					})
 			}
-		});		
-		
+		});
+
 		return User
 			.create({
 				admin: true,
 				username: req.body.username,
-				password: bcrypt.hashSync(req.body.pass,10)
+				password: bcrypt.hashSync(req.body.pass, bcrypt.genSaltSync(bcryptSalt))
 			})
 			.then(user => res.status(201).send(user))
 			.catch(error => res.status(400).send(error));

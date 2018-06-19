@@ -1,18 +1,12 @@
 {
   "development": {
-    "username": "yuxinhuang",
-    "password": null,
-    "database": "todos_dev",
-    "host": "127.0.0.1",
-    "port": 8000,
-    "dialect": "postgres"
+    "use_env_variable": "DATABASE_URL"
   },
   "test": {
-    "username": "yuxinhuang",
+    "username": "adayuxinhuang",
     "password": null,
-    "database": "todos_test",
+    "database": "database_test",
     "host": "127.0.0.1",
-    "port": 8000,
     "dialect": "postgres"
   },
   "production": {
@@ -20,6 +14,6 @@
     "password": null,
     "database": "database_production",
     "host": "127.0.0.1",
-    "dialect": "postgres"
+    "dialect": "mysql"
   }
 }
