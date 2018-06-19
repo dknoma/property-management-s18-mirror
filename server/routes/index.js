@@ -1,8 +1,10 @@
+const Sequelize = require('sequelize');
 const todosController = require('../controllers').todos;
 const todoItemsController = require('../controllers').todoItems;
 const usersController = require('../controllers').users;
 const User = require('../models').User;
 const jwt = require('jsonwebtoken');
+const Op = Sequelize.Op;
 
 
 module.exports = (app) => {
@@ -40,10 +42,10 @@ module.exports = (app) => {
 		return User
 			.findOrCreate({
 				where: {
-					username: req.body.username,
-				},
-				where: {
-					email: req.body.email
+					[Op.or]: [
+						{username: req.body.username}, 
+						{email: req.body.email}
+					]
 				},
 				defaults: {
 					user_type: 'propertymanager',
@@ -79,7 +81,7 @@ module.exports = (app) => {
 			.findOrCreate({
 				where: {
 					username: req.body.username
-				}, 
+				},
 				defaults: {
 					user_type: 'tenant',
 					username: req.body.username,
