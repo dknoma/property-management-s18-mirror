@@ -5,6 +5,8 @@ import App from './App';
 import Welcome from "./Welcome";
 import registerServiceWorker from './registerServiceWorker';
 
+//GIT TEST
+
 ReactDOM.render(
   <div>
     <App />
