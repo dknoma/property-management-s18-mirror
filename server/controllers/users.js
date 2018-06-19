@@ -23,12 +23,7 @@ retrieve(req, res) {
 	},
 	update(req, res) {
 		return User
-			.findById(req.params.userId, {
-				include: [{
-					model: User,
-					as: 'users',
-				}],
-			})
+			.findById(req.params.userId)
 			.then(user => {
 				if(!user) {
 					return res.status(404).send({
@@ -36,9 +31,10 @@ retrieve(req, res) {
 					});
 				}
 				return user
-					.update({
-						password: req.body.password || user.password,
-					})
+					.update( req.body, { fields: Object.keys(req.body) })
+					// .update({
+					// 	password: req.body.password || user.password,
+					// })
 					.then(() => res.status(200).send(user))
 					.catch((error) => res.status(400).send(error));
 			})
