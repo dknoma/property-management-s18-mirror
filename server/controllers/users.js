@@ -4,33 +4,13 @@ const jwt = require('jsonwebtoken');
 module.exports = {
 list(req, res) {
 	return User
-		.findAll({
-			// include: [{
-			// 	model: Todo,
-			// 	as: 'todos',
-			// 	include: [{
-			// 		model: TodoItem, 
-			// 		as: 'todoItems'
-			// 	}],
-			// }]
-		})
+		.findAll()
 		.then(users => res.status(200).send(users))
 		.catch(error => res.status(400).send(error));
 },
 retrieve(req, res) {
 	return User
-		//find the given username from the table
-		// .find({ where: {username: req.params.username}}, {
-		.findById(req.params.userId, {
-			// include: [{
-			// 	model: Todo,
-			// 	as: 'todos',
-			// 	include: [{
-			// 		model: TodoItem, 
-			// 		as: 'todoItems'
-			// 	}],
-			// }]
-		})
+		.findById(req.params.userId)
 		.then(user => {
 			if(!user) {
 				return res.status(404).send({
@@ -43,7 +23,6 @@ retrieve(req, res) {
 	},
 	update(req, res) {
 		return User
-			// .findById(req.params.username, {
 			.findById(req.params.userId, {
 				include: [{
 					model: User,
@@ -67,8 +46,6 @@ retrieve(req, res) {
 	},
 	destroy(req, res) {
 		return User
-			//find the given username from the table
-			// .find({ where: {username: req.params.username}})
 			.findById(req.params.userId)
 			.then(user => {
 				if(!user) {

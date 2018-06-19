@@ -18,14 +18,11 @@ module.exports = (app) => {
 	app.get('/api/users', usersController.list);
 	app.get('/api/users/:userId', usersController.retrieve);
 	app.delete('/api/users/:userId', usersController.destroy);
-
-	// app.get('/api/:users/todos/:userId', usersController.retrieve);
-	// app.post('/api/login', usersController.authenticate);
 	
-	function genrateToken(user) {
+	/* Function to generate a JWT token for the user */
+	function generateToken(user) {
 		//payload to create token; does not contain sensitive info
 		const payload = {username: user.username};
-
 		try {
 			return token = jwt.sign(payload, app.get('superSecret'), {
 				expiresIn: "24h" //expires after 24 hours
@@ -41,9 +38,10 @@ module.exports = (app) => {
 	app.post('/api/propertymanager/signup', (req, res) => {
 		return User
 			.findOrCreate({
+				//tries to find a User with username and/or email and returns false if that User exists
 				where: {
 					[Op.or]: [
-						{username: req.body.username}, 
+						{username: req.body.username},
 						{email: req.body.email}
 					]
 				},
@@ -58,21 +56,26 @@ module.exports = (app) => {
 			})
 			.spread((user, created) => {
 				//password confirmation can be done in front end
+				//if account does exists, need to try again
 				if(!created) {
 					return res.status(404).send({
 						message: 'Username or email already exists. Please try again.'
 					});
 				}
-				
-				var token = genrateToken(user);
-
-				// return token;
+				//generate the token
+				var token = generateToken(user);
+				//returns the user and token
+				res.json({
+					user: user,
+					token: token
+				});
 				return res.status(201).send({
-					success: true,
-					message: 'Stuff',
+					user: user,
+					message: 'Account was created successfully! Enjoy your token!',
 					token: token
 				});
 			})
+			.catch(error => res.status(400).send(error));
 	});
 
 	/* Signup for a tenant account */
@@ -80,7 +83,10 @@ module.exports = (app) => {
 		return User
 			.findOrCreate({
 				where: {
-					username: req.body.username
+					[Op.or]: [
+						{username: req.body.username},
+						{email: req.body.email}
+					]
 				},
 				defaults: {
 					user_type: 'tenant',
@@ -94,19 +100,89 @@ module.exports = (app) => {
 			.spread((user, created) => {
 				if(!created) {
 					return res.status(404).send({
-						message: 'Username already exists. Please try again.'
+						message: 'Username or email already exists. Please try again.'
 					});
 				}
 
-				var token = genrateToken(user);
-
-				// return token;
+				var token = generateToken(user);
+				//returns the user and token
+				res.json({
+					user: user,
+					token: token
+				});
 				return res.status(201).send({
-					success: true,
+					user: user,
 					message: 'Account was created successfully! Enjoy your token!',
 					token: token
 				});
 			})
+			.catch(error => res.status(400).send(error));
+	});
+
+	app.post('/api/propertymanager/login', (req, res) => {
+		return User
+			.findOne({
+				where: {username: req.body.username}
+			})
+			.then( user => {
+				if(!user) {
+					return res.status(404).send({
+						message: 'Username or password is wrong. Please try again.'
+					})
+					// return res.status(200).json({redirectURI: "/projectmanager/login"});
+				}
+				//TODO: need to encrypt password
+				if(req.body.password !== user.password) {
+					return res.status(404).send({
+						message: 'Username or password is wrong. Please try again.'
+					})
+				}
+				var token = generateToken(user);
+				//returns the user and token
+				res.json({
+					user: user,
+					token: token
+				});
+				return res.status(201).send({
+					user: user,
+					message: 'Login successful!',
+					token: token
+				});
+			})
+			.catch(error => res.status(400).send(error));
+	});
+
+	app.post('/api/tenant/login', (req, res) => {
+		return User
+			.findOne({
+				where: {username: req.body.username}
+			})
+			.then(user => {
+				if(!user) {
+					return res.status(404).send({
+						message: 'Username or password is wrong. Please try again.'
+					})
+					// return res.status(200).json({redirectURI: "/tenant/login"});
+				}
+				//TODO: need to encrypt password
+				if(req.body.password !== user.password) {
+					return res.status(404).send({
+						message: 'Username or password is wrong. Please try again.'
+					})
+				}
+				var token = generateToken(user);
+				//returns the user and token
+				res.json({
+					user: user,
+					token: token
+				});
+				return res.status(201).send({
+					user: user,
+					message: 'Login successful!',
+					token: token
+				});
+			})
+			.catch(error => res.status(400).send(error));
 	});
 
 	app.all('/api/todos/:todoId/items', (req, res) =>
