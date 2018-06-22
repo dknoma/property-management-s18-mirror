@@ -10,10 +10,16 @@ module.exports = {
 		user_type: {
 			type: Sequelize.STRING,
 			allowNull: false,
-			defaultValue: 'tenant',
+			// defaultValue: 'visitor',
 		},
 		username: {
 			type: Sequelize.STRING,
+			unique: true,
+			allowNull: false,
+		},
+		email: {
+			type: Sequelize.STRING,
+			unique: true,
 			allowNull: false,
 		},
 		firstname: {
@@ -25,10 +31,6 @@ module.exports = {
 			allowNull: false,
 		},
 		password: {
-			type: Sequelize.STRING,
-			allowNull: false,
-		},
-		email: {
 			type: Sequelize.STRING,
 			allowNull: false,
 		},

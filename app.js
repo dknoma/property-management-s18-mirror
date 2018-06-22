@@ -27,8 +27,8 @@ app.use(bodyParser.urlencoded({ extended: false}));
 
 app.set('superSecret', config.secret);
 
-// Require our routes into the application.
-require('./server/routes')(app);
+// Require our various routes into the application.
+require('./server/routes/authRoutes')(app);
 
 app.get('*', (request, response) => response.status(200).send({
 	message: 'Welcome to the beginning of Wut.',

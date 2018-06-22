@@ -1,10 +1,11 @@
 const Sequelize = require('sequelize');
+const bcrypt = require('bcrypt');
+const Op = Sequelize.Op;
 const todosController = require('../controllers').todos;
 const todoItemsController = require('../controllers').todoItems;
 const usersController = require('../controllers').users;
 const User = require('../models').User;
 const jwt = require('jsonwebtoken');
-const Op = Sequelize.Op;
 
 
 module.exports = (app) => {
@@ -18,7 +19,7 @@ module.exports = (app) => {
 	app.get('/api/users', usersController.list);
 	app.get('/api/users/:userId', usersController.retrieve);
 	app.put('/api/users/:userId', usersController.update);
-	app.delete('/api/users/:userId', usersController.destroy);
+	// app.delete('/api/users/:userId', usersController.destroy);
 	
 	/* Function to generate a JWT token for the user */
 	function generateToken(user) {
@@ -59,8 +60,10 @@ module.exports = (app) => {
 				//password confirmation can be done in front end
 				//if account does exists, need to try again
 				if(!created) {
-					return res.status(404).send({
+					return res.status(204).send({
 						message: 'Username or email already exists. Please try again.'
+					},{
+						redirectURI: "/propertymanager/signup"
 					});
 				}
 				//generate the token
@@ -91,17 +94,19 @@ module.exports = (app) => {
 				},
 				defaults: {
 					user_type: 'tenant',
-					username: req.body.username,
-					firstname: req.body.firstname,
-					lastname: req.body.lastname,
-					password: req.body.password,
-					email: req.body.email,
+					username: req.body.username.trim(),
+					firstname: req.body.firstname.trim(),
+					lastname: req.body.lastname.trim(),
+					password: req.body.password.trim(),
+					email: req.body.email.trim(),
 				}
 			})
 			.spread((user, created) => {
 				if(!created) {
-					return res.status(404).send({
+					return res.status(204).send({
 						message: 'Username or email already exists. Please try again.'
+					},{
+						redirectURI: "/tenant/signup"
 					});
 				}
 
@@ -120,6 +125,7 @@ module.exports = (app) => {
 			.catch(error => res.status(400).send(error));
 	});
 
+	/* Property manager login */
 	app.post('/api/propertymanager/login', (req, res) => {
 		return User
 			.findOne({
@@ -127,14 +133,14 @@ module.exports = (app) => {
 			})
 			.then( user => {
 				if(!user) {
-					return res.status(404).send({
+					return res.status(204).send({
 						message: 'Username or password is wrong. Please try again.'
 					})
 					// return res.status(200).json({redirectURI: "/projectmanager/login"});
 				}
-				//TODO: need to encrypt password
-				if(req.body.password !== user.password) {
-					return res.status(404).send({
+				//safely compares encrypted password
+				if(!bcrypt.compare(req.body.password, user.password)) {
+					return res.status(204).send({
 						message: 'Username or password is wrong. Please try again.'
 					})
 				}
@@ -153,6 +159,7 @@ module.exports = (app) => {
 			.catch(error => res.status(400).send(error));
 	});
 
+	/* Tenant login */
 	app.post('/api/tenant/login', (req, res) => {
 		return User
 			.findOne({
@@ -160,16 +167,15 @@ module.exports = (app) => {
 			})
 			.then(user => {
 				if(!user) {
-					return res.status(404).send({
+					return res.status(204).send({
 						message: 'Username or password is wrong. Please try again.'
 					})
 					// return res.status(200).json({redirectURI: "/tenant/login"});
 				}
-				//TODO: need to encrypt password
-				if(req.body.password !== user.password) {
-					return res.status(404).send({
+				if(!bcrypt.compare(req.body.password, user.password)) {
+					return res.status(204).send({
 						message: 'Username or password is wrong. Please try again.'
-					})
+					});
 				}
 				var token = generateToken(user);
 				//returns the user and token
