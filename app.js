@@ -14,7 +14,7 @@ const logger = require('morgan');
 const bodyParser = require('body-parser');
 // const jwt = require('jsonwebtoken');
 
-const config = require('./config');
+// const config = require('./config');
 
 //creates the express application
 const app = express();
@@ -25,7 +25,7 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false}));
 
-app.set('superSecret', config.secret);
+// app.set('superSecret', config.secret);
 
 // Require our various routes into the application.
 require('./server/routes/authRoutes')(app);

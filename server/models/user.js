@@ -36,7 +36,7 @@ module.exports = (sequelize, DataTypes) => {
 		hooks: {
 			//hook that will hash the password before creating the User and storing it into the database
 			beforeCreate: function(user, options) {
-				return bcrypt.hash(user.password, 10)
+				return bcrypt.hash(user.password, 8)
 				.then(hash => {
 					user.password = hash;
 				})
