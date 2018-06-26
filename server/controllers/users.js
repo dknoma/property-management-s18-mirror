@@ -53,7 +53,8 @@ module.exports = {
 			var token = generateToken(user);
 			//returns the user and token
 			return res.status(201).send({
-				user: user,
+				// user: user,
+				username: user.username,
 				message: 'Account was created successfully! Enjoy your token!',
 				token: token
 			});
@@ -89,7 +90,8 @@ module.exports = {
 			var token = generateToken(user);
 			//returns the user and token
 			return res.status(201).send({
-				user: user,
+				// user: user,
+				username: user.username,
 				message: 'Account was created successfully! Enjoy your token!',
 				token: token
 			});
@@ -119,7 +121,8 @@ module.exports = {
 						var token = generateToken(user);
 						//returns the user and token
 						return res.status(201).send({
-							user: user,
+							// user: user,
+							username: user.username,
 							message: "Login successful!",
 							token: token
 						});
@@ -149,7 +152,8 @@ module.exports = {
 						var token = generateToken(user);
 						//returns the user and token
 						return res.status(201).send({
-							user: user,
+							// user: user,
+							username: user.username,
 							message: "Login successful!",
 							token: token
 						});
