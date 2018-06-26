@@ -31,13 +31,6 @@ class Register extends Component {
       errors:{},
       title: 'Register'
     }
-
-    // this.handleChangeFirstName = this.handleChangeFirstName.bind(this);
-    // this.handleChangeLastName = this.handleChangeLastName.bind(this);
-    // this.handleChangeEmail = this.handleChangeEmail.bind(this);
-    // this.handleChangePassword = this.handleChangePassword.bind(this);
-    // this.handleChangePasswordConfirm = this.handleChangePasswordConfirm.bind(this);
-    // this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleClick(event) {
