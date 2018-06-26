@@ -53,8 +53,8 @@ class Register extends Component {
       var self = this;
       var payload={
         "username": this.state.username,
-        "first_name": this.state.first_name,
-        "last_name":this.state.last_name,
+        "firstname": this.state.first_name,
+        "lastname":this.state.last_name,
         "email":this.state.email,
         "password":this.state.password
       }
