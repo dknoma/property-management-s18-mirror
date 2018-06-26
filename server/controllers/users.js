@@ -36,7 +36,7 @@ module.exports = {
 				username: req.body.username.trim(),
 				firstname: req.body.firstname.trim(),
 				lastname: req.body.lastname.trim(),
-				password: req.body.password,
+				password: req.body.password.trim(),
 				email: req.body.email.trim(),
 			}
 		})
@@ -120,7 +120,7 @@ module.exports = {
 						//returns the user and token
 						return res.status(201).send({
 							user: user,
-							message: req.body.password + "  " + user.password,
+							message: "Login successful!",
 							token: token
 						});
 					}
@@ -138,7 +138,6 @@ module.exports = {
 					return res.status(204).send({
 						message: 'Username or password is wrong. Please try again.'
 					})
-					// return res.status(200).json({redirectURI: "/tenant/login"});
 				}
 				bcrypt.compare(req.body.password, user.password).then(match => {
 					if(!match) {
@@ -151,7 +150,7 @@ module.exports = {
 						//returns the user and token
 						return res.status(201).send({
 							user: user,
-							message: req.body.password + "  " + user.password,
+							message: "Login successful!",
 							token: token
 						});
 					}
@@ -191,7 +190,7 @@ module.exports = {
 					});
 				}
 				return user
-					.update( req.body, { fields: Object.keys(req.body) })
+					.update(req.body, { fields: Object.keys(req.body) })
 					//allows user to update any valid fields in their account
 					//will need to consider securely resetting/changing passwords
 					//also need checks when changing email or username; notify pm
