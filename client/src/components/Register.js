@@ -31,10 +31,11 @@ class Register extends Component {
       errors:{},
       title: 'Register'
     }
+
   }
 
   handleClick(event) {
-    var apiBaseUrl = "http://localhost:8000/auth/signup";
+    var apiBaseUrl = "http://localhost:3000/api";
     event.preventDefault();
 
     if (this.isValid()) {
@@ -59,11 +60,11 @@ class Register extends Component {
       }
 
       /* TODO: Reimplement this to use redux */
-      axios.post(apiBaseUrl+'/register', payload)
+      axios.post(apiBaseUrl+'/propertymanager/signup', payload)
      .then(function (response) {
        console.log(response);
        if(response.data.code === 200){
-        //  console.log("registration successfull");
+        console.log("registration successful");
          var loginscreen=[];
          loginscreen.push(<Login parentContext={this}/>);
          var loginmessage = "No account associated with this username.";
