@@ -64,6 +64,7 @@ class Register extends Component {
      .then(function (response) {
        console.log(response);
        if(response.data.code === 200){
+         
         console.log("registration successful");
          var loginscreen=[];
          loginscreen.push(<Login parentContext={this}/>);
@@ -88,37 +89,6 @@ class Register extends Component {
      [event.target.id]: event.target.value
    });
  }
-
-// /* There's definitely a better way to do this */
-//   handleChangeFirstName(event) {
-//     this.setState({
-//       first_name: event.target.value
-//     })
-//   }
-//
-//   handleChangeLastName(event) {
-//     this.setState({
-//       last_name: event.target.value
-//     })
-//   }
-//
-//   handleChangeEmail(event) {
-//     this.setState({
-//       email: event.target.value
-//     })
-//   }
-//
-//   handleChangePassword(event) {
-//     this.setState({
-//       password: event.target.value
-//     })
-//   }
-//
-//   handleChangePasswordConfirm(event) {
-//     this.setState({
-//       passwordConfirm: event.target.value
-//     })
-//   }
 
   isValid() {
    const errors =  validateInput(this.state);
@@ -173,7 +143,7 @@ class Register extends Component {
              <TextField
                type = "password"
                id="passwordConfirm"
-               label="passwordConfirm"
+               label="Confirm Password"
                onChange={this.handleChange}
                />
            <br/>

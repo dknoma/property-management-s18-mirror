@@ -41,7 +41,7 @@ handleClick(event) {
   axios.post(apiBaseUrl+'login', payload)
   .then(function (response) {
     console.log(response);
-    if(response.data.code === 200) {
+    if(response.data.code === 201) {
       console.log("Login successful");
 
       /* Need to confirm that this works */
@@ -49,9 +49,9 @@ handleClick(event) {
       profilePage.push(<ProfilePage appContext={self.props.appContext}/>)
       self.props.appContext.setState({loginPage:[],profilePage:profilePage})
     }
-    else if(response.data.code === 204){
+    else if(response.data.code === 401){
       console.log("Username and password do not match");
-      alert("Username and password do not match")
+      alert("Username and password do not match");
     }
     else{
       console.log("Username does not exists");
