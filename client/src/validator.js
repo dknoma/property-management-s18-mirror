@@ -3,7 +3,7 @@ import validator from 'validator';
 export function validateInput(data) {
  let errors = {};
  const re = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/;
- console.log('data.password', data.password);
+ if (validator.isEmpty(data.username)) errors.username = 'This field is required!';
  if (validator.isEmpty(data.first_name)) errors.first_name = 'This field is required!';
  if (validator.isEmpty(data.last_name)) errors.last_name = 'This field is required!';
  if (validator.isEmpty(data.email)) errors.email = 'This field is required!';
