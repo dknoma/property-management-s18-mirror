@@ -35,6 +35,7 @@ const reducer = (state = initialState, action) => {
         result: state.result + action.payload,
         lastValues: [...state.lastValues, action.payload]
       };
+
       break;
     // case "SUBTRACT":
     //   state = {
@@ -59,10 +60,14 @@ const store = createStore(reducer, 1);
  });
 
 /* Want to use a keyword we specified in the switch statement */
-// store.dispatch({
-//   type: "ADD",
-//   payload: 10
-// });
+
+// document.addEventListener('click', () => {
+//   store.dispatch({
+//     type: "ADD",
+//     // payload: 10
+//   });
+// })
+
 
 /* Currently handle frontend routing here, may be a better way to do this */
 
