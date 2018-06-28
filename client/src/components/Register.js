@@ -18,6 +18,13 @@ const styles = theme => ({
   },
 });
 
+/*Style for error msg */
+const spanStyle = {
+  color: 'red',
+  fontSize: 'small',
+  fontStyle: 'italic'
+};
+
 class Register extends Component {
   constructor(props){
     super(props);
@@ -34,7 +41,7 @@ class Register extends Component {
 
   }
 
-  handleClick(event) {
+ handleClick(event) {
     var apiBaseUrl = "http://localhost:3000/api";
     event.preventDefault();
 
@@ -61,28 +68,37 @@ class Register extends Component {
 
       /* TODO: Reimplement this to use redux */
       axios.post(apiBaseUrl+'/propertymanager/signup', payload)
-     .then(function (response) {
-       console.log(response);
-       if(response.data.code === 200){
-         
-        console.log("registration successful");
-         var loginscreen=[];
-         loginscreen.push(<Login parentContext={this}/>);
-         var loginmessage = "No account associated with this username.";
-         self.props.parentContext.setState({
-           loginscreen:loginscreen,
-           loginmessage:loginmessage,
-           buttonLabel:"Register",
-           isLogin:true
-          });
+      .then(response => {
+        console.log(response);
+        if(response.status === 201){
+        alert("Registration Successful!");
+        console.log(response.data.message);
+
+        // //what is this part for?
+        //  var loginscreen=[];
+        //  loginscreen.push(<Login parentContext={this}/>);
+        //  var loginmessage = "No account associated with this username.";
+        //
+        //  //NEED TO UPDATE
+        //  self.props.parentContext.setState({
+        //    loginscreen:loginscreen,
+        //    loginmessage:loginmessage,
+        //    buttonLabel:"Register",
+        //    isLogin:true
+        //  });
        }
      })
-     .catch(error => console.log(error));
-   } else {
-     console.log(this.state.errors);
-     console.log("is not valid");
-   }
-   }
+     .catch(error => {
+         alert(error.response.data.message);
+
+       // console.log(response);
+       // alert(response);
+
+     });
+    } else {
+       alert("Please check all the fields.");
+    }
+ }
 
    handleChange = event => {
    this.setState({
@@ -90,10 +106,12 @@ class Register extends Component {
    });
  }
 
-  isValid() {
+ isValid() {
    const errors =  validateInput(this.state);
    if (Object.keys(errors).length !== 0) {
+     console.log(errors);
      this.setState({errors});
+
      return false;
    }
    return true;
@@ -113,18 +131,24 @@ class Register extends Component {
               id="username"
               onChange={this.handleChange}
               />
+              <br/>
+              {this.state.errors && (this.state.errors["username"] && <span style={spanStyle}>{this.state.errors["username"]}</span>)}
             <br />
            <TextField
              label="First Name"
              id="first_name"
              onChange={this.handleChange}
              />
+             <br/>
+             {this.state.errors && (this.state.errors["first_name"] && <span style={spanStyle}>{this.state.errors["first_name"]}</span>)}
            <br/>
            <TextField
              label="Last Name"
              id="last_name"
              onChange={this.handleChange}
              />
+             <br/>
+             {this.state.errors && (this.state.errors["last_name"] && <span style={spanStyle}>{this.state.errors["last_name"]}</span>)}
            <br/>
            <TextField
              type="email"
@@ -132,6 +156,8 @@ class Register extends Component {
              label="Email"
              onChange={this.handleChange}
              />
+             <br/>
+             {this.state.errors && (this.state.errors["email"] && <span style={spanStyle}>{this.state.errors["email"]}</span>)}
            <br/>
            <TextField
              type = "password"
@@ -139,6 +165,8 @@ class Register extends Component {
              label="Password"
              onChange={this.handleChange}
              />
+             <br/>
+             {this.state.errors && (this.state.errors["password"] && <span style={spanStyle}>{this.state.errors["password"]}</span>)}
              <br />
              <TextField
                type = "password"
@@ -146,6 +174,8 @@ class Register extends Component {
                label="Confirm Password"
                onChange={this.handleChange}
                />
+               <br/>
+               {this.state.errors && (this.state.errors["passwordConfirm"] && <span style={spanStyle}>{this.state.errors["passwordConfirm"]}</span>)}
            <br/>
            <Button variant="contained" color="primary" label="Submit" style={style}
            onClick={(event) => this.handleClick(event)}> Submit </Button>

@@ -25,7 +25,7 @@ constructor(props){
 
 // TODO: Implement Backend
 handleClick(event) {
-  var apiBaseUrl = "http://localhost:8000/api/";
+  var apiBaseUrl = "http://localhost:3000/api/";
   var self = this;
   var payload={
     "email":this.state.username,
@@ -37,10 +37,10 @@ handleClick(event) {
   );
 
   /* Assuming /login is where we'll want to hit. Need to reconfigure with new backend */
-  axios.post(apiBaseUrl+'login', payload)
+  axios.post(apiBaseUrl+'propertymanager/login', payload)
   .then(function (response) {
     console.log(response);
-    if(response.data.code === 201) {
+    if(response.status === 201) {
       console.log("Login successful");
 
       /* Need to confirm that this works */
