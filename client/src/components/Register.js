@@ -7,6 +7,10 @@ import { validateInput } from '../validator';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
+import FormControl from "@material-ui/core/FormControl";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Radio from "@material-ui/core/Radio";
+import RadioGroup from "@material-ui/core/RadioGroup";
 
 const styles = theme => ({
   container: {
@@ -16,6 +20,11 @@ const styles = theme => ({
   formControl: {
     margin: theme.spacing.unit,
   },
+  group: {
+    margin: `${theme.spacing.unit}px 0`,
+    flexDirection: "row",
+    display: 'inline-block'
+  }
 });
 
 /*Style for error msg */
@@ -29,6 +38,7 @@ class Register extends Component {
   constructor(props){
     super(props);
     this.state={
+      user_type: '',
       username:'',
       first_name:'',
       last_name:'',
@@ -42,22 +52,20 @@ class Register extends Component {
   }
 
  handleClick(event) {
-    var apiBaseUrl = "http://localhost:3000/api";
+    var apiBaseUrl = "http://localhost:3000/api/";
     event.preventDefault();
 
     if (this.isValid()) {
       this.setState({errors: {}});
       console.log("payload: ",
+        this.state.user_type,
         this.state.username,
         this.state.first_name,
         this.state.last_name,
         this.state.email,
         this.state.password
       );
-      //TODO: check for empty values before hitting submit
-
       // Create payload to send over to backend
-      var self = this;
       var payload={
         "username": this.state.username,
         "firstname": this.state.first_name,
@@ -67,12 +75,13 @@ class Register extends Component {
       }
 
       /* TODO: Reimplement this to use redux */
-      axios.post(apiBaseUrl+'/propertymanager/signup', payload)
+      axios.post(apiBaseUrl + this.state.user_type +'/signup', payload)
       .then(response => {
         console.log(response);
         if(response.status === 201){
         alert("Registration Successful!");
-        console.log(response.data.message);
+
+        /* TODO: Need to redirect to Profile page*/
 
         // //what is this part for?
         //  var loginscreen=[];
@@ -90,21 +99,21 @@ class Register extends Component {
      })
      .catch(error => {
          alert(error.response.data.message);
-
-       // console.log(response);
-       // alert(response);
-
      });
     } else {
        alert("Please check all the fields.");
     }
  }
 
-   handleChange = event => {
+ handleChange = event => {
    this.setState({
      [event.target.id]: event.target.value
    });
  }
+
+ handleRadioChange = event => {
+   this.setState({ user_type: event.target.value });
+ };
 
  isValid() {
    const errors =  validateInput(this.state);
@@ -126,6 +135,22 @@ class Register extends Component {
             <Typography color="inherit" variant="display1">
               {this.state.title}
             </Typography>
+
+            <div>
+              <FormControl
+                component="fieldset"
+                required
+              >
+                <RadioGroup
+                  value={this.state.user_type}
+                  onChange={this.handleRadioChange}
+                >
+                    <FormControlLabel value="propertymanager" control={<Radio />} label="Property Manager" />
+                    <FormControlLabel value="tenant" control={<Radio />} label="Tenant" />
+                </RadioGroup>
+              </FormControl>
+            </div>
+
             <TextField
               label="Username"
               id="username"
