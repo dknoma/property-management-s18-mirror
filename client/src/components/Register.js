@@ -4,6 +4,9 @@ import PropTypes from 'prop-types';
 import axios from 'axios';
 import { validateInput } from '../validator';
 
+/* Redux */
+import { createStore } from "redux";
+
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
@@ -70,22 +73,36 @@ class Register extends Component {
       axios.post(apiBaseUrl+'/propertymanager/signup', payload)
       .then(response => {
         console.log(response);
-        if(response.status === 201){
-        alert("Registration Successful!");
-        console.log(response.data.message);
+        if(response.status === 201) {
+          alert("Registration Successful!");
+          console.log(response.data.message);
 
-        // //what is this part for?
-        //  var loginscreen=[];
-        //  loginscreen.push(<Login parentContext={this}/>);
-        //  var loginmessage = "No account associated with this username.";
-        //
-        //  //NEED TO UPDATE
-        //  self.props.parentContext.setState({
-        //    loginscreen:loginscreen,
-        //    loginmessage:loginmessage,
-        //    buttonLabel:"Register",
-        //    isLogin:true
-        //  });
+          /* Need to store the token coming from backend */
+          // dispatch(signUpUser(values))
+          //    .then(
+          //      (response) => {
+          //        let data = response.payload.data;
+          //        //if any one of these exist, then there is a field error
+          //        if (response.payload.status != 201) {
+          //          //let other components know
+          //          //dispatch(signUpUserFailure(response.payload));
+          //          //reject(data); //this is for redux-form itself
+          //        } else {
+          //          //store JWT Token to browser session storage
+          //         //sessionStorage.setItem('jwtToken', response.payload.data.token);
+          //         //let other components know that we got user and things are fine
+          //         //dispatch(signUpUserSuccess(response.payload));
+          //         //resolve();//this is for redux-form itself
+          //        }
+          //     }
+          //  );
+          //  //NEED TO UPDATE
+          //  self.props.parentContext.setState({
+          //    loginscreen:loginscreen,
+          //    loginmessage:loginmessage,
+          //    buttonLabel:"Register",
+          //    isLogin:true
+          //  });
        }
      })
      .catch(error => {
