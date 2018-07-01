@@ -5,15 +5,28 @@ import axios from 'axios';
 import { validateInput } from '../validator';
 
 /* Redux */
-import { createStore } from "redux";
+import { createStore, compose } from 'redux';
+import { connect } from 'react-redux';
+import * as actions from '../actions';
 
+/* Using Redux form, material UI, and redux-form-material-ui for forms */
+import {Field, reduxForm, formValueSelector} from 'redux-form';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
-import FormControl from "@material-ui/core/FormControl";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Radio from "@material-ui/core/Radio";
-import RadioGroup from "@material-ui/core/RadioGroup";
+// import TextField from '@material-ui/core/TextField';
+import FormControl from '@material-ui/core/FormControl';
+// import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Radio from '@material-ui/core/Radio';
+// import RadioGroup from '@material-ui/core/RadioGroup';
+
+import {
+  Checkbox,
+  RadioGroup,
+  Select,
+  TextField,
+  Switch,
+  FormControlLabel,
+} from 'redux-form-material-ui'
 
 const styles = theme => ({
   container: {
@@ -25,7 +38,7 @@ const styles = theme => ({
   },
   group: {
     margin: `${theme.spacing.unit}px 0`,
-    flexDirection: "row",
+    flexDirection: 'row',
     display: 'inline-block'
   }
 });
@@ -54,6 +67,12 @@ class Register extends Component {
 
   }
 
+  onSubmit = formProps => {
+    this.props.signup_property(formProps);
+  };
+
+
+/* This fires upon submit */
  handleClick(event) {
     var apiBaseUrl = "http://localhost:3000/api/";
     event.preventDefault();
@@ -69,7 +88,7 @@ class Register extends Component {
         this.state.password
       );
       // Create payload to send over to backend
-      var payload={
+      var payload = {
         "username": this.state.username,
         "firstname": this.state.first_name,
         "lastname":this.state.last_name,
@@ -136,94 +155,59 @@ class Register extends Component {
    if (Object.keys(errors).length !== 0) {
      console.log(errors);
      this.setState({errors});
-
      return false;
    }
    return true;
  }
 
   render() {
-    const { classes } = this.props;
+    /* handleSubmit is provided by Redux Form */
+    const { handleSubmit } = this.props;
     return (
-      <div>
-          <div>
+      <form onSubmit={handleSubmit(this.onSubmit)}>
             <br />
             <Typography color="inherit" variant="display1">
               {this.state.title}
             </Typography>
-
-            <div>
               <FormControl
                 component="fieldset"
                 required
               >
-                <RadioGroup
-                  value={this.state.user_type}
-                  onChange={this.handleRadioChange}
-                >
-                    <FormControlLabel value="propertymanager" control={<Radio />} label="Property Manager" />
-                    <FormControlLabel value="tenant" control={<Radio />} label="Tenant" />
-                </RadioGroup>
-              </FormControl>
-            </div>
 
-            <TextField
-              label="Username"
-              id="username"
-              onChange={this.handleChange}
-              />
-              <br/>
-              {this.state.errors && (this.state.errors["username"] && <span style={spanStyle}>{this.state.errors["username"]}</span>)}
+              <Field name="role" value={this.state.user_type} component={RadioGroup} >
+                <Radio value="propertymanager" label="Property Manager" onChange={this.handleRadioChange}/>
+                <Radio value="tenant" label="Tenant" onChange={this.handleRadioChange}/>
+              </Field>
+              </FormControl>
+              <br />
+
+            <Field name="username" label="Username" id="username" component = {TextField} />
+            {this.state.errors && (this.state.errors["username"] && <span style={spanStyle}>{this.state.errors["username"]}</span>)}
             <br />
-           <TextField
-             label="First Name"
-             id="first_name"
-             onChange={this.handleChange}
-             />
+            <Field name="first_name" id="first_name" label="First Name" component = {TextField} />
              <br/>
              {this.state.errors && (this.state.errors["first_name"] && <span style={spanStyle}>{this.state.errors["first_name"]}</span>)}
            <br/>
-           <TextField
-             label="Last Name"
-             id="last_name"
-             onChange={this.handleChange}
-             />
+            <Field name="last_name" id="last_name" label="Last Name" component = {TextField} />
              <br/>
              {this.state.errors && (this.state.errors["last_name"] && <span style={spanStyle}>{this.state.errors["last_name"]}</span>)}
            <br/>
-           <TextField
-             type="email"
-             id="email"
-             label="Email"
-             onChange={this.handleChange}
-             />
+            <Field name="email" id="email" type="email" label="Email" component = {TextField} />
              <br/>
              {this.state.errors && (this.state.errors["email"] && <span style={spanStyle}>{this.state.errors["email"]}</span>)}
            <br/>
-           <TextField
-             type = "password"
-             id="password"
-             label="Password"
-             onChange={this.handleChange}
-             />
-             <br/>
+             <Field name="password" id="password" type="password" label="Password" component = {TextField} />
+          <br/>
              {this.state.errors && (this.state.errors["password"] && <span style={spanStyle}>{this.state.errors["password"]}</span>)}
-             <br />
-             <TextField
-               type = "password"
-               id="passwordConfirm"
-               label="Confirm Password"
-               onChange={this.handleChange}
-               />
-               <br/>
+          <br />
+             <Field name="passwordConfirm" id="passwordConfirm" type="password" label="Confirm Password" component = {TextField} />
+            <br/>
                {this.state.errors && (this.state.errors["passwordConfirm"] && <span style={spanStyle}>{this.state.errors["passwordConfirm"]}</span>)}
            <br/>
-           <Button variant="contained" color="primary" label="Submit" style={style}
-           onClick={(event) => this.handleClick(event)}> Submit </Button>
+           <button className = "button" type="submit">Submit</button>
           <br />
           <a href="/login"> Already have an account? Login Here.</a>
-          </div>
-      </div>
+      </form>
     );
   }
 }
@@ -231,8 +215,18 @@ const style = {
   margin: 15,
 };
 
-Register.propTypes = {
-  classes: PropTypes.object,
-};
+// Register.propTypes = {
+//   classes: PropTypes.object,
+// };
+Register = reduxForm({
+  form: 'signup_property'
+})(Register)
 
-export default Register;
+/* Use Componse to improve syntax of export portion */
+export default compose (
+  connect(null, actions),
+)(Register);
+
+
+
+//export default Register;
