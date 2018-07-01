@@ -3,10 +3,23 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 
+/* Redux */
+import { connect } from 'react-redux';
+
 /* Higher Order Components */
 import requireAuth from './requireAuth';
 
 class ProfilePage extends React.Component {
+
+  renderPrivateInformation() {
+    if (this.props.authenticated) {
+      return
+      <div>
+        <div> Private Information Here </div>
+      </div>
+    }
+  }
+
   render() {
     return (
       <div className="container">
@@ -21,9 +34,15 @@ class ProfilePage extends React.Component {
               <p>Add form fields here</p>
             </div>
           </div>
-        </div>
+          {this.renderPrivateInformation()}
+      </div>
+
     );
   }
 }
 
-export default requireAuth(ProfilePage);
+function mapStateToProps(state) {
+  return { authenticated: state.auth.authenticated };
+}
+
+export default connect(mapStateToProps)(ProfilePage);

@@ -4,9 +4,11 @@ import PropTypes from 'prop-types';
 
 /* Redux */
 import { connect } from 'react-redux';
+import { createStore, compose } from 'redux';
 
 import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
+import Button from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
@@ -28,7 +30,7 @@ const styles = {
   },
 };
 
-class Nav extends Component {
+export class Nav extends Component {
   state = {
     auth: true,
     anchorEl: null,
@@ -49,7 +51,14 @@ class Nav extends Component {
   };
 
   renderLinks() {
-
+    if (this.props.authenticated){
+      return <div>
+        <a href="/logout">Logout</a>
+      </div>
+    } else {
+      return <div>
+      <a href="/login">Login</a></div>
+    }
   }
 
   render() {
@@ -66,6 +75,7 @@ class Nav extends Component {
                 Property Management App
               </Typography>
             </a>
+            {this.renderLinks()}
             {auth && (
               <div>
                 <IconButton
@@ -105,5 +115,7 @@ function mapStateToProps(state) {
   return { authenticated: state.auth.authenticated };
 }
 
-/* This syntax exports with the styles */
-export default withStyles(styles)(Nav);
+
+/* This syntax exports with the styles. Syntax is weird*/
+
+export default connect(mapStateToProps)(withStyles(styles)(Nav));
