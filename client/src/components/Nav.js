@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import "../index.css";
 import PropTypes from 'prop-types';
 
+/* Redux */
+import { connect } from 'react-redux';
+
 import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -44,6 +47,10 @@ class Nav extends Component {
   handleClose = () => {
     this.setState({ anchorEl: null });
   };
+
+  renderLinks() {
+
+  }
 
   render() {
     const { classes } = this.props;
@@ -94,9 +101,9 @@ class Nav extends Component {
   }
 }
 
-Nav.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
+function mapStateToProps(state) {
+  return { authenticated: state.auth.authenticated };
+}
 
 /* This syntax exports with the styles */
 export default withStyles(styles)(Nav);

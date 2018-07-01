@@ -19,6 +19,7 @@ import "./index.css";
 import Nav from "./components/Nav.js";
 import Home from "./components/Home.js";
 import Login from "./components/Login.js";
+import Logout from "./components/Logout.js";
 import Register from "./components/Register.js";
 import ProfilePage from "./components/ProfilePage.js";
 
@@ -31,57 +32,14 @@ const initialState = {
     username: "Nick"
 };
 
+/* Check for token every time app starts up */
 const store = createStore(
   reducers,
-  {},
+  {
+    auth: { authenticated: localStorage.getItem('token')}
+  },
   applyMiddleware(reduxThunk)
 );
-
-/* Use switch statements to check type of action */
-// const reducer = (state = initialState, action) => {
-//   switch(action.type) {
-//     case "ADD":
-//     /* Set new state to be old state + action.value */
-//     /* Payload is never new state */
-//       state = {
-//         /* Put old state */
-//         ...state,
-//         result: state.result + action.payload,
-//         lastValues: [...state.lastValues, action.payload]
-//       };
-//
-//       break;
-//     // case "SUBTRACT":
-//     //   state = {
-//     //     ...state,
-//     //     result: state.result - action.payload,
-//     //     lastValues: [...state.lastValues, action.payload]
-//     //   }
-//     //   break;
-//   }
-//   return state;
-// };
-//
-// /* CreateStore takes two arguments, feeding in reducer first,
-// and application state as second argument */
-// const store = createStore(reducer, 1);
-//
-//
-//  /* Don't want to do this with react */
-//  /* Whenever store is updated, do this */
-//  store.subscribe(() => {
-//    console.log("Store Updated: " + store.getState())
-//  });
-//
-// /* Want to use a keyword we specified in the switch statement */
-//
-// // document.addEventListener('click', () => {
-// //   store.dispatch({
-// //     type: "ADD",
-// //     // payload: 10
-// //   });
-// // })
-
 
 /* Currently handle frontend routing here, may be a better way to do this */
 
@@ -96,6 +54,8 @@ ReactDOM.render(
         <Route path={"login"} component={Login}>
         </Route>
         <Route path={"register"} component={Register}>
+        </Route>
+        <Route path={"logout"} component={Logout}>
         </Route>
         <Route path={"profile"} component={ProfilePage}>
         </Route>

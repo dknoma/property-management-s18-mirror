@@ -43,7 +43,7 @@ const styles = theme => ({
   }
 });
 
-/*Style for error msg */
+/* Style for error msg */
 const spanStyle = {
   color: 'red',
   fontSize: 'small',
@@ -51,7 +51,7 @@ const spanStyle = {
 };
 
 class Register extends Component {
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state={
       user_type: '',
@@ -64,11 +64,13 @@ class Register extends Component {
       errors:{},
       title: 'Register'
     }
-
   }
 
-  onSubmit = formProps => {
-    this.props.signup_property(formProps);
+  onSubmit = ({user_type, username, email, firstname, lastname, password}) => {
+    this.props.signup_property({user_type, username, email, firstname, lastname, password}, () => {
+      this.props.router.push("/profile");
+    });
+  //console.log(({user_type, username, email, firstname, lastname, password});
   };
 
 
@@ -103,33 +105,6 @@ class Register extends Component {
         if(response.status === 201) {
           alert("Registration Successful!");
           console.log(response.data.message);
-
-          /* Need to store the token coming from backend */
-          // dispatch(signUpUser(values))
-          //    .then(
-          //      (response) => {
-          //        let data = response.payload.data;
-          //        //if any one of these exist, then there is a field error
-          //        if (response.payload.status != 201) {
-          //          //let other components know
-          //          //dispatch(signUpUserFailure(response.payload));
-          //          //reject(data); //this is for redux-form itself
-          //        } else {
-          //          //store JWT Token to browser session storage
-          //         //sessionStorage.setItem('jwtToken', response.payload.data.token);
-          //         //let other components know that we got user and things are fine
-          //         //dispatch(signUpUserSuccess(response.payload));
-          //         //resolve();//this is for redux-form itself
-          //        }
-          //     }
-          //  );
-          //  //NEED TO UPDATE
-          //  self.props.parentContext.setState({
-          //    loginscreen:loginscreen,
-          //    loginmessage:loginmessage,
-          //    buttonLabel:"Register",
-          //    isLogin:true
-          //  });
        }
      })
      .catch(error => {
@@ -148,6 +123,7 @@ class Register extends Component {
 
  handleRadioChange = event => {
    this.setState({ user_type: event.target.value });
+   console.log(this.state.user_type);
  };
 
  isValid() {
@@ -165,48 +141,53 @@ class Register extends Component {
     const { handleSubmit } = this.props;
     return (
       <form onSubmit={handleSubmit(this.onSubmit)}>
-            <br />
-            <Typography color="inherit" variant="display1">
-              {this.state.title}
-            </Typography>
-              <FormControl
-                component="fieldset"
-                required
-              >
+        <br />
 
-              <Field name="role" value={this.state.user_type} component={RadioGroup} >
-                <Radio value="propertymanager" label="Property Manager" onChange={this.handleRadioChange}/>
-                <Radio value="tenant" label="Tenant" onChange={this.handleRadioChange}/>
-              </Field>
-              </FormControl>
-              <br />
+        <Typography color="inherit" variant="display1">
+        {this.state.title}
+        </Typography>
 
-            <Field name="username" label="Username" id="username" component = {TextField} />
-            {this.state.errors && (this.state.errors["username"] && <span style={spanStyle}>{this.state.errors["username"]}</span>)}
-            <br />
-            <Field name="first_name" id="first_name" label="First Name" component = {TextField} />
-             <br/>
-             {this.state.errors && (this.state.errors["first_name"] && <span style={spanStyle}>{this.state.errors["first_name"]}</span>)}
-           <br/>
-            <Field name="last_name" id="last_name" label="Last Name" component = {TextField} />
-             <br/>
-             {this.state.errors && (this.state.errors["last_name"] && <span style={spanStyle}>{this.state.errors["last_name"]}</span>)}
-           <br/>
-            <Field name="email" id="email" type="email" label="Email" component = {TextField} />
-             <br/>
-             {this.state.errors && (this.state.errors["email"] && <span style={spanStyle}>{this.state.errors["email"]}</span>)}
-           <br/>
-             <Field name="password" id="password" type="password" label="Password" component = {TextField} />
-          <br/>
-             {this.state.errors && (this.state.errors["password"] && <span style={spanStyle}>{this.state.errors["password"]}</span>)}
-          <br />
-             <Field name="passwordConfirm" id="passwordConfirm" type="password" label="Confirm Password" component = {TextField} />
-            <br/>
-               {this.state.errors && (this.state.errors["passwordConfirm"] && <span style={spanStyle}>{this.state.errors["passwordConfirm"]}</span>)}
-           <br/>
-           <button className = "button" type="submit">Submit</button>
-          <br />
-          <a href="/login"> Already have an account? Login Here.</a>
+        <FormControl
+        component="fieldset"
+        required
+        >
+
+        <Field name="role" value={this.state.user_type} component={RadioGroup} >
+        <label for="propertymanager" >Property Manager</label>
+        <Radio value="propertymanager" name="propertymanager" label="Property Manager" onChange={this.handleRadioChange}/>
+        <label for="tenant">Tenant</label>
+        <Radio value="tenant" label="Tenant" onChange={this.handleRadioChange}/>
+        </Field>
+        </FormControl>
+        <br />
+
+        <Field name="username" label="Username" id="username" component = {TextField} />
+        {this.state.errors && (this.state.errors["username"] && <span style={spanStyle}>{this.state.errors["username"]}</span>)}
+        <br />
+        <Field name="firstname" id="first_name" label="First Name" component = {TextField} />
+        <br/>
+        {this.state.errors && (this.state.errors["first_name"] && <span style={spanStyle}>{this.state.errors["first_name"]}</span>)}
+        <br/>
+        <Field name="lastname" id="last_name" label="Last Name" component = {TextField} />
+        <br/>
+        {this.state.errors && (this.state.errors["last_name"] && <span style={spanStyle}>{this.state.errors["last_name"]}</span>)}
+        <br/>
+        <Field name="email" id="email" type="email" label="Email" component = {TextField} />
+        <br/>
+        {this.state.errors && (this.state.errors["email"] && <span style={spanStyle}>{this.state.errors["email"]}</span>)}
+        <br/>
+        <Field name="password" id="password" type="password" label="Password" component = {TextField} />
+        <br/>
+        {this.state.errors && (this.state.errors["password"] && <span style={spanStyle}>{this.state.errors["password"]}</span>)}
+        <br/>
+        <Field name="passwordConfirm" id="passwordConfirm" type="password" label="Confirm Password" component = {TextField} />
+        <br/>
+        {this.state.errors && (this.state.errors["passwordConfirm"] && <span style={spanStyle}>{this.state.errors["passwordConfirm"]}</span>)}
+        <br/>
+
+        <button className = "button" type="submit">Submit</button>
+        <br />
+        <a href="/login"> Already have an account? Login Here.</a>
       </form>
     );
   }
@@ -215,18 +196,19 @@ const style = {
   margin: 15,
 };
 
-// Register.propTypes = {
-//   classes: PropTypes.object,
-// };
-Register = reduxForm({
-  form: 'signup_property'
-})(Register)
+function mapStateToProps(state) {
+  return {errorMessage: state.auth.errorMessage};
+}
+
+
+  Register = reduxForm({
+    form: 'signup_property'
+  })(Register)
+
+
 
 /* Use Componse to improve syntax of export portion */
+/* Need to pass mapStateToProps as an argument here */
 export default compose (
-  connect(null, actions),
+  connect(mapStateToProps, actions),
 )(Register);
-
-
-
-//export default Register;

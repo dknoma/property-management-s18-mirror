@@ -1,5 +1,2 @@
 export const AUTH_USER = "auth_user";
-
-export const REGISTER_USER = 'REGISTER_USER';
-export const REGISTER_USER_SUCCESS = 'REGISTER_SUCCESS';
-export const REGISTER_USER_FAILURE = 'REGISTER_USER_FAILURE';
+export const AUTH_ERROR = "auth_error";
