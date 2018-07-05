@@ -153,9 +153,9 @@ class Register extends Component {
         >
 
         <Field name="role" value={this.state.user_type} component={RadioGroup} >
-        <label for="propertymanager" >Property Manager</label>
+        <label>Property Manager</label>
         <Radio value="propertymanager" name="propertymanager" label="Property Manager" onChange={this.handleRadioChange}/>
-        <label for="tenant">Tenant</label>
+        <label>Tenant</label>
         <Radio value="tenant" label="Tenant" onChange={this.handleRadioChange}/>
         </Field>
         </FormControl>
@@ -184,7 +184,6 @@ class Register extends Component {
         <br/>
         {this.state.errors && (this.state.errors["passwordConfirm"] && <span style={spanStyle}>{this.state.errors["passwordConfirm"]}</span>)}
         <br/>
-
         <button className = "button" type="submit">Submit</button>
         <br />
         <a href="/login"> Already have an account? Login Here.</a>

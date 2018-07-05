@@ -4,7 +4,6 @@ import ReactDOM from "react-dom";
 import { Router, IndexRoute, Route, browserHistory } from 'react-router';
 
 /* React Redux */
-// need provider tag
 import { Provider } from 'react-redux';
 
 /* Redux */
@@ -26,20 +25,28 @@ import ProfilePage from "./components/ProfilePage.js";
 
 var destination = document.querySelector("#container");
 
-const initialState = {
-    result: 1,
-    lastValues: [],
-    username: "Nick"
-};
-
 /* Check for token every time app starts up */
+
+/* Runs this every time on application page load */
+
 const store = createStore(
   reducers,
   {
-    auth: { authenticated: localStorage.getItem('token')}
+    auth: {
+    authenticated: localStorage.getItem('token'),
+    username: '',
+    email: localStorage.getItem('token'),
+    firstname: localStorage.getItem('token'),
+    lastname: localStorage.getItem('token'),
+    user_type: localStorage.getItem('token')
+    },
   },
   applyMiddleware(reduxThunk)
 );
+
+
+console.log(store.getState());
+
 
 /* Currently handle frontend routing here, may be a better way to do this */
 
