@@ -66,8 +66,10 @@ class Register extends Component {
     }
   }
 
+/* Change this to submit the payload */
   onSubmit = ({user_type, username, email, firstname, lastname, password}) => {
-    this.props.signup_property({user_type, username, email, firstname, lastname, password}, () => {
+    console.log({user_type, username, email, firstname, lastname, password});
+    this.props.signup({user_type, username, email, firstname, lastname, password}, () => {
       this.props.router.push("/profile");
     });
   //console.log(({user_type, username, email, firstname, lastname, password});
@@ -152,7 +154,7 @@ class Register extends Component {
         required
         >
 
-        <Field name="role" value={this.state.user_type} component={RadioGroup} >
+        <Field name="user_type" id="user_type" value={this.state.user_type} component={RadioGroup} >
         <label>Property Manager</label>
         <Radio value="propertymanager" name="propertymanager" label="Property Manager" onChange={this.handleRadioChange}/>
         <label>Tenant</label>

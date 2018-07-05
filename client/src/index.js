@@ -34,11 +34,11 @@ const store = createStore(
   {
     auth: {
     authenticated: localStorage.getItem('token'),
-    username: '',
-    email: localStorage.getItem('token'),
-    firstname: localStorage.getItem('token'),
-    lastname: localStorage.getItem('token'),
-    user_type: localStorage.getItem('token')
+    // username: '',
+    // email: localStorage.getItem('token'),
+    // firstname: localStorage.getItem('token'),
+    // lastname: localStorage.getItem('token'),
+    // user_type: localStorage.getItem('token')
     },
   },
   applyMiddleware(reduxThunk)

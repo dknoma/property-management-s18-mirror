@@ -22,7 +22,7 @@ export default function(state = INITIAL_STATE, action) {
         username: action.payload.user.username,
         firstname: action.payload.user.firstname,
         lastname: action.payload.user.lastname,
-        user_type: action.payload.user.propertymanager
+        user_type: action.payload.user.user_type
       };
     case AUTH_ERROR:
     /* Need to make sure we're pulling this state in Register.js */
