@@ -11,6 +11,7 @@ const INITIAL_STATE = {
   user_type: '',
 };
 
+/* Reducer takes two arguments, the current state and an action */
 export default function(state = INITIAL_STATE, action) {
   switch (action.type) {
     /* If case is auth_user, return properties and the JWT as payload */

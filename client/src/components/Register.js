@@ -13,12 +13,10 @@ import * as actions from '../actions';
 import {Field, reduxForm, formValueSelector} from 'redux-form';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-// import TextField from '@material-ui/core/TextField';
 import FormControl from '@material-ui/core/FormControl';
-// import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Radio from '@material-ui/core/Radio';
-// import RadioGroup from '@material-ui/core/RadioGroup';
 
+/* Using redux-form-material-ui library to sync up material ui and redux */
 import {
   Checkbox,
   RadioGroup,
@@ -67,12 +65,16 @@ class Register extends Component {
   }
 
 /* Change this to submit the payload */
+/* The fields in the form map by id to this function */
   onSubmit = ({user_type, username, email, firstname, lastname, password}) => {
-    console.log({user_type, username, email, firstname, lastname, password});
-    this.props.signup({user_type, username, email, firstname, lastname, password}, () => {
-      this.props.router.push("/profile");
-    });
-  //console.log(({user_type, username, email, firstname, lastname, password});
+    if (this.isValid()) {
+      console.log({user_type, username, email, firstname, lastname, password});
+      this.props.signup({user_type, username, email, firstname, lastname, password}, () => {
+        this.props.router.push("/profile");
+      });
+    } else {
+      alert("Please check all the fields.");
+    }
   };
 
 
@@ -201,10 +203,10 @@ function mapStateToProps(state) {
   return {errorMessage: state.auth.errorMessage};
 }
 
-
-  Register = reduxForm({
-    form: 'signup_property'
-  })(Register)
+/* Need to do this so that reduxForm exports */
+Register = reduxForm({
+  form: 'signup_property'
+})(Register)
 
 
 

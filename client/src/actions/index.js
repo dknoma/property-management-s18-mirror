@@ -51,6 +51,7 @@ export const get_profile_info =
 
 export const logout = () => {
   localStorage.removeItem('token');
+  console.log('fires');
 
   return {
     /* Reusing this same type we used above, just by changing authenticated state */

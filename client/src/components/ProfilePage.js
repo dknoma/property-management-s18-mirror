@@ -6,17 +6,19 @@ import TextField from '@material-ui/core/TextField';
 /* Redux */
 import { connect } from 'react-redux';
 
-/* Higher Order Components */
+/* Higher Order Components. Not currently using but will use for private pages */
 import requireAuth from './requireAuth';
 
 class ProfilePage extends React.Component {
 
   renderPrivateInformation() {
     if (this.props.authenticated) {
-      return
+      console.log("hey");
+      return(
       <div>
         <div> Private Information Here </div>
       </div>
+      )
     }
   }
 
@@ -51,7 +53,6 @@ function mapStateToProps(state) {
     firstname: state.auth.firstname,
     lastname: state.auth.lastname,
     user_type: state.auth.user_type
-
   };
 }
 
