@@ -10,7 +10,7 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
 
-import ProfilePage from './ProfilePage.js';
+import ProfilePage from '../ProfilePage.js';
 
 class Login extends Component {
 

@@ -17,9 +17,9 @@ import reducers from "./reducers";
 import "./index.css";
 import Nav from "./components/Nav.js";
 import Home from "./components/Home.js";
-import Login from "./components/Login.js";
-import Logout from "./components/Logout.js";
-import Register from "./components/Register.js";
+import Login from "./components/auth/Login.js";
+import Logout from "./components/auth/Logout.js";
+import Register from "./components/auth/Register.js";
 import ProfilePage from "./components/ProfilePage.js";
 
 
