@@ -3,8 +3,9 @@ import { AUTH_USER, AUTH_ERROR } from './types';
 
 var apiBaseUrl = "http://localhost:3000/api/";
 
-/* Because of redux thunk, we can return a function that calls dispatch */
-/* username, email, first_name, last_name, password */
+/* Because of redux thunk, we can return a function that calls dispatch. This is
+an action creator */
+
 /* pass form properties through */
 export const signup =
 ({user_type, username, email, firstname, lastname, password}, callback) => async dispatch => {
@@ -14,8 +15,9 @@ export const signup =
      {user_type, username, email, firstname, lastname, password}
     );
      /* and get the whole object as payload, not just token!
-     dispatch sends to store */
+     dispatch sends to store (through reducer I think) */
     dispatch ({ type: AUTH_USER, payload: response.data });
+
     /* This stores the JWT we recieve from server right above */
     localStorage.setItem('token', response.data.token);
     /* This says to redirect */
@@ -24,8 +26,6 @@ export const signup =
     dispatch({ type: AUTH_ERROR, payload: "ERROR"})
   }
 };
-
-/* Move isValid over here */
 
 export const get_profile_info =
 ({user_type, username, email, firstname, lastname, password}, callback) => async dispatch => {

@@ -16,6 +16,7 @@ export default function(state = INITIAL_STATE, action) {
   switch (action.type) {
     /* If case is auth_user, return properties and the JWT as payload */
     /* the ...state syntax returns current state + payload */
+    /* We get AUTH_USER so we return new state with these changes */
     case AUTH_USER:
     /* action.payload is the whole user object now */
       return {...state,

@@ -13,7 +13,6 @@ class ProfilePage extends React.Component {
 
   renderPrivateInformation() {
     if (this.props.authenticated) {
-      console.log("hey");
       return(
       <div>
         <div> Private Information Here </div>
@@ -23,6 +22,7 @@ class ProfilePage extends React.Component {
   }
 
   render() {
+        console.log(this.props.username);
     return (
       <div className="container">
           <div className="row">

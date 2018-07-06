@@ -9,6 +9,7 @@ import { createStore, compose } from 'redux';
 import { connect } from 'react-redux';
 import * as actions from '../actions';
 
+
 /* Using Redux form, material UI, and redux-form-material-ui for forms */
 import {Field, reduxForm, formValueSelector} from 'redux-form';
 import Typography from '@material-ui/core/Typography';
@@ -67,14 +68,10 @@ class Register extends Component {
 /* Change this to submit the payload */
 /* The fields in the form map by id to this function */
   onSubmit = ({user_type, username, email, firstname, lastname, password}) => {
-    if (this.isValid()) {
       console.log({user_type, username, email, firstname, lastname, password});
       this.props.signup({user_type, username, email, firstname, lastname, password}, () => {
         this.props.router.push("/profile");
       });
-    } else {
-      alert("Please check all the fields.");
-    }
   };
 
 
@@ -200,8 +197,19 @@ const style = {
 };
 
 function mapStateToProps(state) {
-  return {errorMessage: state.auth.errorMessage};
+  return {
+    errorMessage: state.auth.errorMessage
+  };
 }
+
+// const mapDispatchToProps = dispatch => {
+//   return {
+//     signup: () =>
+//       dispatch({
+//         type: 'AUTH_USER'
+//       })
+//   }
+// }
 
 /* Need to do this so that reduxForm exports */
 Register = reduxForm({
