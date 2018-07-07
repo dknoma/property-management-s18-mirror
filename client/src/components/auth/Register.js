@@ -44,6 +44,10 @@ class Register extends Component {
 
 /* Change this to submit the payload */
   onSubmit = ({user_type, username, email, firstname, lastname, password}) => {
+    if(user_type === undefined) {
+      alert("Please select the user type!");
+      return;
+    }
     console.log({user_type, username, email, firstname, lastname, password});
     this.props.signup({user_type, username, email, firstname, lastname, password}, () => {
       this.props.router.push("/profile");
@@ -64,7 +68,7 @@ class Register extends Component {
         </Typography>
         <br/>
         <div>
-          <Field name="user_type" id="user_type" component={RadioGroup} validate={[ required ]} >
+          <Field name="user_type" id="user_type" component={RadioGroup} >
           <label>
             <input type="radio" name="user_type" value="propertymanager" onChange={this.handleRadioChange}/>Property Manager
           </label>
@@ -73,7 +77,6 @@ class Register extends Component {
             <input type="radio" name="user_type" value="tenant" onChange={this.handleRadioChange}/>Tenant
           </label>
           </Field>
-
         </div>
         <br/>
         <Field name="username" label="Username" id="username" component = {TextField} validate={[ required, maxLength15 ]}/>
@@ -103,11 +106,10 @@ function mapStateToProps(state) {
   return {errorMessage: state.auth.errorMessage};
 }
 
-
+/* Do we need this code? */
   Register = reduxForm({
     form: 'signup_property'
   })(Register)
-
 
 
 /* Use Componse to improve syntax of export portion */

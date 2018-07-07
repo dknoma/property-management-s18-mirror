@@ -17,12 +17,20 @@ export default function(state = INITIAL_STATE, action) {
     /* the ...state syntax returns current state + payload */
     case AUTH_USER:
     /* action.payload is the whole user object now */
+
+      /* When logging out a.k.a when payload is empty*/
+      if(action.payload === '') {
+        return {...state, authenticated: '', username: ''};
+      }
+
+      /* We can add more info if we want to*/
       return {...state,
         authenticated: action.payload.token,
-        username: action.payload.user.username,
-        firstname: action.payload.user.firstname,
-        lastname: action.payload.user.lastname,
-        user_type: action.payload.user.user_type
+        username: action.payload.user.username
+        // username: action.payload.user.username,
+        // firstname: action.payload.user.firstname,
+        // lastname: action.payload.user.lastname,
+        // user_type: action.payload.user.user_type
       };
     case AUTH_ERROR:
     /* Need to make sure we're pulling this state in Register.js */

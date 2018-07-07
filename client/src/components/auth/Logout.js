@@ -10,6 +10,9 @@ class Logout extends Component {
 
   render() {
     return <div> Sorry to see you go!</div>
+
+    //Maybe change it to an alert and redirect to Home?
+
   }
 }
 

@@ -34,7 +34,7 @@ const store = createStore(
   {
     auth: {
     authenticated: localStorage.getItem('token'),
-    // username: '',
+    username: localStorage.getItem('username')
     // email: localStorage.getItem('token'),
     // firstname: localStorage.getItem('token'),
     // lastname: localStorage.getItem('token'),
@@ -45,7 +45,7 @@ const store = createStore(
 );
 
 
-console.log(store.getState());
+//console.log(store.getState());
 
 
 /* Currently handle frontend routing here, may be a better way to do this */
