@@ -1,5 +1,5 @@
 const usersController = require('../controllers').users;
-const propertyController = require('../controllers').property;
+const propertyiesontroller = require('../controllers').properties;
 
 module.exports = (app) => {
 	app.get('/api', (req, res) => res.status(200).send({
@@ -13,8 +13,6 @@ module.exports = (app) => {
 	app.post('/api/tenant/signup', usersController.tsignup);
 	app.post('/api/propertymanager/login', usersController.pmlogin);
 	app.post('/api/tenant/login', usersController.tlogin);
-
-	app.post('/api/property', propertyController.create);
 
 	/* Update profile info */
 	app.put('/api/users/:userId', usersController.update);

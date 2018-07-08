@@ -8,7 +8,7 @@ const bcrypt = require('bcrypt');
 /* Function to generate a JWT token for the user */
 function generateToken(user) {
 	//payload to create token; does not contain sensitive info
-	const payload = {username: user.username};
+	const payload = {userId: user.id};
 	try {
 		return token = jwt.sign(payload, config.secret, {
 			expiresIn: "24h" //expires after 24 hours
@@ -53,8 +53,14 @@ module.exports = {
 			var token = generateToken(user);
 			//returns the user and token
 			return res.status(201).send({
-				// user: user,
-				username: user.username,
+				user: {
+					user_type: user.user_type,
+					userId: user.id,
+					username: user.username,
+					email: user.email,
+					firstname: user.firstname,
+					lastname: user.lastname
+				},
 				message: 'Account was created successfully! Enjoy your token!',
 				token: token
 			});
@@ -90,8 +96,14 @@ module.exports = {
 			var token = generateToken(user);
 			//returns the user and token
 			return res.status(201).send({
-				// user: user,
-				username: user.username,
+				user: {
+					user_type: user.user_type,
+					userId: user.id,
+					username: user.username,
+					email: user.email,
+					firstname: user.firstname,
+					lastname: user.lastname
+				},
 				message: 'Account was created successfully! Enjoy your token!',
 				token: token
 			});
@@ -121,8 +133,14 @@ module.exports = {
 						var token = generateToken(user);
 						//returns the user and token
 						return res.status(201).send({
-							// user: user,
-							username: user.username,
+							user: {
+								user_type: user.user_type,
+								userId: user.id,
+								username: user.username,
+								email: user.email,
+								firstname: user.firstname,
+								lastname: user.lastname
+							},
 							message: "Login successful!",
 							token: token
 						});
@@ -152,8 +170,14 @@ module.exports = {
 						var token = generateToken(user);
 						//returns the user and token
 						return res.status(201).send({
-							// user: user,
-							username: user.username,
+							user: {
+								user_type: user.user_type,
+								userId: user.id,
+								username: user.username,
+								email: user.email,
+								firstname: user.firstname,
+								lastname: user.lastname
+							},
 							message: "Login successful!",
 							token: token
 						});

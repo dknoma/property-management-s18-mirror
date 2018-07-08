@@ -8,35 +8,49 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      property_id: {
-        type: Sequelize.STRING
+      property_type: {
+        type: DataTypes.STRING,
+        allowNull: false,
       },
       property_name: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false,
       },
       street: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false,
       },
       city: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false,
       },
       state: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false,
       },
       zip: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false,
       },
       number_of_bedrooms: {
-        type: Sequelize.STRING
+        type: Sequelize.INTEGER,
+        allowNull: false,
       },
       number_of_bathrooms: {
-        type: Sequelize.STRING
+        type: Sequelize.INTEGER,
+        allowNull: false,
+      },
+      allows_pets: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false
       },
       prices: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false,
       },
       url_address: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false,
       },
       createdAt: {
         allowNull: false,

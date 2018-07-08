@@ -1,7 +1,7 @@
 const users = require('./users');
-const property = require('./property');
+const properties = require('./properties');
 
 module.exports = {
     users,
-    property,
+    properties,
 };
