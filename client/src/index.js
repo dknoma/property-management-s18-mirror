@@ -21,7 +21,9 @@ import Login from "./components/auth/Login.js";
 import Logout from "./components/auth/Logout.js";
 import Register from "./components/auth/Register.js";
 import ProfilePage from "./components/ProfilePage.js";
+import CreateProperty from "./components/CreateProperty.js";
 import ProfileEdit from "./components/ProfileEdit.js";
+
 
 
 var destination = document.querySelector("#container");
@@ -67,7 +69,11 @@ ReactDOM.render(
         </Route>
         <Route path={"profile"} component={ProfilePage}>
         </Route>
+<<<<<<< HEAD
+        <Route path={"createproperty"} component={CreateProperty}>
+=======
         <Route path={"edit"} component={ProfileEdit}>
+>>>>>>> fd8803e3000ff586fbc3da8b4968b531bb9e85bf
         </Route>
       </Router>
         </div>

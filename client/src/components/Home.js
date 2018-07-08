@@ -29,6 +29,7 @@ class Home extends Component {
           Login
         </Button>
       </a>
+      &nbsp; &nbsp; &nbsp; 
       <a href="register">
         <Button variant="contained" color="primary">
           Register

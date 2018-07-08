@@ -53,7 +53,7 @@ export class Nav extends Component {
   renderLinks() {
     if (this.props.authenticated){
       return <div>
-        <a href="/logout">Logout</a>
+        Hi, {this.props.username}! &nbsp; &nbsp;<a href="/logout">Logout</a>
       </div>
     } else {
       return <div>
@@ -112,7 +112,10 @@ export class Nav extends Component {
 }
 
 function mapStateToProps(state) {
-  return { authenticated: state.auth.authenticated };
+  return {
+    authenticated: state.auth.authenticated,
+    username: state.auth.username
+  };
 }
 
 

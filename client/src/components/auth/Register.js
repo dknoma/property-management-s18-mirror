@@ -11,7 +11,7 @@ import {Field, reduxForm} from 'redux-form';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 
-import { RadioGroup,TextField } from 'redux-form-material-ui'
+import { RadioGroup,TextField } from 'redux-form-material-ui';
 
 const required = value => value ? undefined : 'Required'
 const maxLength = max => value =>
@@ -105,9 +105,6 @@ function mapStateToProps(state) {
   return {errorMessage: state.auth.errorMessage};
 }
 
-/* Do we need this code? */
-/* Yeah it tells the application we're using reduxform so we can
-use the handleSubmit function */
   Register = reduxForm({
     form: 'signup_property'
   })(Register)
