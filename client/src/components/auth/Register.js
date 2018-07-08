@@ -52,7 +52,6 @@ class Register extends Component {
     this.props.signup({user_type, username, email, firstname, lastname, password}, () => {
       this.props.router.push("/profile");
     });
-  //console.log(({user_type, username, email, firstname, lastname, password});
   };
 
 
@@ -107,6 +106,8 @@ function mapStateToProps(state) {
 }
 
 /* Do we need this code? */
+/* Yeah it tells the application we're using reduxform so we can
+use the handleSubmit function */
   Register = reduxForm({
     form: 'signup_property'
   })(Register)

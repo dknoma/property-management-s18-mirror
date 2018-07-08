@@ -17,7 +17,7 @@ class ProfilePage extends React.Component {
     if (this.props.authenticated !== null) {
       return (
       <div>
-        <div> Private Information Here </div>
+        <div><a href="/edit">Edit Profile</a> </div>
       </div>
       )
     }
