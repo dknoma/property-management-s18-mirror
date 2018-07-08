@@ -1,12 +1,28 @@
 import React from 'react';
-
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 
+/* Redux */
+import { connect } from 'react-redux';
+
+/* Higher Order Components */
+import requireAuth from './requireAuth';
+
 class ProfilePage extends React.Component {
+
+  renderPrivateInformation() {
+    if (this.props.authenticated !== null) {
+      return
+      <div>
+        <div> Private Information Here </div>
+      </div>
+    }
+  }
+
   render() {
     return (
+
       <div className="container">
           <div className="row">
             <div className="col-xs-12">
@@ -16,12 +32,27 @@ class ProfilePage extends React.Component {
           </div>
           <div className="row">
             <div className="col-xs-12">
-              <p>Add form fields here</p>
+              <p>Username: { this.props.username } </p>
+              <p>First Name: {this.props.firstname} </p>
+              <p>Last Name: {this.props.lastname} </p>
+              <p>Role: {this.props.user_type} </p>
             </div>
           </div>
-        </div>
+          {this.renderPrivateInformation()}
+      </div>
     );
   }
 }
 
-export default ProfilePage;
+/* After adding more, we have to map them here */
+function mapStateToProps(state) {
+  return {
+    authenticated: state.auth.authenticated,
+    username: state.auth.username,
+    firstname: state.auth.firstname,
+    lastname: state.auth.lastname,
+    user_type: state.auth.user_type
+  };
+}
+
+export default connect(mapStateToProps)(ProfilePage);

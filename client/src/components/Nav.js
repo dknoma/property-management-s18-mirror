@@ -1,10 +1,14 @@
 import React, { Component } from "react";
-// import { Link } from "react-router";
 import "../index.css";
 import PropTypes from 'prop-types';
 
+/* Redux */
+import { connect } from 'react-redux';
+import { createStore, compose } from 'redux';
+
 import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
+import Button from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
@@ -26,7 +30,7 @@ const styles = {
   },
 };
 
-class Nav extends Component {
+export class Nav extends Component {
   state = {
     auth: true,
     anchorEl: null,
@@ -46,6 +50,17 @@ class Nav extends Component {
     this.setState({ anchorEl: null });
   };
 
+  renderLinks() {
+    if (this.props.authenticated){
+      return <div>
+        Hi, {this.props.username}! &nbsp; &nbsp;<a href="/logout">Logout</a>
+      </div>
+    } else {
+      return <div>
+      <a href="/login">Login</a></div>
+    }
+  }
+
   render() {
     const { classes } = this.props;
     const { auth, anchorEl } = this.state;
@@ -60,6 +75,7 @@ class Nav extends Component {
                 Property Management App
               </Typography>
             </a>
+            {this.renderLinks()}
             {auth && (
               <div>
                 <IconButton
@@ -95,9 +111,14 @@ class Nav extends Component {
   }
 }
 
-Nav.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
+function mapStateToProps(state) {
+  return {
+    authenticated: state.auth.authenticated,
+    username: state.auth.username
+  };
+}
 
-/* This syntax exports with the styles */
-export default withStyles(styles)(Nav);
+
+/* This syntax exports with the styles. Syntax is weird*/
+
+export default connect(mapStateToProps)(withStyles(styles)(Nav));
