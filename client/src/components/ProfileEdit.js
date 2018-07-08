@@ -66,7 +66,10 @@ onSubmit = ({username, email, firstname, lastname, password}) => {
 }
 
 function mapStateToProps(state) {
-  return {errorMessage: state.auth.errorMessage};
+  return {
+    authenticated: state.auth.authenticated,
+    username: state.auth.username
+  };
 }
 
 ProfileEdit = reduxForm({

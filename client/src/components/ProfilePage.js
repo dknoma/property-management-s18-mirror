@@ -6,23 +6,23 @@ import TextField from '@material-ui/core/TextField';
 /* Redux */
 import { connect } from 'react-redux';
 
-/* Higher Order Components. Not currently using but will use for private pages */
+/* Higher Order Components */
 import requireAuth from './requireAuth';
 
 class ProfilePage extends React.Component {
 
   renderPrivateInformation() {
     if (this.props.authenticated !== null) {
-      return (
+      return
       <div>
-        <div><a href="/edit">Edit Profile</a> </div>
+        <div> Private Information Here </div>
       </div>
-      )
     }
   }
 
   render() {
     return (
+
       <div className="container">
           <div className="row">
             <div className="col-xs-12">

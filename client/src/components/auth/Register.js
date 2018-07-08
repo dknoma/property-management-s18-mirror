@@ -48,7 +48,6 @@ class Register extends Component {
       alert("Please select the user type!");
       return;
     }
-    console.log({user_type, username, email, firstname, lastname, password});
     this.props.signup({user_type, username, email, firstname, lastname, password}, () => {
       this.props.router.push("/profile");
     });

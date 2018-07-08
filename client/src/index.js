@@ -69,6 +69,7 @@ ReactDOM.render(
         </Route>
         <Route path={"profile"} component={ProfilePage}>
         </Route>
+
         <Route path={"createproperty"} component={CreateProperty}>
         </Route>
         <Route path={"edit"} component={ProfileEdit}>

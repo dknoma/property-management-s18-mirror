@@ -21,7 +21,6 @@ export const signup =
     /* This stores the JWT we recieve from server right above */
     localStorage.setItem('token', response.data.token);
     localStorage.setItem('username', response.data.user.username);
-    localStorage.setItem('username', response.data.user.user_id);
     /* This forces redirect */
     callback();
   } catch (e) {
@@ -42,7 +41,7 @@ export const login =
       dispatch ({ type: AUTH_USER, payload: response.data });
       /* Dispatch user object as well */
 
-      /* This stores the token and username into localStorage*/
+      /* This stores the token and other info into localStorage*/
       localStorage.setItem('token', response.data.token);
       localStorage.setItem('username', response.data.user.username);
       /* This says to redirect */
