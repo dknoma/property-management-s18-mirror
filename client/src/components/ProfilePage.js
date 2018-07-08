@@ -9,8 +9,6 @@ import { connect } from 'react-redux';
 /* Higher Order Components */
 import requireAuth from './requireAuth';
 
-const username = localStorage.getItem(username);
-
 class ProfilePage extends React.Component {
 
   renderPrivateInformation() {
@@ -23,9 +21,7 @@ class ProfilePage extends React.Component {
   }
 
   render() {
-    console.log(localStorage.getItem(username));
     return (
-
       <div className="container">
           <div className="row">
             <div className="col-xs-12">
