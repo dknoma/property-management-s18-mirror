@@ -40,51 +40,6 @@ constructor(props){
    //console.log(({user_type, username, email, firstname, lastname, password});
    };
 
-// TODO: Implement Backend
-// handleClick(event) {
-//   var apiBaseUrl = "http://localhost:3000/api/";
-//   var self = this;
-//   var payload={
-//     "username":this.state.username,
-//     "password":this.state.password
-//   }
-//   console.log("payload: ",
-//   this.state.user_type,
-//     this.state.username,
-//     this.state.password
-//   );
-
-
-
-  /* Assuming /login is where we'll want to hit. Need to reconfigure with new backend */
-  // axios.post(apiBaseUrl + this.state.user_type + '/login', payload)
-  // .then(function (response) {
-  //   console.log(response);
-  //   if(response.status === 201) {
-  //     console.log("Login successful");
-  //
-  //     /* Need to confirm that this works */
-  //     // var profilePage=[];
-  //     // profilePage.push(<ProfilePage appContext={self.props.appContext}/>)
-  //     // self.props.appContext.setState({loginPage:[],profilePage:profilePage})
-  //   }
-  //
-  // })
-  // .catch(function (error) {
-  //   alert(error.response.data.message);
-  // });
-  // }
-  //
-  // handleChange = event => {
-  //   this.setState({
-  //     [event.target.id]: event.target.value
-  //   });
-  // }
-  //
-  // handleRadioChange = event => {
-  //   this.setState({ user_type: event.target.value });
-  // };
-
 render() {
   /* Remember to call classes here */
   const { handleSubmit } = this.props;

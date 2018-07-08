@@ -12,11 +12,14 @@ export default ChildComponent => {
     componentDidUpdate() {
       this.shouldNavigateAway();
     }
+
+    /* Built in component */
     shouldNavigateAway() {
       if (!this.props.auth) {
         this.props.router.push('/');
       }
     }
+    
     render() {
       return <ChildComponent {...this.props} />;
     }

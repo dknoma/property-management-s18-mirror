@@ -3,8 +3,9 @@ import { AUTH_USER, AUTH_ERROR } from './types';
 
 var apiBaseUrl = "http://localhost:3000/api/";
 
-/* Because of redux thunk, we can return a function that calls dispatch */
-/* username, email, first_name, last_name, password */
+/* Because of redux thunk, we can return a function that calls dispatch. This is
+an action creator */
+
 /* pass form properties through */
 export const signup =
 ({user_type, username, email, firstname, lastname, password}, callback) => async dispatch => {
@@ -14,12 +15,14 @@ export const signup =
      {user_type, username, email, firstname, lastname, password}
     );
      /* and get the whole object as payload, not just token!
-     dispatch sends to store */
+     dispatch sends to store (through reducer I think) */
     dispatch ({ type: AUTH_USER, payload: response.data });
+
     /* This stores the JWT we recieve from server right above */
     localStorage.setItem('token', response.data.token);
     localStorage.setItem('username', response.data.user.username);
-    /* This says to redirect */
+    localStorage.setItem('username', response.data.user.user_id);
+    /* This forces redirect */
     callback();
   } catch (e) {
     alert(e.response.data.message);
@@ -54,6 +57,19 @@ export const login =
 export const logout = () => {
   localStorage.removeItem('token');
   localStorage.removeItem('username');
+
+  return {
+    /* Reusing this same type we used above, just by changing authenticated state */
+    type: AUTH_USER,
+    payload: ''
+  };
+};
+
+export const edit_profile = ({id, username, email, firstname, lastname}, callback) => async dispatch => {
+  const response = await axios.put(
+    apiBaseUrl + "/users/" + id,
+    {username: "test", email: "test@usfca.edu", firstname: "testfirst", lastname: "testlast"}
+  );
 
   return {
     /* Reusing this same type we used above, just by changing authenticated state */
