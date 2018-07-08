@@ -2,6 +2,7 @@ const PropertyItem = require('../models').Property;
 
 module.exports = {
   create(req, res) {
+    //verify if user is propertymanager,
     return PropertyItem
       .create({
 				property_type: req.body.property_type,

@@ -190,7 +190,7 @@ module.exports = {
 	list(req, res) {
 		return User
 			.findAll()
-			.then(users => res.status(200).send(users))
+			.then(users => res.status(200).send({users}))
 			.catch(error => res.status(400).send(error));
 	},
 	/* List a specific user */
@@ -203,7 +203,16 @@ module.exports = {
 						message: 'User Not Found',
 					});
 				}
-				return res.status(200).send(user);
+				return res.status(200).send({
+					user: {
+						user_type: user.user_type,
+						userId: user.id,
+						username: user.username,
+						email: user.email,
+						firstname: user.firstname,
+						lastname: user.lastname
+					}
+				});
 			})
 			.catch(error => res.status(400).send(error));
 	},
