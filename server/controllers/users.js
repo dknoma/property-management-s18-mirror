@@ -8,7 +8,7 @@ const bcrypt = require('bcrypt');
 /* Function to generate a JWT token for the user */
 function generateToken(user) {
 	//payload to create token; does not contain sensitive info
-	const payload = {username: user.username};
+	const payload = {userId: user.id};
 	try {
 		return token = jwt.sign(payload, config.secret, {
 			expiresIn: "24h" //expires after 24 hours
@@ -53,7 +53,14 @@ module.exports = {
 			var token = generateToken(user);
 			//returns the user and token
 			return res.status(201).send({
-				user: user,
+				user: {
+					user_type: user.user_type,
+					userId: user.id,
+					username: user.username,
+					email: user.email,
+					firstname: user.firstname,
+					lastname: user.lastname
+				},
 				message: 'Account was created successfully! Enjoy your token!',
 				token: token
 			});
@@ -89,7 +96,14 @@ module.exports = {
 			var token = generateToken(user);
 			//returns the user and token
 			return res.status(201).send({
-				user: user,
+				user: {
+					user_type: user.user_type,
+					userId: user.id,
+					username: user.username,
+					email: user.email,
+					firstname: user.firstname,
+					lastname: user.lastname
+				},
 				message: 'Account was created successfully! Enjoy your token!',
 				token: token
 			});
@@ -119,7 +133,14 @@ module.exports = {
 						var token = generateToken(user);
 						//returns the user and token
 						return res.status(201).send({
-							user: user,
+							user: {
+								user_type: user.user_type,
+								userId: user.id,
+								username: user.username,
+								email: user.email,
+								firstname: user.firstname,
+								lastname: user.lastname
+							},
 							message: "Login successful!",
 							token: token
 						});
@@ -149,7 +170,14 @@ module.exports = {
 						var token = generateToken(user);
 						//returns the user and token
 						return res.status(201).send({
-							user: user,
+							user: {
+								user_type: user.user_type,
+								userId: user.id,
+								username: user.username,
+								email: user.email,
+								firstname: user.firstname,
+								lastname: user.lastname
+							},
 							message: "Login successful!",
 							token: token
 						});
@@ -162,7 +190,7 @@ module.exports = {
 	list(req, res) {
 		return User
 			.findAll()
-			.then(users => res.status(200).send(users))
+			.then(users => res.status(200).send({users}))
 			.catch(error => res.status(400).send(error));
 	},
 	/* List a specific user */
@@ -175,7 +203,16 @@ module.exports = {
 						message: 'User Not Found',
 					});
 				}
-				return res.status(200).send(user);
+				return res.status(200).send({
+					user: {
+						user_type: user.user_type,
+						userId: user.id,
+						username: user.username,
+						email: user.email,
+						firstname: user.firstname,
+						lastname: user.lastname
+					}
+				});
 			})
 			.catch(error => res.status(400).send(error));
 	},
