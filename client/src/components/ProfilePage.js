@@ -9,11 +9,13 @@ import { connect } from 'react-redux';
 /* Higher Order Components. Not currently using but will use for private pages */
 import requireAuth from './requireAuth';
 
+const username = localStorage.getItem(username);
+
 class ProfilePage extends React.Component {
 
   renderPrivateInformation() {
-    if (this.props.authenticated) {
-      return(
+    if (this.props.authenticated !== null) {
+      return (
       <div>
         <div> Private Information Here </div>
       </div>
@@ -22,8 +24,9 @@ class ProfilePage extends React.Component {
   }
 
   render() {
-        console.log(this.props.username);
+    console.log(localStorage.getItem(username));
     return (
+
       <div className="container">
           <div className="row">
             <div className="col-xs-12">
@@ -33,10 +36,11 @@ class ProfilePage extends React.Component {
           </div>
           <div className="row">
             <div className="col-xs-12">
-              <p>Username: {this.props.username} </p>
-              <p>First Name: {this.props.firstname} </p>
+              <p>Username: { this.props.username } </p>
+              {/*}<p>First Name: {this.props.firstname} </p>
               <p>Last Name: {this.props.lastname} </p>
               <p>Role: {this.props.user_type} </p>
+              */}
             </div>
           </div>
           {this.renderPrivateInformation()}
@@ -46,13 +50,15 @@ class ProfilePage extends React.Component {
   }
 }
 
+/* After adding more, we have to map them here */
 function mapStateToProps(state) {
   return {
     authenticated: state.auth.authenticated,
-    username: state.auth.username,
-    firstname: state.auth.firstname,
-    lastname: state.auth.lastname,
-    user_type: state.auth.user_type
+    username: state.auth.username
+    // firstname: state.auth.firstname,
+    // lastname: state.auth.lastname,
+    // user_type: state.auth.user_type
+
   };
 }
 

@@ -20,41 +20,46 @@ export const signup =
 
     /* This stores the JWT we recieve from server right above */
     localStorage.setItem('token', response.data.token);
+    localStorage.setItem('username', response.data.user.username);
     /* This says to redirect */
     callback();
   } catch (e) {
-    dispatch({ type: AUTH_ERROR, payload: "ERROR"})
+    alert(e.response.data.message);
+    //dispatch({ type: AUTH_ERROR, payload: "ERROR"})
   }
 };
 
-export const get_profile_info =
-({user_type, username, email, firstname, lastname, password}, callback) => async dispatch => {
+export const login =
+({user_type, username, password}, callback) => async dispatch => {
     try {
-      const response = await axios.get(
-        apiBaseUrl + "/tenant/signup",
-       {user_type, username, email, firstname, lastname, password}
+      const response = await axios.post(
+        apiBaseUrl + user_type + "/login",
+       {user_type, username, password}
       );
+
        /* and get the token as payload */
-      dispatch ({ type: AUTH_USER, payload: response.data.token });
+      dispatch ({ type: AUTH_USER, payload: response.data });
       /* Dispatch user object as well */
-      dispatch ({ type: AUTH_USER, payload: response.data.user});
-      /* This stores the JWT we recieve from server right above */
+
+      /* This stores the token and username into localStorage*/
       localStorage.setItem('token', response.data.token);
+      localStorage.setItem('username', response.data.user.username);
       /* This says to redirect */
       callback();
 
       /* Should also save user data to state so we don't have to ping db every time */
     } catch (e) {
-      dispatch({ type: AUTH_ERROR, payload: "ERROR"})
+      alert(e.response.data.message);
     }
 };
 
 export const logout = () => {
   localStorage.removeItem('token');
-  console.log('fires');
+  localStorage.removeItem('username');
 
   return {
     /* Reusing this same type we used above, just by changing authenticated state */
-    type: AUTH_USER
+    type: AUTH_USER,
+    payload: ''
   };
 };

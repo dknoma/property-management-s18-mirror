@@ -17,9 +17,9 @@ import reducers from "./reducers";
 import "./index.css";
 import Nav from "./components/Nav.js";
 import Home from "./components/Home.js";
-import Login from "./components/Login.js";
-import Logout from "./components/Logout.js";
-import Register from "./components/Register.js";
+import Login from "./components/auth/Login.js";
+import Logout from "./components/auth/Logout.js";
+import Register from "./components/auth/Register.js";
 import ProfilePage from "./components/ProfilePage.js";
 
 
@@ -33,14 +33,19 @@ const store = createStore(
   reducers,
   {
     auth: {
-      authenticated: localStorage.getItem('token'),
+    authenticated: localStorage.getItem('token'),
+    username: localStorage.getItem('username')
+    // email: localStorage.getItem('token'),
+    // firstname: localStorage.getItem('token'),
+    // lastname: localStorage.getItem('token'),
+    // user_type: localStorage.getItem('token')
     },
   },
   applyMiddleware(reduxThunk)
 );
 
 
-console.log(store.getState());
+//console.log(store.getState());
 
 
 /* Currently handle frontend routing here, may be a better way to do this */
