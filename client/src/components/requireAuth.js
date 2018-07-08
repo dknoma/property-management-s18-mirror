@@ -13,13 +13,13 @@ export default ChildComponent => {
       this.shouldNavigateAway();
     }
 
-    /* Built in component */
+    /* redirects to home if not logged in */
     shouldNavigateAway() {
       if (!this.props.auth) {
         this.props.router.push('/');
       }
     }
-    
+
     render() {
       return <ChildComponent {...this.props} />;
     }

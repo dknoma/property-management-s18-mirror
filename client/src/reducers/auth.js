@@ -30,11 +30,9 @@ export default function(state = INITIAL_STATE, action) {
       return {...state,
         authenticated: action.payload.token,
         username: action.payload.user.username,
-        user_id: action.payload.user.id
-        // username: action.payload.user.username,
-        // firstname: action.payload.user.firstname,
-        // lastname: action.payload.user.lastname,
-        // user_type: action.payload.user.user_type
+        firstname: action.payload.user.firstname,
+        lastname: action.payload.user.lastname,
+        user_type: action.payload.user.user_type
       };
     case AUTH_ERROR:
     /* Need to make sure we're pulling this state in Register.js */

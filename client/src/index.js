@@ -69,11 +69,9 @@ ReactDOM.render(
         </Route>
         <Route path={"profile"} component={ProfilePage}>
         </Route>
-<<<<<<< HEAD
         <Route path={"createproperty"} component={CreateProperty}>
-=======
+        </Route>
         <Route path={"edit"} component={ProfileEdit}>
->>>>>>> fd8803e3000ff586fbc3da8b4968b531bb9e85bf
         </Route>
       </Router>
         </div>

@@ -66,14 +66,9 @@ export const logout = () => {
 };
 
 export const edit_profile = ({id, username, email, firstname, lastname}, callback) => async dispatch => {
+  const user_id = localStorage.getItem('token', response.data.token);
   const response = await axios.put(
-    apiBaseUrl + "/users/" + id,
+    apiBaseUrl + "users/" + user_id,
     {username: "test", email: "test@usfca.edu", firstname: "testfirst", lastname: "testlast"}
   );
-
-  return {
-    /* Reusing this same type we used above, just by changing authenticated state */
-    type: AUTH_USER,
-    payload: ''
-  };
 };

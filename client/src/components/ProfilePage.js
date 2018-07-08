@@ -33,10 +33,9 @@ class ProfilePage extends React.Component {
           <div className="row">
             <div className="col-xs-12">
               <p>Username: { this.props.username } </p>
-              {/*}<p>First Name: {this.props.firstname} </p>
+              <p>First Name: {this.props.firstname} </p>
               <p>Last Name: {this.props.lastname} </p>
               <p>Role: {this.props.user_type} </p>
-              */}
             </div>
           </div>
           {this.renderPrivateInformation()}
@@ -49,11 +48,10 @@ class ProfilePage extends React.Component {
 function mapStateToProps(state) {
   return {
     authenticated: state.auth.authenticated,
-    username: state.auth.username
-    // firstname: state.auth.firstname,
-    // lastname: state.auth.lastname,
-    // user_type: state.auth.user_type
-
+    username: state.auth.username,
+    firstname: state.auth.firstname,
+    lastname: state.auth.lastname,
+    user_type: state.auth.user_type
   };
 }
 
