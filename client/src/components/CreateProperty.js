@@ -14,20 +14,7 @@ import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 const required = value => value ? undefined : 'Required';
-
-
-const renderTextField = (
-  { input, label, meta: { touched, error }, ...custom },
-) => (
-  <TextField
-    hintText={label}
-    floatingLabelText={label}
-    errorText={touched && error}
-    {...input}
-    {...custom}
-  />
-);
-
+const number = value => value && isNaN(Number(value)) ? 'Must be a number' : undefined
 
 const renderRadioGroup = ({ input, ...rest }) => (
   <RadioButtonGroup
@@ -79,6 +66,18 @@ class CreateProperty extends Component {
               <RadioButton value="single_room" label="Single Room" />
               <RadioButton value="whole_house" label="Whole House" />
             </Field>
+          </div>
+          <div>
+            <Field name="street" id="street" label="Street" component={TextField} validate={[ required ]} />
+          </div>
+          <div>
+            <Field name="city" id="city" label="City" component={TextField} validate={[ required ]} />
+          </div>
+          <div>
+            <Field name="state" id="state" label="State" component={TextField} validate={[ required ]} />
+          </div>
+          <div>
+            <Field name="zip" id="zip" label="Zipcode" component={TextField} validate={[ required, number ]}/>
           </div>
           <button className = "button" type="submit">Submit</button>
           <br />
