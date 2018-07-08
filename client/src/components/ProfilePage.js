@@ -45,7 +45,6 @@ class ProfilePage extends React.Component {
           </div>
           {this.renderPrivateInformation()}
       </div>
-
     );
   }
 }
