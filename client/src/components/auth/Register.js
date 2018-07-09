@@ -11,7 +11,7 @@ import {Field, reduxForm} from 'redux-form';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 
-import { RadioGroup,TextField } from 'redux-form-material-ui';
+import { RadioGroup, TextField } from 'redux-form-material-ui';
 
 const required = value => value ? undefined : 'Required'
 const maxLength = max => value =>
@@ -30,6 +30,7 @@ class Register extends Component {
   constructor(props) {
     super(props);
     this.state={
+      id: '',
       user_type: '',
       username:'',
       first_name:'',

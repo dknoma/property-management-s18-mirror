@@ -5,6 +5,7 @@ import { AUTH_USER, AUTH_ERROR } from '../actions/types';
 const INITIAL_STATE = {
   authenticated: '',
   errorMessage: '',
+  email: '',
   username: '',
   firstname: '',
   lastname: '',
@@ -29,11 +30,14 @@ export default function(state = INITIAL_STATE, action) {
       /* We can add more info if we want to*/
       return {...state,
         authenticated: action.payload.token,
+        id: action.payload.user.id,
+        email: action.payload.user.email,
         username: action.payload.user.username,
         firstname: action.payload.user.firstname,
         lastname: action.payload.user.lastname,
         user_type: action.payload.user.user_type
       };
+      
     case AUTH_ERROR:
     /* Need to make sure we're pulling this state in Register.js */
       return {...state, errorMessage: action.payload};

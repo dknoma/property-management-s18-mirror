@@ -21,6 +21,11 @@ export const signup =
     /* This stores the JWT we recieve from server right above */
     localStorage.setItem('token', response.data.token);
     localStorage.setItem('username', response.data.user.username);
+    localStorage.setItem('firstname', response.data.user.firstname);
+    localStorage.setItem('lastname', response.data.user.lastname);
+    localStorage.setItem('email', response.data.user.email);
+    localStorage.setItem('user_type', response.data.user.user_type);
+    localStorage.setItem('id', response.data.userId);
     /* This forces redirect */
     callback();
   } catch (e) {
@@ -44,6 +49,12 @@ export const login =
       /* This stores the token and other info into localStorage*/
       localStorage.setItem('token', response.data.token);
       localStorage.setItem('username', response.data.user.username);
+      localStorage.setItem('firstname', response.data.user.firstname);
+      localStorage.setItem('lastname', response.data.user.lastname);
+      localStorage.setItem('email', response.data.user.email);
+      localStorage.setItem('user_type', response.data.user.user_type);
+      localStorage.setItem('id', response.data.user.userId);
+      console.log(response.data.user.userId);
       /* This says to redirect */
       callback();
 
@@ -54,8 +65,7 @@ export const login =
 };
 
 export const logout = () => {
-  localStorage.removeItem('token');
-  localStorage.removeItem('username');
+  localStorage.clear();
 
   return {
     /* Reusing this same type we used above, just by changing authenticated state */
@@ -64,10 +74,16 @@ export const logout = () => {
   };
 };
 
-export const edit_profile = ({id, username, email, firstname, lastname}, callback) => async dispatch => {
-  const user_id = localStorage.getItem('token', response.data.token);
+export const edit_profile = ({username, email, firstname, lastname}, callback) => async dispatch => {
+  const id = localStorage.getItem('id');
+  console.log(id);
   const response = await axios.put(
-    apiBaseUrl + "users/" + user_id,
-    {username: "test", email: "test@usfca.edu", firstname: "testfirst", lastname: "testlast"}
+    apiBaseUrl + "users/" + id,
+    {username, email, firstname, lastname}
   );
+
+  localStorage.setItem('username', username);
+  localStorage.setItem('email', email);
+  localStorage.setItem('firstname', firstname);
+  localStorage.setItem('lastname', lastname);
 };

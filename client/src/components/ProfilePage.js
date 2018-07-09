@@ -13,10 +13,11 @@ class ProfilePage extends React.Component {
 
   renderPrivateInformation() {
     if (this.props.authenticated !== null) {
-      return
-      <div>
-        <div> Private Information Here </div>
-      </div>
+      return (
+        <div>
+          <div> <a href="/edit"> Edit Profile </a></div>
+        </div>
+      )
     }
   }
 
@@ -32,9 +33,10 @@ class ProfilePage extends React.Component {
           </div>
           <div className="row">
             <div className="col-xs-12">
-              <p>Username: { this.props.username } </p>
-              <p>First Name: {this.props.firstname} </p>
-              <p>Last Name: {this.props.lastname} </p>
+              <p>Username: { this.props.username }</p>
+              <p>First Name: {this.props.firstname}</p>
+              <p>Last Name: {this.props.lastname}</p>
+              <p>Email: {this.props.email}</p>
               <p>Role: {this.props.user_type} </p>
             </div>
           </div>
@@ -51,6 +53,7 @@ function mapStateToProps(state) {
     username: state.auth.username,
     firstname: state.auth.firstname,
     lastname: state.auth.lastname,
+    email: state.auth.email,
     user_type: state.auth.user_type
   };
 }
