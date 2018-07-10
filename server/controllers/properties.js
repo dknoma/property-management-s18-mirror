@@ -82,7 +82,6 @@ module.exports = {
 
   },
 
-
   list(req, res) {
     return PropertyItem
       .all()

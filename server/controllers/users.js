@@ -8,7 +8,10 @@ const bcrypt = require('bcrypt');
 /* Function to generate a JWT token for the user */
 function generateToken(user) {
 	//payload to create token; does not contain sensitive info
-	const payload = {userId: user.id};
+	const payload = {
+		userId: user.id, 
+		user_type: user.user_type
+	};
 	try {
 		return token = jwt.sign(payload, config.secret, {
 			expiresIn: "24h" //expires after 24 hours
@@ -261,8 +264,6 @@ module.exports = {
 		} catch (error) {
 			return res.status(400).send(error);
 		}
-		
-		
 	},
 	// /* Deletes a user from db */
 	destroy(req, res) {
