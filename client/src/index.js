@@ -68,7 +68,7 @@ ReactDOM.render(
         </Route>
         <Route path={"logout"} component={Logout}>
         </Route>
-        <Route path={"profile"} component={ProfilePage}>
+        <Route path={"profile/:id"} component={ProfilePage}>
         </Route>
 
         <Route path={"createproperty"} component={CreateProperty}>

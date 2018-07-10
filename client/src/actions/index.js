@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { AUTH_USER, AUTH_ERROR } from './types';
+import { AUTH_USER, AUTH_ERROR, OTHER_USER } from './types';
 
 var apiBaseUrl = "http://localhost:3000/api/";
 
@@ -38,8 +38,7 @@ export const login =
 ({user_type, username, password}, callback) => async dispatch => {
     try {
       const response = await axios.post(
-        apiBaseUrl + user_type + "/login",
-       {user_type, username, password}
+        apiBaseUrl + user_type + "/login", {user_type, username, password}
       );
 
        /* and get the token as payload */
@@ -57,7 +56,6 @@ export const login =
       console.log(response.data.user.userId);
       /* This says to redirect */
       callback();
-
       /* Should also save user data to state so we don't have to ping db every time */
     } catch (e) {
       alert(e.response.data.message);
@@ -86,4 +84,17 @@ export const edit_profile = ({username, email, firstname, lastname}, callback) =
   localStorage.setItem('email', email);
   localStorage.setItem('firstname', firstname);
   localStorage.setItem('lastname', lastname);
+};
+
+export const get_user_profile = ({id}, callback) => async dispatch => {
+
+  const response = await axios.get(
+    apiBaseUrl + "users/" + id,
+  )  .then(function (response) {
+    /* Dispatch a payload of OTHER_USER */
+    dispatch ({ type: OTHER_USER, payload: response.data });
+    console.log(response.data.user);
+  })
+
+
 };
