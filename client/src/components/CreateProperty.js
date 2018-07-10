@@ -22,15 +22,16 @@ class CreateProperty extends Component {
       property_name: ''
     }
   }
-  onSubmit = ({property_name, number_of_bedrooms, number_of_bathrooms, prices, rent_type,}) => {
-    // if(user_type === undefined) {
-    //   alert("Please select the user type!");
-    //   return;
-    // }
+  onSubmit = ({property_name, number_of_bedrooms, number_of_bathrooms, prices, rent_type, street, city, state, zip, allow_pets}) => {
+    if(!rent_type || !allow_pets) {
+      alert("Please fill all the fields");
+      return;
+    }
     console.log({property_name});
-    // this.props.signup({user_type, username, email, firstname, lastname, password}, () => {
-    //   this.props.router.push("/profile");
-    // });
+    this.props.create_property({property_name, number_of_bedrooms, number_of_bathrooms, prices, rent_type, street, city, state, zip, allow_pets}, () => {
+      alert("Property successfully created!");
+      this.props.router.push("/");
+    });
   //console.log(({user_type, username, email, firstname, lastname, password});
   };
 
