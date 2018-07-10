@@ -1,14 +1,6 @@
 {
 	"development": {
-<<<<<<< HEAD
-<<<<<<< HEAD
 		"username": "nkebbas",
-=======
-		"username": "yuxinhuang",
->>>>>>> backend
-=======
-		"username": "yuxinhuang",
->>>>>>> 82759e2a74255794c1abb5db2dc9121e976753c6
 		"password": null,
 		"database": "users-dev",
 		"host": "127.0.0.1",
@@ -16,15 +8,7 @@
 		"dialect": "postgres"
 	},
 	"test": {
-<<<<<<< HEAD
-<<<<<<< HEAD
 		"username": "nkebbas",
-=======
-		"username": "yuxinhuang",
->>>>>>> backend
-=======
-		"username": "yuxinhuang",
->>>>>>> 82759e2a74255794c1abb5db2dc9121e976753c6
 		"password": null,
 		"database": "users-test",
 		"host": "127.0.0.1",
