@@ -51,7 +51,7 @@ class Register extends Component {
       return;
     }
     this.props.signup({user_type, username, email, firstname, lastname, password}, ()  => {
-      this.props.router.push("/profile/" + this.props.my_id);
+      this.props.router.push("/profile/" + localStorage.getItem("my_id"));
     });
   };
 

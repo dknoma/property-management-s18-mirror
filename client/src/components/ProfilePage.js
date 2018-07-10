@@ -14,7 +14,6 @@ class ProfilePage extends React.Component {
 
   componentDidMount() {
     this.props.get_user_profile(this.props.params);
-    console.log(this.props.params);
   };
 
   renderPrivateInformation() {
@@ -28,11 +27,17 @@ class ProfilePage extends React.Component {
   }
 
   renderPersonalInformation() {
-    if (this.props.username == localStorage.getItem("my_username")) {
+    console.log(this.props.id);
+    console.log(localStorage.getItem("my_id"));
+    if (this.props.id == localStorage.getItem("my_id")) {
       return (
         <div>
-          <div> <a href="/edit"> Edit Profile </a></div>
+          <p>Username: { this.props.my_username } </p>
         </div>
+      )
+    } else {
+      return (
+        <p>Username: { this.props.username }</p>
       )
     }
   }
@@ -49,14 +54,13 @@ class ProfilePage extends React.Component {
           </div>
           <div className="row">
             <div className="col-xs-12">
-              <p>Username: { this.props.username }</p>
+              {this.renderPersonalInformation()}
               <p>First Name: {this.props.firstname}</p>
               <p>Last Name: {this.props.lastname}</p>
               <p>Email: {this.props.email}</p>
               <p>Role: {this.props.user_type} </p>
             </div>
           </div>
-          {this.renderPersonalInformation()}
       </div>
     );
   }
@@ -66,6 +70,7 @@ class ProfilePage extends React.Component {
 function mapStateToProps(state) {
   return {
     username: state.auth.username,
+    my_username: state.auth.my_username,
     firstname: state.auth.firstname,
     lastname: state.auth.lastname,
     email: state.auth.email,

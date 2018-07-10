@@ -10,6 +10,7 @@ const INITIAL_STATE = {
   firstname: '',
   lastname: '',
   user_type: '',
+  my_id: '',
   id: '',
 };
 
@@ -30,9 +31,10 @@ export default function(state = INITIAL_STATE, action) {
       /* We can add more info if we want to*/
       return {...state,
         authenticated: action.payload.token,
+        my_id: action.payload.user.id,
         id: action.payload.user.id,
         email: action.payload.user.email,
-        username: action.payload.user.username,
+        my_username: action.payload.user.username,
         firstname: action.payload.user.firstname,
         lastname: action.payload.user.lastname,
         user_type: action.payload.user.user_type

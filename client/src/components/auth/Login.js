@@ -35,7 +35,7 @@ constructor(props){
      }
      console.log({user_type, username, password});
      this.props.login({user_type, username, password}, () => {
-       this.props.router.push("/profile/" + this.props.my_id);
+       this.props.router.push("/profile/" + localStorage.getItem("my_id"));
      });
    };
 

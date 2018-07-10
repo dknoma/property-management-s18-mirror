@@ -25,7 +25,10 @@ export const signup =
     localStorage.setItem('lastname', response.data.user.lastname);
     localStorage.setItem('email', response.data.user.email);
     localStorage.setItem('user_type', response.data.user.user_type);
+
+    /* Need both so info shows up correctly on login */
     localStorage.setItem('my_id', response.data.user.userId);
+    localStorage.setItem('id', response.data.user.userId);
     /* This forces redirect */
     callback();
   } catch (e) {
@@ -52,7 +55,9 @@ export const login =
       localStorage.setItem('lastname', response.data.user.lastname);
       localStorage.setItem('email', response.data.user.email);
       localStorage.setItem('user_type', response.data.user.user_type);
+      /* Need both so info shows up correctly on login */
       localStorage.setItem('my_id', response.data.user.userId);
+      localStorage.setItem('id', response.data.user.userId);
       console.log(response.data.user.userId);
       /* This says to redirect */
       callback();
