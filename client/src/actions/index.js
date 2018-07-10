@@ -78,18 +78,25 @@ export const logout = () => {
 };
 
 export const edit_profile = ({username, email, firstname, lastname}, callback) => async dispatch => {
-  const id = localStorage.getItem('my_id');
-  console.log(id);
-  const response = await axios.put(
-    apiBaseUrl + "users/" + id,
-    {username, email, firstname, lastname}
-  );
+  try {
+    const id = localStorage.getItem('my_id');
+    console.log(id);
+    const response = await axios.put(
+      apiBaseUrl + "users/" + id,
+      {username, email, firstname, lastname}
+    );
 
-  localStorage.setItem('my_username', username);
-  localStorage.setItem('email', email);
-  localStorage.setItem('firstname', firstname);
-  localStorage.setItem('lastname', lastname);
-  callback();
+    localStorage.setItem('my_username', username);
+    localStorage.setItem('email', email);
+    localStorage.setItem('firstname', firstname);
+    localStorage.setItem('lastname', lastname);
+    callback();
+
+ } catch (e) {
+   if(e.response.status === 409) {
+     alert("Username or Email address is already in use! Try a different one." );
+   }
+ }
 };
 
 export const get_user_profile = ({id}) => async dispatch => {
