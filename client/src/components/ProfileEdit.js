@@ -35,7 +35,7 @@ class ProfileEdit extends React.Component {
 onSubmit = ({username, email, firstname, lastname}) => {
   console.log({username, email, firstname, lastname});
   this.props.edit_profile({username, email, firstname, lastname}, () => {
-    this.props.router.push("/profile");
+    this.props.router.push("/profile/" + this.props.my_id );
   });
 };
 
@@ -76,18 +76,18 @@ onSubmit = ({username, email, firstname, lastname}) => {
 function mapStateToProps(state) {
   return {
     initialValues: {
-      username: state.auth.username,
+      username: state.auth.my_username,
       firstname: state.auth.firstname,
       lastname: state.auth.lastname,
       email: state.auth.email,
     },
     authenticated: state.auth.authenticated,
-    username: state.auth.username,
+    username: state.auth.my_username,
     firstname: state.auth.firstname,
     lastname: state.auth.lastname,
     email: state.auth.email,
     user_type: state.auth.user_type,
-    id: state.auth.id
+    my_id: state.auth.my_id
   };
 }
 

@@ -10,7 +10,7 @@ const INITIAL_STATE = {
   firstname: '',
   lastname: '',
   user_type: '',
-  user_id: '',
+  id: '',
 };
 
 /* Reducer takes two arguments, the current state and an action */
@@ -52,7 +52,6 @@ export default function(state = INITIAL_STATE, action) {
 
       /* We can add more info if we want to*/
       return {...state,
-        authenticated: action.payload.token,
         id: action.payload.user.id,
         email: action.payload.user.email,
         username: action.payload.user.username,

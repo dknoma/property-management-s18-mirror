@@ -50,8 +50,8 @@ class Register extends Component {
       alert("Please select the user type!");
       return;
     }
-    this.props.signup({user_type, username, email, firstname, lastname, password}, () => {
-      this.props.router.push("/profile");
+    this.props.signup({user_type, username, email, firstname, lastname, password}, ()  => {
+      this.props.router.push("/profile/" + this.props.my_id);
     });
   };
 
@@ -103,7 +103,10 @@ const style = {
 };
 
 function mapStateToProps(state) {
-  return {errorMessage: state.auth.errorMessage};
+  return {
+    errorMessage: state.auth.errorMessage,
+    my_id: state.auth.my_id
+  };
 }
 
   Register = reduxForm({

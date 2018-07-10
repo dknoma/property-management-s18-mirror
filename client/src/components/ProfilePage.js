@@ -14,10 +14,21 @@ class ProfilePage extends React.Component {
 
   componentDidMount() {
     this.props.get_user_profile(this.props.params);
+    console.log(this.props.params);
   };
 
   renderPrivateInformation() {
     if (this.props.authenticated !== null) {
+      return (
+        <div>
+          <div> Private Info </div>
+        </div>
+      )
+    }
+  }
+
+  renderPersonalInformation() {
+    if (this.props.username == localStorage.getItem("my_username")) {
       return (
         <div>
           <div> <a href="/edit"> Edit Profile </a></div>
@@ -27,7 +38,6 @@ class ProfilePage extends React.Component {
   }
 
   render() {
-    console.log(this.props.params);
     return (
 
       <div className="container">
@@ -46,7 +56,7 @@ class ProfilePage extends React.Component {
               <p>Role: {this.props.user_type} </p>
             </div>
           </div>
-          {this.renderPrivateInformation()}
+          {this.renderPersonalInformation()}
       </div>
     );
   }
@@ -55,12 +65,12 @@ class ProfilePage extends React.Component {
 /* After adding more, we have to map them here */
 function mapStateToProps(state) {
   return {
-    authenticated: state.auth.authenticated,
     username: state.auth.username,
     firstname: state.auth.firstname,
     lastname: state.auth.lastname,
     email: state.auth.email,
-    user_type: state.auth.user_type
+    user_type: state.auth.user_type,
+    id: state.auth.id
   };
 }
 /* Need to connect actions here */

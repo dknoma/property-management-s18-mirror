@@ -35,9 +35,8 @@ constructor(props){
      }
      console.log({user_type, username, password});
      this.props.login({user_type, username, password}, () => {
-       this.props.router.push("/profile");
+       this.props.router.push("/profile/" + this.props.my_id);
      });
-   //console.log(({user_type, username, email, firstname, lastname, password});
    };
 
 render() {
@@ -79,7 +78,10 @@ const style = {
 };
 
 function mapStateToProps(state) {
-  return { errorMessage: state.auth.errorMessage };
+  return {
+    errorMessage: state.auth.errorMessage,
+    my_id: state.auth.my_id
+  };
 }
 
 export default compose(

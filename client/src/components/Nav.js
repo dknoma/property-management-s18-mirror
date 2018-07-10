@@ -54,7 +54,7 @@ export class Nav extends Component {
   renderLinks() {
     if (this.props.authenticated) {
       return <div>
-        Hi, {this.props.username}! &nbsp; &nbsp;<a href="/logout">Logout</a>
+        Hi, {this.props.my_username}! &nbsp; &nbsp;<a href="/logout">Logout</a>
       </div>
     } else {
       return <div>
@@ -102,7 +102,8 @@ export class Nav extends Component {
                   open={open}
                   onClose={this.handleClose}
                 >
-                    <a href={"/profile/" + this.props.id} ><MenuItem>Profile</MenuItem></a>
+                    <a href={"/profile/" + this.props.my_id} ><MenuItem>Profile</MenuItem></a>
+                    <a href={"/edit"} ><MenuItem>Edit Profile</MenuItem></a>
                 </Menu>
               </div>
             )}
@@ -116,8 +117,8 @@ export class Nav extends Component {
 function mapStateToProps(state) {
   return {
     authenticated: state.auth.authenticated,
-    username: state.auth.username,
-    id: state.auth.id
+    my_username: state.auth.my_username,
+    my_id: state.auth.my_id
   };
 }
 

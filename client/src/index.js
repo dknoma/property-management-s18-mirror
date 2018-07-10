@@ -37,6 +37,8 @@ const store = createStore(
   {
     auth: {
     authenticated: localStorage.getItem('token'),
+    my_id: localStorage.getItem('my_id'),
+    my_username: localStorage.getItem('my_username'),
     id: localStorage.getItem('id'),
     username: localStorage.getItem('username'),
     email: localStorage.getItem('email'),

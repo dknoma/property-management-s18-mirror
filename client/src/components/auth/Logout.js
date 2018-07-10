@@ -9,8 +9,6 @@ class Logout extends Component {
     this.props.logout();
     alert("You are successfully logged out!");
     this.props.router.replace("/");
-
-
   };
 
   render() {

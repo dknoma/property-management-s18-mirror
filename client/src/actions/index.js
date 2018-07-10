@@ -20,12 +20,12 @@ export const signup =
 
     /* This stores the JWT we recieve from server right above */
     localStorage.setItem('token', response.data.token);
-    localStorage.setItem('username', response.data.user.username);
+    localStorage.setItem('my_username', response.data.user.username);
     localStorage.setItem('firstname', response.data.user.firstname);
     localStorage.setItem('lastname', response.data.user.lastname);
     localStorage.setItem('email', response.data.user.email);
     localStorage.setItem('user_type', response.data.user.user_type);
-    localStorage.setItem('id', response.data.userId);
+    localStorage.setItem('my_id', response.data.user.userId);
     /* This forces redirect */
     callback();
   } catch (e) {
@@ -47,12 +47,12 @@ export const login =
 
       /* This stores the token and other info into localStorage*/
       localStorage.setItem('token', response.data.token);
-      localStorage.setItem('username', response.data.user.username);
+      localStorage.setItem('my_username', response.data.user.username);
       localStorage.setItem('firstname', response.data.user.firstname);
       localStorage.setItem('lastname', response.data.user.lastname);
       localStorage.setItem('email', response.data.user.email);
       localStorage.setItem('user_type', response.data.user.user_type);
-      localStorage.setItem('id', response.data.user.userId);
+      localStorage.setItem('my_id', response.data.user.userId);
       console.log(response.data.user.userId);
       /* This says to redirect */
       callback();
@@ -73,17 +73,18 @@ export const logout = () => {
 };
 
 export const edit_profile = ({username, email, firstname, lastname}, callback) => async dispatch => {
-  const id = localStorage.getItem('id');
+  const id = localStorage.getItem('my_id');
   console.log(id);
   const response = await axios.put(
     apiBaseUrl + "users/" + id,
     {username, email, firstname, lastname}
   );
 
-  localStorage.setItem('username', username);
+  localStorage.setItem('my_username', username);
   localStorage.setItem('email', email);
   localStorage.setItem('firstname', firstname);
   localStorage.setItem('lastname', lastname);
+  callback();
 };
 
 export const get_user_profile = ({id}) => async dispatch => {
