@@ -44,22 +44,22 @@ render() {
   /* Remember to call classes here */
   const { handleSubmit } = this.props;
     return (
-      <form onSubmit={handleSubmit(this.onSubmit)}>
+      <form className="belowNav" onSubmit={handleSubmit(this.onSubmit)}>
         <br />
         <Typography color="inherit" variant="display1">
         Login
         </Typography>
         <br/>
-        <div>
+        <div className="radioBtn">
           <Field name="user_type" id="user_type" component={RadioGroup} >
-          <label>
-            <input type="radio" name="user_type" value="propertymanager" onChange={this.handleRadioChange}/>Property Manager
-          </label>
-          <br/>
-          <label>
-            <input type="radio" name="user_type" value="tenant" onChange={this.handleRadioChange}/>Tenant
-          </label>
-          </Field>
+            <label>
+              <input type="radio" name="user_type" value="propertymanager" onChange={this.handleRadioChange}/>Property Manager
+            </label>
+            <br/>
+            <label>
+              <input type="radio" name="user_type" value="tenant" onChange={this.handleRadioChange}/>Tenant
+            </label>
+            </Field>
         </div>
         <br/>
         <Field name="username" label="Username" id="username" component = {TextField} validate={[ required ]}/>
