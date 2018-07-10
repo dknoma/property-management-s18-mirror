@@ -17,7 +17,7 @@ class Home extends Component {
     const { classes } = this.props;
 
     return (
-      <div>
+      <div className="belowNav">
       <br />
         <Typography color="inherit" variant="display1">
           {this.state.title}
