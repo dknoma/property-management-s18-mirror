@@ -32,13 +32,12 @@ module.exports = {
         where: {
           [Op.or]: [
             {property_type: req.body.property_type},
-            {city: req.body.city},
-            {state: req.body.state},
-            {zip: req.body.zip},
+            {city: {[Op.iLike]: '%' + req.body.city + '%'} },
+            {state: {[Op.iLike]: '%' + req.body.state + '%'} },
+            {zip: {[Op.iLike]: '%' + req.body.zip + '%'} },
             {number_of_bedrooms: req.body.number_of_bedrooms},
             {number_of_bathrooms: req.body.number_of_bathrooms},
             {allows_pets: req.body.allows_pets},
-            //need to be able to view >= OR <=
             {prices: { [Op.gte]: req.body.prices } }
           ]
         }
@@ -60,12 +59,11 @@ module.exports = {
           [Op.or]: [
             {property_type: req.body.property_type},
             {city: {[Op.iLike]: '%' + req.body.city + '%'} },
-            {state: req.body.state},
-            {zip: req.body.zip},
+            {state: {[Op.iLike]: '%' + req.body.state + '%'} },
+            {zip: {[Op.iLike]: '%' + req.body.zip + '%'} },
             {number_of_bedrooms: req.body.number_of_bedrooms},
             {number_of_bathrooms: req.body.number_of_bathrooms},
             {allows_pets: req.body.allows_pets},
-            //need to be able to view >= OR <=
             {prices: { [Op.lte]: req.body.prices } }
           ]
         }
