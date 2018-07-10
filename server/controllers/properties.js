@@ -25,29 +25,61 @@ module.exports = {
   },
 
   filter(req, res) {
-    return PropertyItem
-    .findAll({
-      where: {
-        [Op.or]: [
-          {allows_pets: req.body.allows_pets},
-          {zip: req.body.zip},
-          {state: req.body.state},
-          {city: req.body.city},
-          {number_of_bedrooms: req.body.number_of_bedrooms},
-          {number_of_bathrooms: req.body.number_of_bathrooms},
-          {prices: { [Op.gt]: req.body.prices } }
-        ]
+
+    if(req.body.price_gte) {
+      return PropertyItem
+      .findAll({
+        where: {
+          [Op.or]: [
+            {property_type: req.body.property_type},
+            {city: req.body.city},
+            {state: req.body.state},
+            {zip: req.body.zip},
+            {number_of_bedrooms: req.body.number_of_bedrooms},
+            {number_of_bathrooms: req.body.number_of_bathrooms},
+            {allows_pets: req.body.allows_pets},
+            //need to be able to view >= OR <=
+            {prices: { [Op.gte]: req.body.prices } }
+          ]
+        }
+      })
+      .then(property_item => {
+      if (!property_item) {
+        return res.status(404).send({
+          message: 'property Not Found',
+        });
       }
-    })
-    .then(property_item => {
-    if (!property_item) {
-      return res.status(404).send({
-        message: 'property Not Found',
-      });
+      return res.status(200).send(property_item);
+      })
+      .catch(error => res.status(400).send(error));
+
+    } else {
+      return PropertyItem
+      .findAll({
+        where: {
+          [Op.or]: [
+            {property_type: req.body.property_type},
+            {city: {[Op.iLike]: '%' + req.body.city + '%'} },
+            {state: req.body.state},
+            {zip: req.body.zip},
+            {number_of_bedrooms: req.body.number_of_bedrooms},
+            {number_of_bathrooms: req.body.number_of_bathrooms},
+            {allows_pets: req.body.allows_pets},
+            //need to be able to view >= OR <=
+            {prices: { [Op.lte]: req.body.prices } }
+          ]
+        }
+      })
+      .then(property_item => {
+      if (!property_item) {
+        return res.status(404).send({
+          message: 'property Not Found',
+        });
+      }
+      return res.status(200).send(property_item);
+      })
+      .catch(error => res.status(400).send(error));
     }
-    return res.status(200).send(property_item);
-    })
-    .catch(error => res.status(400).send(error));
   },
 
 
