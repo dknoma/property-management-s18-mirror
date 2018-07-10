@@ -32,14 +32,21 @@ const passwordConfirm = (value, allValues) =>
 class ProfileEdit extends React.Component {
 
   /* Change this to submit the payload */
-onSubmit = ({username, email, firstname, lastname, password}) => {
-  console.log({username, email, firstname, lastname, password});
-  this.props.edit_profile({username, email, firstname, lastname, password}, () => {
+onSubmit = ({username, email, firstname, lastname}) => {
+  console.log({username, email, firstname, lastname});
+  this.props.edit_profile({username, email, firstname, lastname}, () => {
     this.props.router.push("/profile");
   });
 };
 
   render() {
+    const data = {
+      // used to populate "account" reducer when "Load" is clicked
+      username: this.props.username,
+      firstname: this.props.firstname,
+      lastname: this.props.lastname,
+      email: this.props.email,
+    }
     /* handleSubmit is provided by Redux Form */
     const { handleSubmit } = this.props;
     return (
@@ -52,9 +59,9 @@ onSubmit = ({username, email, firstname, lastname, password}) => {
         <br/>
         <Field name="username" label="Username" id="username" component = {TextField} validate={[ required, maxLength15 ]}/>
         <br />
-        <Field name="firstname" id="first_name" label="First Name" component = {TextField} validate={[ required ]} />
+        <Field name="firstname" label="First Name" id="first_name"  component = {TextField} validate={[ required ]} />
         <br/>
-        <Field name="lastname" id="last_name" label="Last Name" component = {TextField} validate={[ required ]}/>
+        <Field name="lastname" label="Last Name" id="last_name" component = {TextField} validate={[ required ]}/>
         <br/>
         <Field name="email" id="email" type="email" label="Email" component = {TextField} validate={[ required, email ]}/>
         <br/>
@@ -65,17 +72,30 @@ onSubmit = ({username, email, firstname, lastname, password}) => {
   }
 }
 
+/* initialValues allows us to prepopulate fields in redux form */
 function mapStateToProps(state) {
   return {
+    initialValues: {
+      username: state.auth.username,
+      firstname: state.auth.firstname,
+      lastname: state.auth.lastname,
+      email: state.auth.email,
+    },
     authenticated: state.auth.authenticated,
-    username: state.auth.username
+    username: state.auth.username,
+    firstname: state.auth.firstname,
+    lastname: state.auth.lastname,
+    email: state.auth.email,
+    user_type: state.auth.user_type,
+    id: state.auth.id
   };
 }
 
+/* Decorate with redux form */
 ProfileEdit = reduxForm({
   form: 'edit_profile'
 })(ProfileEdit)
 
-export default compose (
-  connect(mapStateToProps, actions),
-)(requireAuth(ProfileEdit));
+ProfileEdit = connect(mapStateToProps, actions)(requireAuth(ProfileEdit));
+
+export default ProfileEdit;

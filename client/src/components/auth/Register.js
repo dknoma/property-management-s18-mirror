@@ -11,7 +11,7 @@ import {Field, reduxForm} from 'redux-form';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 
-import { RadioGroup,TextField } from 'redux-form-material-ui';
+import { RadioGroup, TextField } from 'redux-form-material-ui';
 
 const required = value => value ? undefined : 'Required'
 const maxLength = max => value =>
@@ -26,10 +26,12 @@ const email = value =>
 const passwordConfirm = (value, allValues) =>
   value !== allValues.password ? `Passwords don't match` : undefined
 
+
 class Register extends Component {
   constructor(props) {
     super(props);
     this.state={
+      id: '',
       user_type: '',
       username:'',
       first_name:'',
@@ -58,22 +60,22 @@ class Register extends Component {
     /* handleSubmit is provided by Redux Form */
     const { handleSubmit } = this.props;
     return (
-      <form onSubmit={handleSubmit(this.onSubmit)}>
+      <form className="belowNav" onSubmit={handleSubmit(this.onSubmit)}>
         <br />
 
         <Typography color="inherit" variant="display1">
         Register
         </Typography>
         <br/>
-        <div>
+        <div className="radioBtn">
           <Field name="user_type" id="user_type" component={RadioGroup} >
-          <label>
-            <input type="radio" name="user_type" value="propertymanager" onChange={this.handleRadioChange}/>Property Manager
-          </label>
-          <br/>
-          <label>
-            <input type="radio" name="user_type" value="tenant" onChange={this.handleRadioChange}/>Tenant
-          </label>
+            <label>
+              <input type="radio" name="user_type" value="propertymanager" onChange={this.handleRadioChange}/>Property Manager
+            </label>
+            <br/>
+            <label>
+              <input type="radio" name="user_type" value="tenant" onChange={this.handleRadioChange}/>Tenant
+            </label>
           </Field>
         </div>
         <br/>

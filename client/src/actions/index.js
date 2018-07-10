@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { AUTH_USER, AUTH_ERROR } from './types';
+import { AUTH_USER, AUTH_ERROR, OTHER_USER } from './types';
 
 var apiBaseUrl = "http://localhost:3000/api/";
 
@@ -21,6 +21,11 @@ export const signup =
     /* This stores the JWT we recieve from server right above */
     localStorage.setItem('token', response.data.token);
     localStorage.setItem('username', response.data.user.username);
+    localStorage.setItem('firstname', response.data.user.firstname);
+    localStorage.setItem('lastname', response.data.user.lastname);
+    localStorage.setItem('email', response.data.user.email);
+    localStorage.setItem('user_type', response.data.user.user_type);
+    localStorage.setItem('id', response.data.userId);
     /* This forces redirect */
     callback();
   } catch (e) {
@@ -33,8 +38,7 @@ export const login =
 ({user_type, username, password}, callback) => async dispatch => {
     try {
       const response = await axios.post(
-        apiBaseUrl + user_type + "/login",
-       {user_type, username, password}
+        apiBaseUrl + user_type + "/login", {user_type, username, password}
       );
 
        /* and get the token as payload */
@@ -44,9 +48,14 @@ export const login =
       /* This stores the token and other info into localStorage*/
       localStorage.setItem('token', response.data.token);
       localStorage.setItem('username', response.data.user.username);
+      localStorage.setItem('firstname', response.data.user.firstname);
+      localStorage.setItem('lastname', response.data.user.lastname);
+      localStorage.setItem('email', response.data.user.email);
+      localStorage.setItem('user_type', response.data.user.user_type);
+      localStorage.setItem('id', response.data.user.userId);
+      console.log(response.data.user.userId);
       /* This says to redirect */
       callback();
-
       /* Should also save user data to state so we don't have to ping db every time */
     } catch (e) {
       alert(e.response.data.message);
@@ -54,8 +63,7 @@ export const login =
 };
 
 export const logout = () => {
-  localStorage.removeItem('token');
-  localStorage.removeItem('username');
+  localStorage.clear();
 
   return {
     /* Reusing this same type we used above, just by changing authenticated state */
@@ -64,10 +72,39 @@ export const logout = () => {
   };
 };
 
-export const edit_profile = ({id, username, email, firstname, lastname}, callback) => async dispatch => {
-  const user_id = localStorage.getItem('token', response.data.token);
+export const edit_profile = ({username, email, firstname, lastname}, callback) => async dispatch => {
+  const id = localStorage.getItem('id');
+  console.log(id);
   const response = await axios.put(
-    apiBaseUrl + "users/" + user_id,
-    {username: "test", email: "test@usfca.edu", firstname: "testfirst", lastname: "testlast"}
+    apiBaseUrl + "users/" + id,
+    {username, email, firstname, lastname}
   );
+
+  localStorage.setItem('username', username);
+  localStorage.setItem('email', email);
+  localStorage.setItem('firstname', firstname);
+  localStorage.setItem('lastname', lastname);
+};
+
+export const get_user_profile = ({id}) => async dispatch => {
+  const response = await axios.get(
+    apiBaseUrl + "users/" + id,
+  )  .then(function (response) {
+    /* Dispatch a payload of OTHER_USER */
+    dispatch ({ type: OTHER_USER, payload: response.data });
+    console.log(response.data.user);
+  })
+};
+
+export const create_property = ({property_name, number_of_bedrooms, number_of_bathrooms,
+                             prices, rent_type, street, city, state, zip, allow_pets}, callback) => async dispatch => {
+ try {
+   const response = await axios.post(
+     apiBaseUrl + "api/property/create", {property_name, number_of_bedrooms, number_of_bathrooms,
+                                     prices, rent_type, street, city, state, zip, allow_pets}
+   );
+
+ } catch (e) {
+   alert(e.response.data.message);
+ }
 };

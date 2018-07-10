@@ -37,11 +37,12 @@ const store = createStore(
   {
     auth: {
     authenticated: localStorage.getItem('token'),
-    username: localStorage.getItem('username')
-    // email: localStorage.getItem('token'),
-    // firstname: localStorage.getItem('token'),
-    // lastname: localStorage.getItem('token'),
-    // user_type: localStorage.getItem('token')
+    id: localStorage.getItem('id'),
+    username: localStorage.getItem('username'),
+    email: localStorage.getItem('email'),
+    firstname: localStorage.getItem('firstname'),
+    lastname: localStorage.getItem('lastname'),
+    user_type: localStorage.getItem('user_type')
     },
   },
   applyMiddleware(reduxThunk)
@@ -55,10 +56,12 @@ const store = createStore(
 
 ReactDOM.render(
   <Provider store={store}>
+
     <div className="container wrapper">
       <div className="row">
+
         <Nav/>
-      <Router history={browserHistory}>
+        <Router history={browserHistory}>
         <Route path='/' component={Home}>
         </Route>
         <Route path={"login"} component={Login}>
@@ -67,19 +70,22 @@ ReactDOM.render(
         </Route>
         <Route path={"logout"} component={Logout}>
         </Route>
-        <Route path={"profile"} component={ProfilePage}>
+        <Route path={"profile/:id"} component={ProfilePage}>
         </Route>
 
         <Route path={"createproperty"} component={CreateProperty}>
         </Route>
         <Route path={"edit"} component={ProfileEdit}>
         </Route>
-      </Router>
-        </div>
+
+        </Router>
+
+                </div>
         <div className="row">
 
         </div>
       </div>
+
     </Provider>
     ,
     destination
