@@ -16,19 +16,19 @@ class ProfilePage extends React.Component {
     this.props.get_user_profile(this.props.params);
   };
 
-  renderPrivateInformation() {
+  renderPMInformation() {
     if (this.props.user_type ==="propertymanager") {
-      return (
-        <div>
-          <div> <a class="button" href="/propertylisting"> View Property Listing</a></div>
-          <br/>
-          <div> <a class="button" href="/createproperty"> Create New Property</a></div>
-        </div>
-      )
+        return (
+          <div>
+            <div> <a class="button" href="/propertylisting"> View Property Listing</a></div>
+            <br/>
+            <div> <a class="button" href="/createproperty"> Create New Property</a></div>
+          </div>
+        )
     }
   }
 
-  renderPMInformation() {
+  renderPrivateInformation() {
     if (this.props.id == localStorage.getItem("my_id")) {
       return (
         <div>
@@ -54,12 +54,12 @@ class ProfilePage extends React.Component {
           </div>
           <div className="row">
             <div className="col-xs-12">
-              {this.renderPMInformation()}
+              {this.renderPrivateInformation()}
               <p>First Name: {this.props.firstname}</p>
               <p>Last Name: {this.props.lastname}</p>
               <p>Email: {this.props.email}</p>
               <p>Role: {this.props.user_type} </p>
-              {this.renderPrivateInformation()}
+              {this.renderPMInformation()}
             </div>
           </div>
       </div>

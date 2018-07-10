@@ -79,11 +79,10 @@ ReactDOM.render(
           <Route path={"edit"} component={ProfileEdit}>
           </Route>
           <Route path={"users"} component={Users}>
-          </Route>  
+          </Route>
           <Route exact path={"propertylisting"} component={PropertyListing}>
           </Route>
-
-          </Router>
+        </Router>
       </div>
       <div className="row">
 
