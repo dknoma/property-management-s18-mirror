@@ -54,7 +54,7 @@ onSubmit = ({username, email, firstname, lastname}) => {
         <br />
 
         <Typography color="inherit" variant="display1">
-        Register
+        Edit Your Profile
         </Typography>
         <br/>
         <Field name="username" label="Username" id="username" component = {TextField} validate={[ required, maxLength15 ]}/>
