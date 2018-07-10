@@ -26,19 +26,46 @@ module.exports = {
 
   filter(req, res) {
 
-    if(req.body.price_gte) {
+    if(req.body.price_gte === '>') {
       return PropertyItem
       .findAll({
         where: {
-          [Op.or]: [
-            {property_type: req.body.property_type},
-            {city: {[Op.iLike]: '%' + req.body.city + '%'} },
-            {state: {[Op.iLike]: '%' + req.body.state + '%'} },
-            {zip: {[Op.iLike]: '%' + req.body.zip + '%'} },
-            {number_of_bedrooms: req.body.number_of_bedrooms},
-            {number_of_bathrooms: req.body.number_of_bathrooms},
-            {allows_pets: req.body.allows_pets},
-            {prices: { [Op.gte]: req.body.prices } }
+          [Op.and]: [
+            //isMember ? "$2.00" : "$10.00"
+            {
+              property_type: req.body.property_type != null ? 
+                req.body.property_type : {[Op.iLike]: '%%'}
+            },
+            {
+              city: req.body.city != null ? {
+                [Op.iLike]: '%' + req.body.city + '%'
+              } : {[Op.iLike]: '%%%'}
+            },
+            {
+              state: req.body.state != null ? {
+                [Op.iLike]: '%' + req.body.state + '%'
+              } : {[Op.iLike]: '%%'}
+            },
+            {
+              zip: req.body.zip != null ? {
+                [Op.iLike]: '%' + req.body.zip + '%'
+              } : {[Op.iLike]: '%%'}
+            },
+            {
+              number_of_bedrooms: req.body.number_of_bedrooms != null ? 
+                req.body.number_of_bedrooms : {[Op.gte]: 1}
+            },
+            {
+              number_of_bathrooms: req.body.number_of_bathrooms != null ?
+                req.body.number_of_bathrooms : {[Op.gte]: 1}
+            },
+            {
+              allows_pets: req.body.allows_pets != null ?
+                req.body.allows_pets : {[Op.any]: [true, false]}
+            },
+            {
+              prices: { [Op.gte]: req.body.prices } 
+            }
           ]
         }
       })
@@ -56,15 +83,41 @@ module.exports = {
       return PropertyItem
       .findAll({
         where: {
-          [Op.or]: [
-            {property_type: req.body.property_type},
-            {city: {[Op.iLike]: '%' + req.body.city + '%'} },
-            {state: {[Op.iLike]: '%' + req.body.state + '%'} },
-            {zip: {[Op.iLike]: '%' + req.body.zip + '%'} },
-            {number_of_bedrooms: req.body.number_of_bedrooms},
-            {number_of_bathrooms: req.body.number_of_bathrooms},
-            {allows_pets: req.body.allows_pets},
-            {prices: { [Op.lte]: req.body.prices } }
+          [Op.and]: [
+            {
+              property_type: req.body.property_type != null ? 
+                req.body.property_type : {[Op.iLike]: '%%'}
+            },
+            {
+              city: req.body.city != null ? {
+                [Op.iLike]: '%' + req.body.city + '%'
+              } : {[Op.iLike]: '%%%'}
+            },
+            {
+              state: req.body.state != null ? {
+                [Op.iLike]: '%' + req.body.state + '%'
+              } : {[Op.iLike]: '%%'}
+            },
+            {
+              zip: req.body.zip != null ? {
+                [Op.iLike]: '%' + req.body.zip + '%'
+              } : {[Op.iLike]: '%%'}
+            },
+            {
+              number_of_bedrooms: req.body.number_of_bedrooms != null ? 
+                req.body.number_of_bedrooms : {[Op.gte]: 1}
+            },
+            {
+              number_of_bathrooms: req.body.number_of_bathrooms != null ?
+                req.body.number_of_bathrooms : {[Op.gte]: 1}
+            },
+            {
+              allows_pets: req.body.allows_pets != null ?
+                req.body.allows_pets : {[Op.any]: [true, false]}
+            },
+            {
+              prices: { [Op.lte]: req.body.prices } 
+            }
           ]
         }
       })
