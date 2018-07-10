@@ -14,8 +14,6 @@ class Logout extends Component {
   render() {
     return null;
 
-    //Maybe change it to an alert and redirect to Home?
-
   }
 }
 
