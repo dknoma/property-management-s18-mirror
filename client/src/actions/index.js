@@ -1,5 +1,6 @@
 import axios from 'axios';
-import { AUTH_USER, AUTH_ERROR, OTHER_USER } from './types';
+import { AUTH_USER, AUTH_ERROR, OTHER_USER, CREATE_PROPERTY, FETCH_PROPERTIES } from './types';
+
 
 var apiBaseUrl = "http://localhost:3000/api/";
 
@@ -96,15 +97,25 @@ export const get_user_profile = ({id}) => async dispatch => {
   })
 };
 
-export const create_property = ({property_name, number_of_bedrooms, number_of_bathrooms,
-                             prices, rent_type, street, city, state, zip, allow_pets}, callback) => async dispatch => {
+export const create_property = ({property_name, number_of_bedrooms, number_of_bathrooms, prices, property_type,
+                                  street, city, state, zip, allows_pets,url_address}, callback) => async dispatch => {
  try {
    const response = await axios.post(
-     apiBaseUrl + "api/property/create", {property_name, number_of_bedrooms, number_of_bathrooms,
-                                     prices, rent_type, street, city, state, zip, allow_pets}
-   );
+     apiBaseUrl + "property/create", {property_name, number_of_bedrooms, number_of_bathrooms, prices, property_type,
+                                       street, city, state, zip, allows_pets,url_address});
+
+  dispatch({ type: CREATE_PROPERTY, payload: response.data});
+  console.log(response.data.property_name);
+
+  callback();
 
  } catch (e) {
    alert(e.response.data.message);
  }
+};
+
+export const fetchProperties = () => async dispatch => {
+    const res = await axios.get( apiBaseUrl + "property/list");
+    dispatch({ type: FETCH_PROPERTIES, payload: res.data });
+    console.log(res.data);
 };

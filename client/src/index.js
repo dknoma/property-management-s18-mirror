@@ -23,6 +23,7 @@ import Register from "./components/auth/Register.js";
 import ProfilePage from "./components/ProfilePage.js";
 import CreateProperty from "./components/CreateProperty.js";
 import ProfileEdit from "./components/ProfileEdit.js";
+import PropertyListing from "./components/property/PropertyListing.js";
 
 
 
@@ -72,12 +73,12 @@ ReactDOM.render(
         </Route>
         <Route path={"profile/:id"} component={ProfilePage}>
         </Route>
-
-        <Route path={"createproperty"} component={CreateProperty}>
+        <Route exact path={"createproperty"} component={CreateProperty}>
         </Route>
         <Route path={"edit"} component={ProfileEdit}>
         </Route>
-
+        <Route exact path={"propertylisting"} component={PropertyListing}>
+        </Route>
         </Router>
 
                 </div>
