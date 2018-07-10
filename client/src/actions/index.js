@@ -108,7 +108,7 @@ export const get_users = () => async dispatch => {
   )  .then(function (response) {
     /* Dispatch a payload of OTHER_USER */
       dispatch ({ type: ALL_USERS, payload: response.data });
-      console.log(response.data.users);
+      console.log(response.data);
   })
 };
 

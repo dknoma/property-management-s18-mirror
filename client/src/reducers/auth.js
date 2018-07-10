@@ -64,9 +64,9 @@ export default function(state = INITIAL_STATE, action) {
       };
 
     case ALL_USERS:
-    console.log(action.payload.users);
+    console.log(action.payload);
         return {...state,
-          users: action.payload.users
+          users: action.payload
         };
 
     default:

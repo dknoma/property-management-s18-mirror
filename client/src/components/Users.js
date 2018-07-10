@@ -10,11 +10,14 @@ import * as actions from '../actions';
 /* Higher Order Components */
 import requireAuth from './requireAuth';
 
-class ProfilePage extends React.Component {
+class Users extends React.Component {
 
   componentDidMount() {
     this.props.get_users();
   };
+
+  renderItem() {
+  }
 
   render() {
     return (
@@ -28,7 +31,7 @@ class ProfilePage extends React.Component {
           </div>
           <div className="row">
             <div className="col-xs-12">
-            
+            {this.renderItem()}
             </div>
           </div>
       </div>
@@ -43,4 +46,4 @@ function mapStateToProps(state) {
   };
 }
 /* Need to connect actions here */
-export default connect(mapStateToProps, actions)(ProfilePage);
+export default connect(mapStateToProps, actions)(Users);
