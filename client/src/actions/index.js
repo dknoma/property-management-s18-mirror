@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { AUTH_USER, AUTH_ERROR } from './types';
+import { AUTH_USER, AUTH_ERROR, OTHER_USER } from './types';
 
 var apiBaseUrl = "http://localhost:3000/api/";
 
@@ -86,16 +86,15 @@ export const edit_profile = ({username, email, firstname, lastname}, callback) =
   localStorage.setItem('lastname', lastname);
 };
 
-export const get_user_profile = ({username, email, firstname, lastname}, callback) => async dispatch => {
-  // const id = localStorage.getItem('id');
+export const get_user_profile = ({id}, callback) => async dispatch => {
 
-  // const response = await axios.get(
-  //   apiBaseUrl + "users/" + id,
-  //   {username, email, firstname, lastname}
-  // );
+  const response = await axios.get(
+    apiBaseUrl + "users/" + id,
+  )  .then(function (response) {
+    /* Dispatch a payload of OTHER_USER */
+    dispatch ({ type: OTHER_USER, payload: response.data });
+    console.log(response.data.user);
+  })
 
-  localStorage.setItem('username', username);
-  localStorage.setItem('email', email);
-  localStorage.setItem('firstname', firstname);
-  localStorage.setItem('lastname', lastname);
+
 };

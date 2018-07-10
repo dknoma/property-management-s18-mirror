@@ -5,11 +5,16 @@ import TextField from '@material-ui/core/TextField';
 
 /* Redux */
 import { connect } from 'react-redux';
+import * as actions from '../actions';
 
 /* Higher Order Components */
 import requireAuth from './requireAuth';
 
 class ProfilePage extends React.Component {
+
+  componentDidMount() {
+    this.props.get_user_profile(this.props.params);
+  };
 
   renderPrivateInformation() {
     if (this.props.authenticated !== null) {
@@ -22,6 +27,7 @@ class ProfilePage extends React.Component {
   }
 
   render() {
+    console.log(this.props.params);
     return (
 
       <div className="container">
@@ -57,5 +63,5 @@ function mapStateToProps(state) {
     user_type: state.auth.user_type
   };
 }
-
-export default connect(mapStateToProps)(ProfilePage);
+/* Need to connect actions here */
+export default connect(mapStateToProps, actions)(ProfilePage);

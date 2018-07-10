@@ -100,7 +100,7 @@ export class Nav extends Component {
                   open={open}
                   onClose={this.handleClose}
                 >
-                  <a href="/profile/"{this.props.id}><MenuItem>Profile</MenuItem></a>
+                  <a href="/profile/"><MenuItem>Profile</MenuItem></a>
                 </Menu>
               </div>
             )}

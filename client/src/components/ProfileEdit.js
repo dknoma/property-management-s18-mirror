@@ -47,7 +47,6 @@ onSubmit = ({username, email, firstname, lastname}) => {
       lastname: this.props.lastname,
       email: this.props.email,
     }
-    console.log(data.firstname);
     /* handleSubmit is provided by Redux Form */
     const { handleSubmit } = this.props;
     return (
