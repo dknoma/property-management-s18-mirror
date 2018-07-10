@@ -17,7 +17,7 @@ class ProfilePage extends React.Component {
   };
 
   renderPrivateInformation() {
-    if (this.props.authenticated !== null) {
+    if (this.props.user_type ==="propertymanager") {
       return (
         <div>
           <div> <a href="/propertylisting"> View Property Listing</a></div>
@@ -28,7 +28,7 @@ class ProfilePage extends React.Component {
     }
   }
 
-  renderPersonalInformation() {
+  renderPMInformation() {
     if (this.props.id == localStorage.getItem("my_id")) {
       return (
         <div>
@@ -54,7 +54,7 @@ class ProfilePage extends React.Component {
           </div>
           <div className="row">
             <div className="col-xs-12">
-              {this.renderPersonalInformation()}
+              {this.renderPMInformation()}
               <p>First Name: {this.props.firstname}</p>
               <p>Last Name: {this.props.lastname}</p>
               <p>Email: {this.props.email}</p>
