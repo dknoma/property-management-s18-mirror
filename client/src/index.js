@@ -56,10 +56,12 @@ const store = createStore(
 
 ReactDOM.render(
   <Provider store={store}>
+
     <div className="container wrapper">
       <div className="row">
+
         <Nav/>
-      <Router history={browserHistory}>
+        <Router history={browserHistory}>
         <Route path='/' component={Home}>
         </Route>
         <Route path={"login"} component={Login}>
@@ -75,12 +77,15 @@ ReactDOM.render(
         </Route>
         <Route path={"edit"} component={ProfileEdit}>
         </Route>
-      </Router>
-        </div>
+
+        </Router>
+
+                </div>
         <div className="row">
 
         </div>
       </div>
+
     </Provider>
     ,
     destination

@@ -94,6 +94,17 @@ export const get_user_profile = ({id}) => async dispatch => {
     dispatch ({ type: OTHER_USER, payload: response.data });
     console.log(response.data.user);
   })
+};
 
+export const create_property = ({property_name, number_of_bedrooms, number_of_bathrooms,
+                             prices, rent_type, street, city, state, zip, allow_pets}, callback) => async dispatch => {
+ try {
+   const response = await axios.post(
+     apiBaseUrl + "api/property/create", {property_name, number_of_bedrooms, number_of_bathrooms,
+                                     prices, rent_type, street, city, state, zip, allow_pets}
+   );
 
+ } catch (e) {
+   alert(e.response.data.message);
+ }
 };

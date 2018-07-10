@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "../index.css";
 import PropTypes from 'prop-types';
+import { Link } from 'react-router';
 
 /* Redux */
 import { connect } from 'react-redux';
@@ -67,6 +68,7 @@ export class Nav extends Component {
     const open = Boolean(anchorEl);
 
     return (
+
       <div className={classes.root}>
         <AppBar position="static" className="nav">
           <Toolbar>
@@ -100,7 +102,7 @@ export class Nav extends Component {
                   open={open}
                   onClose={this.handleClose}
                 >
-                  <a href="/profile/"><MenuItem>Profile</MenuItem></a>
+                    <a href={"/profile/" + this.props.id} ><MenuItem>Profile</MenuItem></a>
                 </Menu>
               </div>
             )}
