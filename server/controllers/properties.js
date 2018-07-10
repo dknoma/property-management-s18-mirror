@@ -25,163 +25,61 @@ module.exports = {
   },
 
   filter(req, res) {
-
-    if(req.body.price_gte === '>') {
-      return PropertyItem
-      .findAll({
-        where: {
-          [Op.and]: [
-            {
-              property_type: req.body.property_type != null ? 
-                req.body.property_type : {[Op.iLike]: '%'}
-            },
-            {
-              city: req.body.city != null ? {
-                [Op.iLike]: '%' + req.body.city + '%'
-              } : {[Op.iLike]: '%'}
-            },
-            {
-              state: req.body.state != null ? {
-                [Op.iLike]: '%' + req.body.state + '%'
-              } : {[Op.iLike]: '%'}
-            },
-            {
-              zip: req.body.zip != null ? {
-                [Op.iLike]: '%' + req.body.zip + '%'
-              } : {[Op.iLike]: '%'}
-            },
-            {
-              number_of_bedrooms: req.body.number_of_bedrooms != null ? 
-                req.body.number_of_bedrooms : {[Op.gte]: 1}
-            },
-            {
-              number_of_bathrooms: req.body.number_of_bathrooms != null ?
-                req.body.number_of_bathrooms : {[Op.gte]: 1}
-            },
-            {
-              allows_pets: req.body.allows_pets != null ?
-                req.body.allows_pets : {[Op.any]: [true, false]}
-            },
-            {
-              prices: { [Op.gte]: req.body.prices } 
-            }
-          ]
-        }
-      })
-      .then(property_item => {
-      if (!property_item) {
-        return res.status(404).send({
-          message: 'property Not Found',
-        });
+    return PropertyItem
+    .findAll({
+      where: {
+        [Op.and]: [
+          {
+            property_type: req.body.property_type != null ? 
+              req.body.property_type : {[Op.iLike]: '%'}
+          },
+          {
+            city: req.body.city != null ? {
+              [Op.iLike]: '%' + req.body.city + '%'
+            } : {[Op.iLike]: '%'}
+          },
+          {
+            state: req.body.state != null ? {
+              [Op.iLike]: '%' + req.body.state + '%'
+            } : {[Op.iLike]: '%'}
+          },
+          {
+            zip: req.body.zip != null ? {
+              [Op.iLike]: '%' + req.body.zip + '%'
+            } : {[Op.iLike]: '%'}
+          },
+          {
+            number_of_bedrooms: req.body.number_of_bedrooms != null ? 
+              req.body.number_of_bedrooms : {[Op.gte]: 1}
+          },
+          {
+            number_of_bathrooms: req.body.number_of_bathrooms != null ?
+              req.body.number_of_bathrooms : {[Op.gte]: 1}
+          },
+          {
+            allows_pets: req.body.allows_pets != null ?
+              req.body.allows_pets : {[Op.any]: [true, false]}
+          },
+          {
+            prices:  req.body.price_gte === '>' ? 
+              {[Op.gte]: req.body.prices} :
+              req.body.price_gte === '<' ? 
+                {[Op.lte]: req.body.prices} :
+                {[Op.gte]: 0}
+          }
+        ]
       }
-      return res.status(200).send(property_item);
-      })
-      .catch(error => res.status(400).send(error));
-
-    } else if(req.body.price_gte === '<') {
-      return PropertyItem
-      .findAll({
-        where: {
-          [Op.and]: [
-            {
-              property_type: req.body.property_type != null ? 
-                req.body.property_type : {[Op.iLike]: '%'}
-            },
-            {
-              city: req.body.city != null ? {
-                [Op.iLike]: '%' + req.body.city + '%'
-              } : {[Op.iLike]: '%'}
-            },
-            {
-              state: req.body.state != null ? {
-                [Op.iLike]: '%' + req.body.state + '%'
-              } : {[Op.iLike]: '%'}
-            },
-            {
-              zip: req.body.zip != null ? {
-                [Op.iLike]: '%' + req.body.zip + '%'
-              } : {[Op.iLike]: '%'}
-            },
-            {
-              number_of_bedrooms: req.body.number_of_bedrooms != null ? 
-                req.body.number_of_bedrooms : {[Op.gte]: 1}
-            },
-            {
-              number_of_bathrooms: req.body.number_of_bathrooms != null ?
-                req.body.number_of_bathrooms : {[Op.gte]: 1}
-            },
-            {
-              allows_pets: req.body.allows_pets != null ?
-                req.body.allows_pets : {[Op.any]: [true, false]}
-            },
-            {
-              prices: { [Op.lte]: req.body.prices } 
-            }
-          ]
-        }
-      })
-      .then(property_item => {
-      if (!property_item) {
-        return res.status(404).send({
-          message: 'property Not Found',
-        });
-      }
-      return res.status(200).send(property_item);
-      })
-      .catch(error => res.status(400).send(error));
-    } else {
-      return PropertyItem
-      .findAll({
-        where: {
-          [Op.and]: [
-            {
-              property_type: req.body.property_type != null ? 
-                req.body.property_type : {[Op.iLike]: '%'}
-            },
-            {
-              city: req.body.city != null ? {
-                [Op.iLike]: '%' + req.body.city + '%'
-              } : {[Op.iLike]: '%'}
-            },
-            {
-              state: req.body.state != null ? {
-                [Op.iLike]: '%' + req.body.state + '%'
-              } : {[Op.iLike]: '%'}
-            },
-            {
-              zip: req.body.zip != null ? {
-                [Op.iLike]: '%' + req.body.zip + '%'
-              } : {[Op.iLike]: '%'}
-            },
-            {
-              number_of_bedrooms: req.body.number_of_bedrooms != null ? 
-                req.body.number_of_bedrooms : {[Op.gte]: 1}
-            },
-            {
-              number_of_bathrooms: req.body.number_of_bathrooms != null ?
-                req.body.number_of_bathrooms : {[Op.gte]: 1}
-            },
-            {
-              allows_pets: req.body.allows_pets != null ?
-                req.body.allows_pets : {[Op.any]: [true, false]}
-            },
-            {
-              prices: { [Op.gte]: 0 } 
-            }
-          ]
-        }
-      })
-      .then(property_item => {
-      if (!property_item) {
-        return res.status(404).send({
-          message: 'property Not Found',
-        });
-      }
-      return res.status(200).send(property_item);
-      })
-      .catch(error => res.status(400).send(error));
-
+    })
+    .then(property_item => {
+    if (!property_item) {
+      return res.status(404).send({
+        message: 'property Not Found',
+      });
     }
+    return res.status(200).send(property_item);
+    })
+    .catch(error => res.status(400).send(error));
+
   },
 
 
