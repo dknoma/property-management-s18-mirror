@@ -20,9 +20,9 @@ class ProfilePage extends React.Component {
     if (this.props.user_type ==="propertymanager") {
       return (
         <div>
-          <div> <a href="/propertylisting"> View Property Listing</a></div>
+          <div> <a class="button" href="/propertylisting"> View Property Listing</a></div>
           <br/>
-          <div> <a href="/createproperty"> Create New Property</a></div>
+          <div> <a class="button" href="/createproperty"> Create New Property</a></div>
         </div>
       )
     }

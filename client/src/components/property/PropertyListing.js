@@ -64,6 +64,8 @@ class PropertyListing extends Component {
         {this.renderItem()}
       </tbody>
       </table>
+      <br/>
+      <div> <a class="button" href="/createproperty"> Create New Property </a></div>
       </div>
     );
   }
