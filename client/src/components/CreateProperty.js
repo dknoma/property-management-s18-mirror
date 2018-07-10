@@ -22,15 +22,15 @@ class CreateProperty extends Component {
       property_name: ''
     }
   }
-  onSubmit = ({property_name, number_of_bedrooms, number_of_bathrooms, prices, rent_type, street, city, state, zip, allow_pets}) => {
-    if(!rent_type || !allow_pets) {
+  onSubmit = ({property_name, number_of_bedrooms, number_of_bathrooms, prices, property_type, street, city, state, zip, allows_pets, url_address}) => {
+    if(!property_type || !allows_pets) {
       alert("Please fill all the fields");
       return;
     }
-    console.log({property_name});
-    this.props.create_property({property_name, number_of_bedrooms, number_of_bathrooms, prices, rent_type, street, city, state, zip, allow_pets}, () => {
+    console.log({property_name, number_of_bedrooms, number_of_bathrooms, prices, property_type, street, city, state, zip, allows_pets, url_address});
+    this.props.create_property({property_name, number_of_bedrooms, number_of_bathrooms, prices, property_type, street, city, state, zip, allows_pets, url_address}, () => {
       alert("Property successfully created!");
-      this.props.router.push("/");
+      this.props.router.push("/propertylisting");
     });
   //console.log(({user_type, username, email, firstname, lastname, password});
   };
@@ -60,14 +60,14 @@ class CreateProperty extends Component {
         </Typography>
         <br/>
         <div className="radioBtn">
-          <Field name="rent_type" id="rent_type" component={RadioGroup} >
+          <Field name="property_type" id="property_type" component={RadioGroup} >
             <label>
-              <input type="radio" name="rent_type" value="single_room" onChange={this.handleRadioChange}/>Single Room
+              <input type="radio" name="property_type" value="single_room" onChange={this.handleRadioChange}/>Single Room
             </label>
             <label>
-              <input type="radio" name="rent_type" value="whole_house" onChange={this.handleRadioChange}/>Whole House
+              <input type="radio" name="property_type" value="whole_house" onChange={this.handleRadioChange}/>Whole House
             </label>
-            </Field>
+          </Field>
         </div>
         <div>
           <Field name="street" id="street" label="Street" component={TextField} validate={[ required ]} />
@@ -86,15 +86,17 @@ class CreateProperty extends Component {
         Allow Pets?
         </Typography>
         <div className="radioBtn">
-        <br/>
-        <Field name="allow_pets" id="allow_pets" component={RadioGroup} >
+        <Field name="allows_pets" id="allows_pets" component={RadioGroup} >
           <label>
-            <input type="radio" name="allow_pets" value="true" onChange={this.handleRadioChange}/>Yes
+            <input type="radio" name="allows_pets" value="true" onChange={this.handleRadioChange}/>Yes
           </label>
           <label>
-            <input type="radio" name="rent_type" value="false" onChange={this.handleRadioChange}/>No
+            <input type="radio" name="allows_pets" value="false" onChange={this.handleRadioChange}/>No
           </label>
-          </Field>
+        </Field>
+        </div>
+        <div>
+          <Field name="url_address" id="url_address" label="URL Address" component={TextField} validate={[ required ]} />
         </div>
         <br/>
         <button className = "button" type="submit">Create new property</button>

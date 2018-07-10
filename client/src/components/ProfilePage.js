@@ -20,7 +20,9 @@ class ProfilePage extends React.Component {
     if (this.props.authenticated !== null) {
       return (
         <div>
-          <div> Private Info </div>
+          <div> <a href="/propertylisting"> View Property Listing</a></div>
+          <br/>
+          <div> <a href="/createproperty"> Create New Property</a></div>
         </div>
       )
     }
@@ -57,6 +59,7 @@ class ProfilePage extends React.Component {
               <p>Last Name: {this.props.lastname}</p>
               <p>Email: {this.props.email}</p>
               <p>Role: {this.props.user_type} </p>
+              {this.renderPrivateInformation()}
             </div>
           </div>
       </div>
