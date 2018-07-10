@@ -15,14 +15,12 @@ module.exports = (app) => {
 	app.post('/api/tenant/login', usersController.tlogin);
 
 	/* Update profile info */
-	app.put('/api/users/:userId', usersController.update);
+	app.put('/api/users/:userId/:token', usersController.update);
 
 	/* temp db testing */
 	app.get('/api/users', usersController.list);
 	app.get('/api/users/:userId', usersController.retrieve);
 	app.delete('/api/users/:userId', usersController.destroy);
-
-	app.get('/api/test/:token', usersController.test);
 
 	app.all('/api/users', (req, res) =>
 		res.status(405).send({

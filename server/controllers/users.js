@@ -21,18 +21,6 @@ function generateToken(user) {
 }
 
 module.exports = {
-	test(req, res) {
-		// console.log(req.params.token);
-		// return User.then(
-		// 	res.status(200).send(req.params.token)
-		// )
-		var verified = jwt.verify(req.params.token, config.secret);
-		try {
-			return res.status(201).send(verified);
-		} catch (Error) {
-			return error => res.status(400).send(error);
-		}
-	},
 	pmsignup(req, res) {
 		return User
 		.findOrCreate({
@@ -230,25 +218,51 @@ module.exports = {
 	},
 	/* Update information for a specific user */
 	update(req, res) {
-		return User
-			.findById(req.params.userId)
-			.then(user => {
-				if(!user) {
-					return res.status(404).send({
-						message: 'User Not Found',
-					});
-				}
-				return user
-					.update(req.body, { fields: Object.keys(req.body) })
-					//allows user to update any valid fields in their account
-					//will need to consider securely resetting/changing passwords
-					//also need checks when changing email or username; notify pm
-					//of any changes to their tenants accounts
-					.then(() => res.status(200).send(user))
-					//409: conflict with an existing resource; ie. duplicate username/emails
-					.catch((error) => res.status(409).send(error));
-			})
-			.catch((error) => res.status(400).send(error));
+		try {
+			//verify if can update a profile by checking if has valid token
+			var currentUser = jwt.verify(req.params.token, config.secret);
+			// console.log(currentUser.userId);
+			if(req.params.userId == currentUser.userId) {
+				return User
+				.findById(currentUser.userId)
+				.then(user => {
+					if(!user) {
+						return res.status(404).send({
+							message: 'User Not Found',
+						});
+					}
+					return user
+						.update({
+							email: req.body.email || user.email,
+							firstname: req.body.firstname || user.firstname,
+							lastname: req.body.lastname || user.lastname,
+						})
+						//allows user to update any valid fields in their account
+						//will need to consider securely resetting/changing passwords
+						//also need checks when changing email or username; notify pm
+						//of any changes to their tenants accounts
+						.then(() => res.status(200).send({
+							user: {
+								user_type: user.user_type,
+								userId: user.id,
+								username: user.username,
+								email: user.email,
+								firstname: user.firstname,
+								lastname: user.lastname
+							}
+						}))
+						//409: conflict with an existing resource; ie. duplicate username/emails
+						.catch((error) => res.status(409).send(error));
+				})
+				.catch((error) => res.status(400).send(error));
+			} else {
+				return res.status(400).send(error);
+			}
+		} catch (error) {
+			return res.status(400).send(error);
+		}
+		
+		
 	},
 	// /* Deletes a user from db */
 	destroy(req, res) {
