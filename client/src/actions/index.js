@@ -86,8 +86,7 @@ export const edit_profile = ({username, email, firstname, lastname}, callback) =
   localStorage.setItem('lastname', lastname);
 };
 
-export const get_user_profile = ({id}, callback) => async dispatch => {
-
+export const get_user_profile = ({id}) => async dispatch => {
   const response = await axios.get(
     apiBaseUrl + "users/" + id,
   )  .then(function (response) {
