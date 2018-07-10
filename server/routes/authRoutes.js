@@ -22,6 +22,7 @@ module.exports = (app) => {
 	app.get('/api/users/:userId', usersController.retrieve);
 	app.delete('/api/users/:userId', usersController.destroy);
 
+	app.get('/api/test/:token', usersController.test);
 
 	app.all('/api/users', (req, res) =>
 		res.status(405).send({

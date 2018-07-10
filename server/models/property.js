@@ -26,15 +26,15 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
     },
     number_of_bedrooms: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING,
       allowNull: false,
     },
     number_of_bathrooms: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING,
       allowNull: false,
     },
     allows_pets: {
-      type: DataTypes.BOOLEAN,
+      type: DataTypes.STRING,
       allowNull: false
     },
     prices: {

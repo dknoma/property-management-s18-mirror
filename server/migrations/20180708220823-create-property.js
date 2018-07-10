@@ -33,15 +33,15 @@ module.exports = {
         allowNull: false,
       },
       number_of_bedrooms: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.STRING,
         allowNull: false,
       },
       number_of_bathrooms: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.STRING,
         allowNull: false,
       },
       allows_pets: {
-        type: DataTypes.BOOLEAN,
+        type: DataTypes.STRING,
         allowNull: false
       },
       prices: {

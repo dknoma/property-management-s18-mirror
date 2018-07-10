@@ -21,6 +21,18 @@ function generateToken(user) {
 }
 
 module.exports = {
+	test(req, res) {
+		// console.log(req.params.token);
+		// return User.then(
+		// 	res.status(200).send(req.params.token)
+		// )
+		var verified = jwt.verify(req.params.token, config.secret);
+		try {
+			return res.status(201).send(verified);
+		} catch (Error) {
+			return error => res.status(400).send(error);
+		}
+	},
 	pmsignup(req, res) {
 		return User
 		.findOrCreate({
