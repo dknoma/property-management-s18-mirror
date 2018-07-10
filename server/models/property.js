@@ -26,19 +26,19 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
     },
     number_of_bedrooms: {
-      type: DataTypes.STRING,
+      type: DataTypes.INTEGER,
       allowNull: false,
     },
     number_of_bathrooms: {
-      type: DataTypes.STRING,
+      type: DataTypes.INTEGER,
       allowNull: false,
     },
     allows_pets: {
-      type: DataTypes.STRING,
+      type: DataTypes.BOOLEAN,
       allowNull: false
     },
     prices: {
-      type: DataTypes.STRING,
+      type: DataTypes.INTEGER,
       allowNull: false,
     },
     url_address: {
