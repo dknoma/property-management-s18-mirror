@@ -38,8 +38,7 @@ export const login =
 ({user_type, username, password}, callback) => async dispatch => {
     try {
       const response = await axios.post(
-        apiBaseUrl + user_type + "/login",
-       {user_type, username, password}
+        apiBaseUrl + user_type + "/login", {user_type, username, password}
       );
 
        /* and get the token as payload */
@@ -57,7 +56,6 @@ export const login =
       console.log(response.data.user.userId);
       /* This says to redirect */
       callback();
-
       /* Should also save user data to state so we don't have to ping db every time */
     } catch (e) {
       alert(e.response.data.message);
@@ -81,6 +79,20 @@ export const edit_profile = ({username, email, firstname, lastname}, callback) =
     apiBaseUrl + "users/" + id,
     {username, email, firstname, lastname}
   );
+
+  localStorage.setItem('username', username);
+  localStorage.setItem('email', email);
+  localStorage.setItem('firstname', firstname);
+  localStorage.setItem('lastname', lastname);
+};
+
+export const get_user_profile = ({username, email, firstname, lastname}, callback) => async dispatch => {
+  // const id = localStorage.getItem('id');
+
+  // const response = await axios.get(
+  //   apiBaseUrl + "users/" + id,
+  //   {username, email, firstname, lastname}
+  // );
 
   localStorage.setItem('username', username);
   localStorage.setItem('email', email);

@@ -87,7 +87,8 @@ function mapStateToProps(state) {
     firstname: state.auth.firstname,
     lastname: state.auth.lastname,
     email: state.auth.email,
-    user_type: state.auth.user_type
+    user_type: state.auth.user_type,
+    id: state.auth.id
   };
 }
 
