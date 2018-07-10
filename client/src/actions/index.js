@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { AUTH_USER, AUTH_ERROR, OTHER_USER } from './types';
+import { AUTH_USER, AUTH_ERROR, OTHER_USER, ALL_USERS } from './types';
 
 var apiBaseUrl = "http://localhost:3000/api/";
 
@@ -99,6 +99,16 @@ export const get_user_profile = ({id}) => async dispatch => {
     /* Dispatch a payload of OTHER_USER */
     dispatch ({ type: OTHER_USER, payload: response.data });
     console.log(response.data.user);
+  })
+};
+
+export const get_users = () => async dispatch => {
+  const response = await axios.get(
+    apiBaseUrl + "users",
+  )  .then(function (response) {
+    /* Dispatch a payload of OTHER_USER */
+      dispatch ({ type: ALL_USERS, payload: response.data });
+      console.log(response.data.users);
   })
 };
 

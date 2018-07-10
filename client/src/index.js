@@ -23,6 +23,7 @@ import Register from "./components/auth/Register.js";
 import ProfilePage from "./components/ProfilePage.js";
 import CreateProperty from "./components/CreateProperty.js";
 import ProfileEdit from "./components/ProfileEdit.js";
+import Users from "./components/Users.js";
 
 
 
@@ -61,32 +62,30 @@ ReactDOM.render(
 
     <div className="container wrapper">
       <div className="row">
-
         <Nav/>
         <Router history={browserHistory}>
-        <Route path='/' component={Home}>
-        </Route>
-        <Route path={"login"} component={Login}>
-        </Route>
-        <Route path={"register"} component={Register}>
-        </Route>
-        <Route path={"logout"} component={Logout}>
-        </Route>
-        <Route path={"profile/:id"} component={ProfilePage}>
-        </Route>
-
-        <Route path={"createproperty"} component={CreateProperty}>
-        </Route>
-        <Route path={"edit"} component={ProfileEdit}>
-        </Route>
-
+          <Route path='/' component={Home}>
+          </Route>
+          <Route path={"login"} component={Login}>
+          </Route>
+          <Route path={"register"} component={Register}>
+          </Route>
+          <Route path={"logout"} component={Logout}>
+          </Route>
+          <Route path={"profile/:id"} component={ProfilePage}>
+          </Route>
+          <Route path={"createproperty"} component={CreateProperty}>
+          </Route>
+          <Route path={"edit"} component={ProfileEdit}>
+          </Route>
+          <Route path={"users"} component={Users}>
+          </Route>
         </Router>
-
-                </div>
-        <div className="row">
-
-        </div>
       </div>
+      <div className="row">
+
+      </div>
+    </div>
 
     </Provider>
     ,

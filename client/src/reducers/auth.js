@@ -1,4 +1,4 @@
-import { AUTH_USER, AUTH_ERROR, OTHER_USER } from '../actions/types';
+import { AUTH_USER, AUTH_ERROR, OTHER_USER, ALL_USERS } from '../actions/types';
 
 // reducer for authentication
 // we want to define an initial state constant variable
@@ -12,6 +12,7 @@ const INITIAL_STATE = {
   user_type: '',
   my_id: '',
   id: '',
+  users: [],
 };
 
 /* Reducer takes two arguments, the current state and an action */
@@ -61,7 +62,17 @@ export default function(state = INITIAL_STATE, action) {
         lastname: action.payload.user.lastname,
         user_type: action.payload.user.user_type
       };
+
+    case ALL_USERS:
+    console.log(action.payload.users);
+        return {...state,
+          users: action.payload.users
+        };
+
     default:
       return state;
     }
+
+
+
 }

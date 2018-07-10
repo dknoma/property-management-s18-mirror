@@ -27,8 +27,6 @@ class ProfilePage extends React.Component {
   }
 
   renderPersonalInformation() {
-    console.log(this.props.id);
-    console.log(localStorage.getItem("my_id"));
     if (this.props.id == localStorage.getItem("my_id")) {
       return (
         <div>
