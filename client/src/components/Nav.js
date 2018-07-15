@@ -102,7 +102,7 @@ export class Nav extends Component {
                   open={open}
                   onClose={this.handleClose}
                 >
-                    <a href={"/profile/" + this.props.my_id} ><MenuItem>Profile</MenuItem></a>
+                    <a href={"/profile/" + localStorage.getItem('my_id')} ><MenuItem>Profile</MenuItem></a>
                     <a href={"/edit"} ><MenuItem>Edit Profile</MenuItem></a>
                 </Menu>
               </div>

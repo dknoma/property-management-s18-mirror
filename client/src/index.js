@@ -20,11 +20,12 @@ import Home from "./components/Home.js";
 import Login from "./components/auth/Login.js";
 import Logout from "./components/auth/Logout.js";
 import Register from "./components/auth/Register.js";
-import ProfilePage from "./components/ProfilePage.js";
-import CreateProperty from "./components/CreateProperty.js";
-import ProfileEdit from "./components/ProfileEdit.js";
+import ProfilePage from "./components/profile/ProfilePage.js";
+import ProfileEdit from "./components/profile/ProfileEdit.js";
 import Users from "./components/Users.js";
+import CreateProperty from "./components/CreateProperty.js";
 import PropertyListing from "./components/property/PropertyListing.js";
+import PropertySearchResults from "./components/property/PropertySearchResults.js";
 
 
 var destination = document.querySelector("#container");
@@ -81,6 +82,8 @@ ReactDOM.render(
           <Route path={"users"} component={Users}>
           </Route>
           <Route exact path={"propertylisting"} component={PropertyListing}>
+          </Route>
+          <Route exact path={"propertysearchresults"} component={PropertySearchResults}>
           </Route>
         </Router>
       </div>

@@ -2,7 +2,7 @@ import React from 'react';
 
 import { createStore, compose } from 'redux';
 import { connect } from 'react-redux';
-import * as actions from '../actions';
+import * as actions from '../../actions';
 
 /* Using Redux form, material UI, and redux-form-material-ui for forms */
 import {Field, reduxForm} from 'redux-form';
@@ -12,7 +12,7 @@ import Button from '@material-ui/core/Button';
 import { RadioGroup,TextField } from 'redux-form-material-ui';
 
 /* Higher Order Components */
-import requireAuth from './requireAuth';
+import requireAuth from '../requireAuth';
 
 const required = value => value ? undefined : 'Required'
 const maxLength = max => value =>

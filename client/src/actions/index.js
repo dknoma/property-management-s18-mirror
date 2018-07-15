@@ -141,3 +141,9 @@ export const fetchProperties = () => async dispatch => {
     dispatch({ type: FETCH_PROPERTIES, payload: res.data });
     console.log(res.data);
 };
+
+export const propertiesSearch = () => async dispatch => {
+    const res = await axios.get( apiBaseUrl + "property/list");
+    dispatch({ type: FETCH_PROPERTIES, payload: res.data });
+    console.log(res.data);
+};

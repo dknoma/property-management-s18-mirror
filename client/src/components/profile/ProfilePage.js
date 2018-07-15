@@ -5,10 +5,10 @@ import TextField from '@material-ui/core/TextField';
 
 /* Redux */
 import { connect } from 'react-redux';
-import * as actions from '../actions';
+import * as actions from '../../actions';
 
 /* Higher Order Components */
-import requireAuth from './requireAuth';
+import requireAuth from '../requireAuth';
 
 class ProfilePage extends React.Component {
 
