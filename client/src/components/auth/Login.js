@@ -6,6 +6,9 @@ import { createStore, compose } from 'redux';
 import { connect } from 'react-redux';
 import * as actions from '../../actions';
 
+/* Higher Order Components */
+import requireAnon from '../requireAnon';
+
 /* Using Redux form, material UI, and redux-form-material-ui for forms */
 import {Field, reduxForm} from 'redux-form';
 import Typography from '@material-ui/core/Typography';
@@ -84,7 +87,9 @@ function mapStateToProps(state) {
   };
 }
 
-export default compose(
-  connect(mapStateToProps, actions),
-  reduxForm({ form: 'login' })
-)(Login);
+Login = reduxForm({
+  form: 'login'
+})(Login)
+
+Login = connect(mapStateToProps, actions)(requireAnon(Login))
+export default Login;

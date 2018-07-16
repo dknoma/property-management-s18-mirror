@@ -21,6 +21,7 @@ class PropertyListing extends Component {
       >{header.label}</th>
     });
   }
+  
   renderItem() {
     const { propertylist } = this.props;
     return propertylist.map(property =>
