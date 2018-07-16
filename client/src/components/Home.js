@@ -1,9 +1,5 @@
 import React, { Component } from "react";
-//import { Link } from "react-router";
 import "../index.css";
-import PropTypes from 'prop-types';
-
-// import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 
@@ -21,7 +17,7 @@ class Home extends Component {
     const { classes } = this.props;
 
     return (
-      <div>
+      <div className="belowNav">
       <br />
         <Typography color="inherit" variant="display1">
           {this.state.title}
@@ -32,6 +28,7 @@ class Home extends Component {
           Login
         </Button>
       </a>
+      &nbsp; &nbsp; &nbsp;
       <a href="register">
         <Button variant="contained" color="primary">
           Register
@@ -41,10 +38,5 @@ class Home extends Component {
     )
   }
 };
-
-/* Need the classes prop types for recomended method of doing styling in react */
-Home.propTypes = {
-  classes: PropTypes.object,
-}
 
 export default Home;
