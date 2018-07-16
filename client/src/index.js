@@ -25,6 +25,7 @@ import CreateProperty from "./components/CreateProperty.js";
 import ProfileEdit from "./components/ProfileEdit.js";
 import Users from "./components/Users.js";
 import PropertyListing from "./components/property/PropertyListing.js";
+import SearchProperty from "./components/property/SearchProperty.js";
 
 
 var destination = document.querySelector("#container");
@@ -79,8 +80,10 @@ ReactDOM.render(
           <Route path={"edit"} component={ProfileEdit}>
           </Route>
           <Route path={"users"} component={Users}>
-          </Route>  
+          </Route>
           <Route exact path={"propertylisting"} component={PropertyListing}>
+          </Route>
+          <Route exact path={"searchproperty"} component={SearchProperty}>
           </Route>
 
           </Router>
