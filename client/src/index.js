@@ -26,7 +26,7 @@ import Users from "./components/Users.js";
 import CreateProperty from "./components/CreateProperty.js";
 import PropertyListing from "./components/property/PropertyListing.js";
 import PropertySearchResults from "./components/property/PropertySearchResults.js";
-
+import SearchProperty from "./components/property/SearchProperty.js";
 
 var destination = document.querySelector("#container");
 
@@ -84,6 +84,8 @@ ReactDOM.render(
           <Route exact path={"propertylisting"} component={PropertyListing}>
           </Route>
           <Route exact path={"propertysearchresults"} component={PropertySearchResults}>
+          </Route>
+          <Route exact path={"searchproperty"} component={SearchProperty}>
           </Route>
         </Router>
       </div>
