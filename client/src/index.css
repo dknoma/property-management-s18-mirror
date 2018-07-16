@@ -18,6 +18,10 @@ body {
 .belowNav {
 
 }
+/* Hide weird radio button on search property page */
+/* .MuiSelect-icon-122{
+  display:none!important;
+} */
 
 .button {
   color: #fff;

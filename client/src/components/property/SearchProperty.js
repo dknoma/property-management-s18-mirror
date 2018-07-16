@@ -74,7 +74,7 @@ class SearchProperty extends Component {
           </MenuItem>
         ))}
         </TextField>*/}
-        <TextField select label="Select" onChange={this.handleChange}>
+        <TextField select label="" onChange={this.handleChange}>
           <MenuItem id="price_gte" value=">" label="greaterthan">Greater than</MenuItem>
           <MenuItem id="price_gte" value="<" label="lessthan">Less than</MenuItem>
         </TextField>
@@ -94,7 +94,7 @@ class SearchProperty extends Component {
         </div>
 
           <br />
-        <button className = "button" type="submit">Create new property</button>
+        <button className = "button" type="submit">Search property</button>
         <br />
         </form>
     )
