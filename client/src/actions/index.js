@@ -149,10 +149,10 @@ export const propertiesSearch = () => async dispatch => {
     console.log(res.data);
 };
 
-export const search_property = ({price_gte, number_of_bedrooms, number_of_bathrooms, prices, city, state, zip, allows_pets}, callback) => async dispatch => {
+export const search_property = ({price_gte, number_of_bedrooms, number_of_bathrooms, prices, city, state, zip, allows_pets, property_type}, callback) => async dispatch => {
  try {
    const response = await axios.post(
-     apiBaseUrl + "property/filter", {price_gte, number_of_bedrooms, number_of_bathrooms, prices, city, state, zip, allows_pets});
+     apiBaseUrl + "property/filter", {price_gte, number_of_bedrooms, number_of_bathrooms, prices, city, state, zip, allows_pets, property_type});
 
   dispatch({ type: SEARCH_PROPERTY, payload: response.data});
   console.log(response.data);
