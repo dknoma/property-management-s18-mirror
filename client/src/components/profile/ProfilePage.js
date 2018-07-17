@@ -16,10 +16,6 @@ class ProfilePage extends React.Component {
     this.props.get_user_profile(this.props.params);
   };
 
-  componentWillReceiveProps() {
-
-  };
-
   renderPMInformation() {
     if (this.props.user_type ==="propertymanager") {
         return (
