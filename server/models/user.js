@@ -54,6 +54,10 @@ module.exports = (sequelize, DataTypes) => {
 		User.hasMany(models.PropertyTenant, {
 			foreignKey: 'tenantId',
 			as: 'propertyTenants',
+		}),
+		User.hasMany(models.Application, {
+			foreignKey: 'tenantId',
+			as: 'applications',
 		});
 		// User.belongsToMany(models.Property, {
 		// 	foreignKey: 'propertyId',

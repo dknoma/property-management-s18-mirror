@@ -5,6 +5,8 @@
  * Start postgres: pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start
  * Postman: 
  * 			- to create items: 127.0.0.1:8000/api/todos/1/items
+ * 
+ * Create model: sequelize model:create --name <Name> --attributes <name of attribute>:<type>
  */
 
 //include express module
@@ -25,7 +27,6 @@ app.use(bodyParser.urlencoded({ extended: false}));
 // Require our various routes into the application.
 require('./server/routes/authRoutes')(app);
 require('./server/routes/propRoutes')(app);
-require('./server/routes/propManagementRoutes')(app);
 
 app.get('*', (request, response) => response.status(200).send({
 	message: 'Welcome to the beginning of Wut.',

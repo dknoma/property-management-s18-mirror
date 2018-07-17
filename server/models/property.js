@@ -54,6 +54,10 @@ module.exports = (sequelize, DataTypes) => {
     Property.hasMany(models.PropertyTenant, {
       foreignKey: 'propertyId',
       as: 'propertyTenants',
+		}),
+		Property.hasMany(models.Application, {
+			foreignKey: 'propertyId',
+			as: 'applications',
 		});
   };
   return Property;

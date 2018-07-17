@@ -6,4 +6,5 @@ module.exports = {
     users,
     properties,
     propertyManagement,
+    applications,
 };
