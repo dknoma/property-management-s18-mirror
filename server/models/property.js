@@ -46,8 +46,15 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
     }
   }, {});
-  Property.associate = function(models) {
-    // associations can be defined here
+  Property.associate = (models) => {
+    Property.belongsTo(models.User, {
+      foreignKey: 'userId',
+      // through: 'UserProperty',
+		}),
+    Property.hasMany(models.PropertyTenant, {
+      foreignKey: 'propertyId',
+      as: 'propertyTenants',
+		});
   };
   return Property;
 };

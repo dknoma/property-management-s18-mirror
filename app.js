@@ -25,6 +25,7 @@ app.use(bodyParser.urlencoded({ extended: false}));
 // Require our various routes into the application.
 require('./server/routes/authRoutes')(app);
 require('./server/routes/propRoutes')(app);
+require('./server/routes/propManagementRoutes')(app);
 
 app.get('*', (request, response) => response.status(200).send({
 	message: 'Welcome to the beginning of Wut.',

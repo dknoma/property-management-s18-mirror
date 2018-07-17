@@ -9,7 +9,7 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       property_type: {
-        type: DataTypes.STRING,
+        type: Sequelize.STRING,
         allowNull: false,
       },
       property_name: {
@@ -41,7 +41,7 @@ module.exports = {
         allowNull: false,
       },
       allows_pets: {
-        type: DataTypes.BOOLEAN,
+        type: Sequelize.BOOLEAN,
         allowNull: false
       },
       prices: {
@@ -59,10 +59,18 @@ module.exports = {
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE
+      },
+      userId: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'Users',
+          key: 'id',
+          as: 'userId',
+        },
       }
     });
   },
-  down: (queryInterface, Sequelize) => {
+  down: (queryInterface/*, Sequelize*/) => {
     return queryInterface.dropTable('Properties');
   }
 };

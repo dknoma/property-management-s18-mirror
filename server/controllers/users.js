@@ -1,4 +1,5 @@
 const User = require('../models').User;
+const Property = require('../models').Property;
 const Sequelize = require('sequelize');
 const jwt = require('jsonwebtoken');
 const config = require('./config');
@@ -192,8 +193,13 @@ module.exports = {
 	/* List all users; Need to return only non-sensitive info ie. username, first and last name */
 	list(req, res) {
 		return User
-			.findAll()
-			.then(users => res.status(200).send({users}))
+			.findAll({
+				include: [{
+					model: Property,
+					as: 'properties',
+				}]
+			})
+			.then(users => res.status(200).send(users))
 			.catch(error => res.status(400).send(error));
 	},
 	/* List a specific user */
