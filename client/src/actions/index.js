@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { AUTH_USER, AUTH_ERROR, OTHER_USER, ALL_USERS, CREATE_PROPERTY, FETCH_PROPERTIES } from './types';
+import { AUTH_USER, AUTH_ERROR, OTHER_USER, ALL_USERS, CREATE_PROPERTY, FETCH_PROPERTIES, SEARCH_PROPERTY } from './types';
 
 var apiBaseUrl = "http://localhost:3000/api/";
 
@@ -146,4 +146,19 @@ export const propertiesSearch = () => async dispatch => {
     const res = await axios.get( apiBaseUrl + "property/list");
     dispatch({ type: FETCH_PROPERTIES, payload: res.data });
     console.log(res.data);
+};
+
+export const search_property = ({price_gte, number_of_bedrooms, number_of_bathrooms, prices, city, state, zip, allows_pets}, callback) => async dispatch => {
+ try {
+   const response = await axios.post(
+     apiBaseUrl + "property/filter", {price_gte, number_of_bedrooms, number_of_bathrooms, prices, city, state, zip, allows_pets});
+
+  dispatch({ type: SEARCH_PROPERTY, payload: response.data});
+  console.log(response.data);
+
+  callback();
+
+ } catch (e) {
+   alert(e.response.data.message);
+ }
 };

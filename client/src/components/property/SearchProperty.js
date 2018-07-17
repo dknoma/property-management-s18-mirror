@@ -8,41 +8,43 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import MenuItem from '@material-ui/core/MenuItem';
 import { TextField, RadioGroup } from 'redux-form-material-ui';
+import SelectField from 'material-ui/SelectField'
+import 'react-widgets/dist/css/react-widgets.css'
+
 
 const ranges = [
   {
-    value: '0-20',
-    label: '0 to 20',
+    value: '>',
+    label: 'Greater than',
   },
   {
-    value: '21-50',
-    label: '21 to 50',
-  },
-  {
-    value: '51-100',
-    label: '51 to 100',
-  },
+    value: '<',
+    label: 'Less than',
+  }
 ];
 
+
+
+/*
+const colors = [ { color: 'Red', value: 'ff0000' },
+  { color: 'Green', value: '00ff00' },
+  { color: 'Blue', value: '0000ff' } ]
+
+const renderDropdownList = ({ input, ...rest }) =>
+  <DropdownList {...input} {...rest}/>
+*/
 class SearchProperty extends Component {
   state = {
-     amount: '',
-     password: '',
-     weight: '',
-     weightRange: '',
-     showPassword: false,
+     location: '',
    };
 
-   handleChange = prop => event => {
-     this.setState({ [prop]: event.target.value });
-   };
+   handleChange = (event) => {
+   this.setState({ location: event.target.value });
+   console.log(this.state.location);
+ };
 
-   onSubmit = ({property_name, number_of_bedrooms, number_of_bathrooms, prices, property_type, street, city, state, zip, allows_pets, url_address}) => {
-     // if(!property_type || !allows_pets) {
-     //   alert("Please fill all the fields");
-     //   return;
-     // }
-     // console.log({property_name, number_of_bedrooms, number_of_bathrooms, prices, property_type, street, city, state, zip, allows_pets, url_address});
+   onSubmit = ({price_gte, number_of_bedrooms, number_of_bathrooms, prices, city, state, zip, allows_pets}) => {
+     console.log({price_gte, number_of_bedrooms, number_of_bathrooms, prices, city, state, zip, allows_pets});
      // this.props.create_property({property_name, number_of_bedrooms, number_of_bathrooms, prices, property_type, street, city, state, zip, allows_pets, url_address}, () => {
      //   alert("Property successfully created!");
      //   this.props.router.push("/propertylisting");
@@ -55,45 +57,58 @@ class SearchProperty extends Component {
   render() {
   const { handleSubmit } = this.props;
     return (
-        <form className="belowNav" >
+        <form className="belowNav" onSubmit={handleSubmit(this.onSubmit)} align="center">
         <Typography color="inherit" variant="display1">
         Search Property
         </Typography>
-        <label>Location &nbsp; &nbsp;</label>
-        <TextField label="City"
-          id="city"/>
-        <br/>
-        <label>Price Range</label>
-        &nbsp; &nbsp;
-        {/*}<TextField select label="Select"
-          value={this.state.weightRange}
-          onChange={this.handleChange('weightRange')}>
-        {ranges.map(option => (
-          <MenuItem key={option.value} value={option.value}>
-            {option.label}
-          </MenuItem>
-        ))}
-        </TextField>*/}
-        <TextField select label="" onChange={this.handleChange}>
-          <MenuItem id="price_gte" value=">" label="greaterthan">Greater than</MenuItem>
-          <MenuItem id="price_gte" value="<" label="lessthan">Less than</MenuItem>
-        </TextField>
-        &nbsp; &nbsp;
-        <TextField label="Price" id="price"/>
-        <br/>
-        <label>Allow Pets &nbsp; &nbsp;</label>
-        <div className="radioBtn">
-        <Field name="allows_pets" id="allows_pets" component={RadioGroup} >
-          <label>
-            <input type="radio" name="allows_pets" value="true" onChange={this.handleRadioChange}/>Yes
-          </label>
-          <label>
-            <input type="radio" name="allows_pets" value="false" onChange={this.handleRadioChange}/>No
-          </label>
-        </Field>
+        <br />
+        <div>
+          <label>Location &nbsp; &nbsp;</label>
+          <select onChange={this.handleChange}>
+             <option value=''>Select</option>
+             <option value='city'>City</option>
+             <option value='state'>State</option>
+             <option value='zip'>Zip code</option>
+          </select>
+          &nbsp; &nbsp;
+          <Field name={this.state.location} component={ TextField } label={this.state.location}/>
         </div>
-
-          <br />
+        <br/>
+        <div>
+          <label>Rent Type &nbsp; &nbsp;</label>
+          <Field component="select" name="property_type">
+             <option value=''>Select</option>
+             <option value='whole_house'>Whole House</option>
+             <option value='single_room'>Single Room</option>
+           </Field>
+        </div>
+        <div>
+          <label>Price Range</label>
+          &nbsp; &nbsp;
+          <Field component="select" name="price_gte" id="price_gte">
+            <option value=''>Select</option>
+            <option value='>'>Greater than</option>
+            <option value='<'>Less than</option>
+          </Field>
+          &nbsp; &nbsp;
+          <Field label="Price" name="prices" id="prices" component={ TextField }/>
+        </div>
+        <br />
+        <div>
+          <label>Allow Pets &nbsp; &nbsp;</label>
+          <Field component="select" name="allows_pets">
+             <option value=''>Select</option>
+             <option value='true'>Yes</option>
+             <option value='false'>No</option>
+           </Field>
+        </div>
+        <br />
+        <label>Number of Bedrooms &nbsp; &nbsp;</label>
+        <Field name="number_of_bedrooms" id="number_of_bedrooms" component={ TextField }/>
+        <br/>
+        <label>Number of Bathrooms &nbsp; &nbsp;</label>
+        <Field id="number_of_bathrooms" name="number_of_bathrooms" component={ TextField }/>
+        <br/>
         <button className = "button" type="submit">Search property</button>
         <br />
         </form>
