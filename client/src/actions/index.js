@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { AUTH_USER, AUTH_ERROR, OTHER_USER, ALL_USERS, CREATE_PROPERTY, FETCH_PROPERTIES } from './types';
+import { AUTH_USER, AUTH_ERROR, OTHER_USER, ALL_USERS, CREATE_PROPERTY, FETCH_PROPERTIES, GET_PROPERTY, SEARCH_PROPERTY } from './types';
 
 var apiBaseUrl = "http://localhost:3000/api/";
 
@@ -80,9 +80,10 @@ export const logout = () => {
 export const edit_profile = ({username, email, firstname, lastname}, callback) => async dispatch => {
   try {
     const id = localStorage.getItem('my_id');
-    console.log(id);
+    const token = localStorage.getItem('token');
+    console.log(token);
     const response = await axios.put(
-      apiBaseUrl + "users/" + id,
+      apiBaseUrl + "users/" + id + "/" + token,
       {username, email, firstname, lastname}
     );
 
@@ -146,4 +147,30 @@ export const propertiesSearch = () => async dispatch => {
     const res = await axios.get( apiBaseUrl + "property/list");
     dispatch({ type: FETCH_PROPERTIES, payload: res.data });
     console.log(res.data);
+};
+
+export const search_property = ({price_gte, number_of_bedrooms, number_of_bathrooms, prices, city, state, zip, allows_pets, property_type}, callback) => async dispatch => {
+ try {
+   const response = await axios.post(
+     apiBaseUrl + "property/filter", {price_gte, number_of_bedrooms, number_of_bathrooms, prices, city, state, zip, allows_pets, property_type});
+
+  dispatch({ type: SEARCH_PROPERTY, payload: response.data});
+  console.log(response.data);
+
+  callback();
+
+ } catch (e) {
+   alert(e.response.data.message);
+ }
+};
+
+export const get_property_profile = ({id}) => async dispatch => {
+  const response = await axios.get(
+    apiBaseUrl + "property/" + id,
+  )  .then(function (response) {
+    /* Dispatch a payload of OTHER_USER */
+    console.log(response.data.user);
+    dispatch ({ type: GET_PROPERTY, payload: response.data });
+
+  })
 };

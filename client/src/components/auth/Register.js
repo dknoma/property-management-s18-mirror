@@ -6,6 +6,9 @@ import { createStore, compose } from 'redux';
 import { connect } from 'react-redux';
 import * as actions from '../../actions';
 
+/* Higher Order Components */
+import requireAnon from '../requireAnon';
+
 /* Using Redux form, material UI, and redux-form-material-ui for forms */
 import {Field, reduxForm} from 'redux-form';
 import Typography from '@material-ui/core/Typography';
@@ -109,13 +112,13 @@ function mapStateToProps(state) {
   };
 }
 
-  Register = reduxForm({
-    form: 'signup_property'
-  })(Register)
+Register = reduxForm({
+  form: 'signup_property'
+})(Register)
 
 
 /* Use Componse to improve syntax of export portion */
 /* Need to pass mapStateToProps as an argument here */
-export default compose (
-  connect(mapStateToProps, actions),
-)(Register);
+
+Register = connect(mapStateToProps, actions)(requireAnon(Register));
+export default Register;

@@ -29,17 +29,17 @@ class ProfilePage extends React.Component {
   }
 
   renderPrivateInformation() {
-    if (this.props.id == localStorage.getItem("my_id")) {
-      return (
-        <div>
-          <p>Username: { this.props.my_username } </p>
-        </div>
-      )
-    } else {
-      return (
-        <p>Username: { this.props.username }</p>
-      )
-    }
+      if (this.props.id == localStorage.getItem("my_id")) {
+        return (
+          <div>
+            <p>Username: { localStorage.getItem("my_username") } </p>
+          </div>
+        )
+      } else {
+        return (
+          <p>Username: { this.props.username }</p>
+        )
+      }
   }
 
   render() {
