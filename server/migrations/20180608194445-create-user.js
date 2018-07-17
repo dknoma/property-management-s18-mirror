@@ -40,7 +40,15 @@ module.exports = {
 		updatedAt: {
 			allowNull: false,
 			type: Sequelize.DATE
-		}
+		},
+		// propertyId: {
+		// 	type: Sequelize.INTEGER,
+		// 	references: {
+		// 	  model: 'Properties',
+		// 	  key: 'id',
+		// 	  as: 'propertyId',
+		// 	},
+		// }
 	}),
 	down: (queryInterface/*, Sequelize*/) =>  queryInterface.dropTable('Users'),
 };

@@ -1,12 +1,29 @@
-const PropertyItem = require('../models').Property;
+const Property = require('../models').Property;
+const User = require('../models').User;
 const config = require('./config');
 const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
 
 module.exports = {
+  addTest(req, res) {
+    return Property
+      .findById(req.body.propertyId)
+      .then(
+        User
+        .findById(req.body.userId)
+        .then((property, user) => {
+          property.create({userId: req.body.userId});
+          return res.status(200).send(property);
+        })
+        .catch(error => res.status(400).send({message: 'in',error}))
+      )
+      .catch(error => res.status(400).send({message: 'out',error}));
+  },
+
   create(req, res) {
     //verify if user is propertymanager,
-    return PropertyItem
+    //each property should have an ownerId as well which contains the id of the creator
+    return Property
       .create({
 				property_type: req.body.property_type,
 		    property_name: req.body.property_name,
@@ -18,14 +35,15 @@ module.exports = {
         number_of_bathrooms: req.body.number_of_bathrooms,
         allows_pets: req.body.allows_pets,
 		    prices: req.body.prices,
-		    url_address: req.body.url_address,
+        url_address: req.body.url_address,
+        userId: req.body.userId
       })
-      .then(propertyItem => res.status(201).send(propertyItem))
+      .then(property => res.status(201).send(property))
       .catch(error => res.status(400).send(error));
   },
 
   filter(req, res) {
-    return PropertyItem
+    return Property
     .findAll({
       where: {
         [Op.and]: [
@@ -70,35 +88,35 @@ module.exports = {
         ]
       }
     })
-    .then(property_item => {
-    if (!property_item) {
-      return res.status(404).send({
-        message: 'property Not Found',
-      });
-    }
-    return res.status(200).send(property_item);
+    .then(property => {
+      if (!property) {
+        return res.status(404).send({
+          message: 'property Not Found',
+        });
+      }
+      return res.status(200).send(property);
     })
     .catch(error => res.status(400).send(error));
 
   },
 
   list(req, res) {
-    return PropertyItem
-      .all()
-      .then(propertyItem => res.status(200).send(propertyItem))
+    return Property
+      .findAll()
+      .then(property => res.status(200).send(property))
       .catch(error => res.status(400).send(error));
   },
 
   retrieve(req, res) {
-    return PropertyItem
+    return Property
       .findById(req.params.propertyId)
-      .then(property_item => {
-        if (!property_item) {
+      .then(property => {
+        if (!property) {
           return res.status(404).send({
             message: 'property Not Found',
           });
         }
-        return res.status(200).send(property_item);
+        return res.status(200).send(property);
       })
       .catch(error => res.status(400).send(error));
     }

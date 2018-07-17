@@ -46,11 +46,20 @@ module.exports = (sequelize, DataTypes) => {
 			}
 		}
 	});
-	// User.associate = (models) => {
-	// 	User.hasMany(models.Todo, {
-	// 		foreignKey: 'userId',
-	// 		as: 'todos',
-	// 	});
-	// };
+	User.associate = (models) => {
+		User.hasMany(models.Property, {
+			foreignKey: 'userId',
+			as: 'properties',
+		}),
+		User.hasMany(models.PropertyTenant, {
+			foreignKey: 'tenantId',
+			as: 'propertyTenants',
+		});
+		// User.belongsToMany(models.Property, {
+		// 	foreignKey: 'propertyId',
+		// 	through: 'UserProperty',
+		// 	as: 'user'
+		// })
+	};
 	return User;
 };

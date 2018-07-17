@@ -8,11 +8,13 @@ module.exports = (app) => {
 	/* create property */
     app.post('/api/property/create', propertiesController.create);
 
-		/* list and filter property */
-		app.get('/api/property/list', propertiesController.list);
-		app.post('/api/property/filter',propertiesController.filter);
-		app.get('/api/property/:propertyId', propertiesController.retrieve);
+	/* list and filter property */
+	app.get('/api/property/list', propertiesController.list);
+	app.post('/api/property/filter',propertiesController.filter);
+	app.get('/api/property/:propertyId', propertiesController.retrieve);
 
+	/* Testing */
+	app.post('/api/property/adduser', propertiesController.addTest);
 
 	app.all('/api/users', (req, res) =>
 		res.status(405).send({
