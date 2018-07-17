@@ -8,37 +8,20 @@ import 'react-table/react-table.css';
 
 class PropertySearchResults extends Component {
   render() {
-    const data = [{
-      name: 'nick kebbas',
-      age: 26,
-      friend: {
-        name: 'Jason Maurer',
-        age: 23,
-      }
-    },{
-      name: 'kim quant',
-      age: 26,
-      friend: {
-        name: 'Jason Maurer',
-        age: 23,
-      }
-    },
-  ]
+    console.log(this.props.search_result_list);
+    const data = this.props.search_result_list;
 
     const columns = [{
-      Header: 'Name',
-      accessor: 'name' // String-based value accessors!
+      Header: 'Property',
+      accessor: 'property_name' // String-based value accessors!
     }, {
-      Header: 'Age',
-      accessor: 'age',
+      Header: 'state',
+      accessor: 'state',
       Cell: props => <span className='number'>{props.value}</span> // Custom cell components!
     }, {
-      id: 'friendName', // Required because our accessor is not a string
-      Header: 'Friend Name',
-      accessor: d => d.friend.name // Custom value accessors!
-    }, {
-      Header: props => <span>Friend Age</span>, // Custom header components!
-      accessor: 'friend.age'
+      id: 'price', // Required because our accessor is not a string
+      Header: 'Price',
+      accessor: d => d.price // Custom value accessors!
     }]
     return (
       <ReactTable
@@ -46,8 +29,13 @@ class PropertySearchResults extends Component {
         columns={columns}
       />
     )
-
   }
 }
 
-export default PropertySearchResults;
+function mapStateToProps(state) {
+  return {
+    search_result_list: state.property.search_result_list
+  };
+}
+
+export default connect(mapStateToProps, actions)(PropertySearchResults);

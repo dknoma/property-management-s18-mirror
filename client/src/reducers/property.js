@@ -15,6 +15,7 @@ const INITIAL_STATE = {
   url_address: '',
   zip: '',
   allows_pets: false,
+  search_result_list: null,
 };
 
 /* Reducer takes two arguments, the current state and an action */
@@ -58,9 +59,9 @@ export default function(state = INITIAL_STATE, action) {
     };
 
     case SEARCH_PROPERTY:
+    console.log(action.payload);
       return {...state,
         search_result_list: action.payload
-
       }
     default:
       return state;
