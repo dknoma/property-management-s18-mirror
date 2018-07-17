@@ -89,7 +89,7 @@ module.exports = {
       }
     })
     .then(property => {
-      if (!property) {
+      if (property.length == 0) {
         return res.status(404).send({
           message: 'property Not Found',
         });

@@ -45,8 +45,32 @@ module.exports = {
         }
       })
       .then(propertyTenants => {
-        res.status(200).send(propertyTenants)
+        return res.status(200).send(propertyTenants)
       })
       .catch(error => res.status(400).send(error));
+  },
+  removeTenant(req, res) {
+    return PropertyTenant
+      .find({
+        where: {
+          [Op.and]: [
+            {propertyId: req.params.propertyId},
+            {tenantId: req.params.tenantId}
+          ]
+        }
+      })
+      .then(propertyTenant => {
+        if(!propertyTenant) {
+          return res.status(404).send({
+              message: 'Association not found',
+          });
+        }
+        return propertyTenant
+            .destroy()
+            //status(204).send()) : 204 No Content
+            .then(() => res.status(200).send({ message: 'User successfully removed from property!'}))
+            .catch(error => res.status(400).send(error));
+        })
+        .catch(error => res.status(400).send(error));
   }
 };
