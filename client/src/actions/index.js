@@ -80,9 +80,10 @@ export const logout = () => {
 export const edit_profile = ({username, email, firstname, lastname}, callback) => async dispatch => {
   try {
     const id = localStorage.getItem('my_id');
-    console.log(id);
+    const token = localStorage.getItem('token');
+    console.log(token);
     const response = await axios.put(
-      apiBaseUrl + "users/" + id,
+      apiBaseUrl + "users/" + id + "/" + token,
       {username, email, firstname, lastname}
     );
 
