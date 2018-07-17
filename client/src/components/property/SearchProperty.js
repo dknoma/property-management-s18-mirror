@@ -12,19 +12,6 @@ import SelectField from 'material-ui/SelectField'
 import 'react-widgets/dist/css/react-widgets.css'
 
 
-const ranges = [
-  {
-    value: '>',
-    label: 'Greater than',
-  },
-  {
-    value: '<',
-    label: 'Less than',
-  }
-];
-
-
-
 /*
 const colors = [ { color: 'Red', value: 'ff0000' },
   { color: 'Green', value: '00ff00' },
@@ -34,6 +21,9 @@ const renderDropdownList = ({ input, ...rest }) =>
   <DropdownList {...input} {...rest}/>
 */
 class SearchProperty extends Component {
+  constructor(props) {
+    super(props);
+  }
   state = {
      location: '',
    };
@@ -45,12 +35,10 @@ class SearchProperty extends Component {
 
    onSubmit = ({price_gte, number_of_bedrooms, number_of_bathrooms, prices, city, state, zip, allows_pets}) => {
      console.log({price_gte, number_of_bedrooms, number_of_bathrooms, prices, city, state, zip, allows_pets});
-     // this.props.create_property({property_name, number_of_bedrooms, number_of_bathrooms, prices, property_type, street, city, state, zip, allows_pets, url_address}, () => {
-     //   alert("Property successfully created!");
-     //   this.props.router.push("/propertylisting");
-     // });
-
      return;
+     this.props.search_property({price_gte, number_of_bedrooms, number_of_bathrooms, prices, city, state, zip, allows_pets}, () => {
+       this.props.router.push("/propertysearchresults");
+     })
    //console.log(({user_type, username, email, firstname, lastname, password});
    };
 
@@ -120,4 +108,4 @@ SearchProperty = reduxForm({
   form: 'search_property'
 })(SearchProperty)
 
-export default SearchProperty;
+export default connect(null, actions)(SearchProperty);
