@@ -33,10 +33,10 @@ class SearchProperty extends Component {
    console.log(this.state.location);
  };
 
-   onSubmit = ({price_gte, number_of_bedrooms, number_of_bathrooms, prices, city, state, zip, allows_pets}) => {
-     console.log({price_gte, number_of_bedrooms, number_of_bathrooms, prices, city, state, zip, allows_pets});
-     return;
-     this.props.search_property({price_gte, number_of_bedrooms, number_of_bathrooms, prices, city, state, zip, allows_pets}, () => {
+   onSubmit = ({price_gte, number_of_bedrooms, number_of_bathrooms, prices, city, state, zip, allows_pets, property_type}) => {
+     console.log({price_gte, number_of_bedrooms, number_of_bathrooms, prices, city, state, zip, allows_pets, property_type});
+
+     this.props.search_property({price_gte, number_of_bedrooms, number_of_bathrooms, prices, city, state, zip, allows_pets, property_type}, () => {
        this.props.router.push("/propertysearchresults");
      })
    //console.log(({user_type, username, email, firstname, lastname, password});
