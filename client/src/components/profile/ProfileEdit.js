@@ -32,10 +32,12 @@ const passwordConfirm = (value, allValues) =>
 class ProfileEdit extends React.Component {
 
   /* Change this to submit the payload */
+
 onSubmit = ({username, email, firstname, lastname}) => {
-  console.log({username, email, firstname, lastname});
-  this.props.edit_profile({username, email, firstname, lastname}, () => {
-    this.props.router.push("/profile/" + this.props.my_id );
+  const id = localStorage.getItem("my_id");
+  console.log(id);
+  this.props.edit_profile({username, email, firstname, lastname, id}, () => {
+    this.props.router.push("/profile/" + id );
   });
 };
 
@@ -46,6 +48,7 @@ onSubmit = ({username, email, firstname, lastname}) => {
       firstname: this.props.firstname,
       lastname: this.props.lastname,
       email: this.props.email,
+      my_id: this.props.my_id
     }
     /* handleSubmit is provided by Redux Form */
     const { handleSubmit } = this.props;

@@ -6,8 +6,6 @@ import property from './property'
 
 export default combineReducers({
   auth,
-  //without ES6:
-  // auth: auth
   form: formReducer,
   property
 });

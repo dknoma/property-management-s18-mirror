@@ -12,6 +12,12 @@ import { createStore, applyMiddleware } from "redux";
 /* Middlewares */
 import reduxThunk from "redux-thunk";
 
+/* State Persist */
+import {loadState, saveState} from './localStorage.js';
+
+/* Lodash */
+import throttle from "lodash/throttle";
+
 /* Components */
 import reducers from "./reducers";
 import "./index.css";
@@ -34,25 +40,20 @@ var destination = document.querySelector("#container");
 /* Check for token every time app starts up */
 
 /* Runs this every time on application page load */
-
+const persistedState = loadState();
 const store = createStore(
   reducers,
-  {
-    auth: {
-    authenticated: localStorage.getItem('token'),
-    my_id: localStorage.getItem('my_id'),
-    my_username: localStorage.getItem('my_username'),
-    id: localStorage.getItem('id'),
-    username: localStorage.getItem('username'),
-    email: localStorage.getItem('email'),
-    firstname: localStorage.getItem('firstname'),
-    lastname: localStorage.getItem('lastname'),
-    user_type: localStorage.getItem('user_type')
-    },
-  },
+  persistedState,
   applyMiddleware(reduxThunk)
 );
 
+store.subscribe(throttle(() => {
+  saveState({
+    auth: store.getState().auth,
+    property: store.getState().property
+  });
+}, 1000));
+console.log(store.getState().property.search_results_list)
 
 //console.log(store.getState());
 
