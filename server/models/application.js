@@ -22,19 +22,19 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false
     }
   }, {});
-  Application.associate = function(models) {
-    // Application.belongsTo(models.User, {
-    //   foreignKey: 'tenantId',
-    //   onDelete: 'CASCADE',
-    // }),
+  Application.associate = (models) => {
+    Application.belongsTo(models.User, {
+      foreignKey: 'tenantId',
+      onDelete: 'CASCADE',
+    }),
     Application.belongsTo(models.Property, {
       foreignKey: 'propertyId',
       onDelete: 'CASCADE',
-    })
-    // Application.belongsTo(models.User, {
-    //   foreignKey: 'pmId',
-    //   onDelete: 'CASCADE',
-    // });
+    }),
+    Application.belongsTo(models.User, {
+      foreignKey: 'pmId',
+      onDelete: 'CASCADE',
+    });
   };
   return Application;
 };

@@ -1,6 +1,6 @@
 const propertiesController = require('../controllers').properties;
 const propertyManagementController = require('../controllers').propertyManagement;
-const applicationController = require('../controllers').applcations;
+const applicationController = require('../controllers').applications;
 
 module.exports = (app) => {
 	app.get('/api', (req, res) => res.status(200).send({
@@ -16,15 +16,14 @@ module.exports = (app) => {
 	/* Property Manager Routes */
 	/* Create property */
     app.post('/api/property/create', propertiesController.create);
-    //add tenant to a property
     app.post('/api/propertymanager/add', propertyManagementController.addToProp);
-    //get all tenants of a property
     app.get('/api/propertymanager/:propertyId/tenants', propertyManagementController.findTenants);
-    //removes a tenant from a property
 	app.delete('/api/propertymanager/:propertyId/:tenantId', propertyManagementController.removeTenant);
 
 	/* Application */
 	//TODO: create, findAll, delete
+	app.post('/api/property/:propertyId/apply', applicationController.create);
+	app.get('/api/property/:propertyId/applications', applicationController.findApplications);
 
 	/* Testing */
 	app.post('/api/property/adduser', propertiesController.addTest);

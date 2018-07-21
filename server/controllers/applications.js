@@ -10,14 +10,15 @@ module.exports = {
 		return Application
 		.create({
 			tenantId: req.body.tenantId,
-			propertyId: req.body.propertyId,
+			propertyId: req.params.propertyId,
+			// propertyId: req.body.propertyId,
 			pmId: req.body.pmId,
-			form_subject: req.body.subject,
-			form_body: req.body.body,
+			form_subject: req.body.form_subject,
+			form_body: req.body.form_body,
 			})
 			.then((application, created) => {
 				//if relation exists, need to try again
-				if(!created) {
+				if(application == null) {
 					//409: conflict with an existing resource; ie. duplicate username/emails
 					return res.status(404).send({
 						message: 'An error has occurred. Please try again.'
@@ -35,12 +36,12 @@ module.exports = {
 		//verify if PM
 		return Application
 			.findAll({
-			where: {
-				propertyId: req.params.propertyId,
-			}
+				where: {
+					propertyId: req.params.propertyId,
+				}
 			})
 			.then(applications => {
-			return res.status(200).send(applications)
+				return res.status(200).send(applications)
 			})
 			.catch(error => res.status(400).send(error));
 	},
