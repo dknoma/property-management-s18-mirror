@@ -160,7 +160,7 @@ module.exports = {
 			})
 			.then(user => {
 				if(!user) {
-					return res.status(204).send({
+					return res.status(401).send({
 						message: 'Username or password is wrong. Please try again.'
 					})
 				}
