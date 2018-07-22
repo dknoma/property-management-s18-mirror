@@ -28,13 +28,8 @@ class SearchProperty extends Component {
      location: '',
    };
 
-   handleChange = (event) => {
-   this.setState({ location: event.target.value });
-   console.log(this.state.location);
- };
-
    onSubmit = ({price_gte, number_of_bedrooms, number_of_bathrooms, prices, city, state, zip, allows_pets, property_type}) => {
-     console.log({price_gte, number_of_bedrooms, number_of_bathrooms, prices, city, state, zip, allows_pets, property_type});
+    // console.log({price_gte, number_of_bedrooms, number_of_bathrooms, prices, city, state, zip, allows_pets, property_type});
 
      this.props.search_property({price_gte, number_of_bedrooms, number_of_bathrooms, prices, city, state, zip, allows_pets, property_type}, () => {
        this.props.router.push("/propertysearchresults");
@@ -51,15 +46,16 @@ class SearchProperty extends Component {
         </Typography>
         <br />
         <div>
-          <label>Location &nbsp; &nbsp;</label>
-          <select onChange={this.handleChange}>
-             <option value=''>Select</option>
-             <option value='city'>City</option>
-             <option value='state'>State</option>
-             <option value='zip'>Zip code</option>
-          </select>
-          &nbsp; &nbsp;
-          <Field name={this.state.location} component={ TextField } label={this.state.location}/>
+          <label>City &nbsp; &nbsp;</label>
+          <Field name="city" id="city" component={ TextField }/>
+        </div>
+        <div>
+          <label>State &nbsp; &nbsp;</label>
+          <Field name="state" id="state" component={ TextField }/>
+        </div>
+        <div>
+          <label>Zipcode &nbsp; &nbsp;</label>
+          <Field name="zip" id="zip" component={ TextField }/>
         </div>
         <br/>
         <div>
