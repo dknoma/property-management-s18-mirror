@@ -36,6 +36,7 @@ export default function(state = INITIAL_STATE, action) {
         my_id: action.payload.user.id,
         id: action.payload.user.id,
         email: action.payload.user.email,
+        username: action.payload.user.username,
         my_username: action.payload.user.username,
         firstname: action.payload.user.firstname,
         lastname: action.payload.user.lastname,

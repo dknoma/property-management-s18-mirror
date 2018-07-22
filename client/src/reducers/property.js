@@ -63,10 +63,6 @@ export default function(state = INITIAL_STATE, action) {
         search_results_list: action.payload
       }
 
-    case PERSIST_SEARCH_RESULTS:
-      return {...state,
-        search_results_list: action.payload
-      }
 
     default:
       return state;

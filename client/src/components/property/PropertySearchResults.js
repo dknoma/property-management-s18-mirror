@@ -27,7 +27,7 @@ class PropertySearchResults extends Component {
       accessor: 'number_of_bedrooms',
       Cell: props => <span className='number'>{props.value}</span> // Custom cell components!
     }, {
-      Header: 'state',
+      Header: 'State',
       accessor: 'state',
       Cell: props => <span className='number'>{props.value}</span> // Custom cell components!
     }, {
