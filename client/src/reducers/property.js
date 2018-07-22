@@ -1,4 +1,4 @@
-import { CREATE_PROPERTY, FETCH_PROPERTIES, GET_PROPERTY, SEARCH_PROPERTY } from '../actions/types';
+import { CREATE_PROPERTY, FETCH_PROPERTIES, GET_PROPERTY, SEARCH_PROPERTY, PERSIST_SEARCH_RESULTS } from '../actions/types';
 
 // reducer for authentication
 // we want to define an initial state constant variable
@@ -15,6 +15,7 @@ const INITIAL_STATE = {
   url_address: '',
   zip: '',
   allows_pets: false,
+  search_results_list: null,
 };
 
 /* Reducer takes two arguments, the current state and an action */
@@ -34,7 +35,6 @@ export default function(state = INITIAL_STATE, action) {
       /* We can add more info if we want to*/
       return {...state,
         property_name: action.payload.property_name
-
       };
 
     case FETCH_PROPERTIES:
@@ -58,10 +58,16 @@ export default function(state = INITIAL_STATE, action) {
     };
 
     case SEARCH_PROPERTY:
+    console.log(action.payload);
       return {...state,
-        search_result_list: action.payload
-
+        search_results_list: action.payload
       }
+
+    case PERSIST_SEARCH_RESULTS:
+      return {...state,
+        search_results_list: action.payload
+      }
+
     default:
       return state;
     }

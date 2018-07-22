@@ -23,6 +23,7 @@ class ProfilePage extends React.Component {
             <div> <a class="button" href="/propertylisting"> View Property Listing</a></div>
             <br/>
             <div> <a class="button" href="/createproperty"> Create New Property</a></div>
+            <br/>
           </div>
         )
     }
@@ -61,6 +62,7 @@ class ProfilePage extends React.Component {
               <p>Role: {this.props.user_type} </p>
               {this.renderPMInformation()}
             </div>
+            <div> <a class="button" href="/searchproperty"> Search Property </a></div>
           </div>
       </div>
     );

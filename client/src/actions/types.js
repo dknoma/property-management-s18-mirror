@@ -6,3 +6,4 @@ export const CREATE_PROPERTY = "create_property";
 export const FETCH_PROPERTIES = "fetch_properties";
 export const SEARCH_PROPERTY= "search_property";
 export const GET_PROPERTY = "get_property";
+export const PERSIST_SEARCH_RESULTS = "persist_search_results";

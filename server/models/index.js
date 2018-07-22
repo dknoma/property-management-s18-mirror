@@ -14,7 +14,7 @@ if (config.use_env_variable) {
 } else {
   	sequelize = new Sequelize(
 	 	config.database, config.username, config.password, config
-  );	
+  );
 }
 
 fs
@@ -37,11 +37,11 @@ Object.keys(db).forEach(modelName => {
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
-// /*
-// var force = true ;
-// // 	will reset the database
-// //   remove this for production
-// // */
+/*
+var force = true ;
+// 	will reset the database
+//   remove this for production
+// */
 // db.sequelize.sync({
 //     force: true
 // }).then(function() {

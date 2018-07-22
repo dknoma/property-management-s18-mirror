@@ -11,6 +11,7 @@ const INITIAL_STATE = {
   lastname: '',
   user_type: '',
   my_id: '',
+  my_username: '',
   id: '',
   users: [],
 };
@@ -72,7 +73,4 @@ export default function(state = INITIAL_STATE, action) {
     default:
       return state;
     }
-
-
-
 }

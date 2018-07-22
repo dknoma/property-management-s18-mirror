@@ -1,5 +1,7 @@
 import axios from 'axios';
-import { AUTH_USER, AUTH_ERROR, OTHER_USER, ALL_USERS, CREATE_PROPERTY, FETCH_PROPERTIES, GET_PROPERTY, SEARCH_PROPERTY } from './types';
+import { AUTH_USER, AUTH_ERROR, OTHER_USER, ALL_USERS, CREATE_PROPERTY, FETCH_PROPERTIES, GET_PROPERTY, SEARCH_PROPERTY, PERSIST_SEARCH_RESULTS } from './types';
+/* State Persist */
+import {loadState, saveState} from '.././localStorage.js';
 
 var apiBaseUrl = "http://localhost:3000/api/";
 
@@ -7,6 +9,7 @@ var apiBaseUrl = "http://localhost:3000/api/";
 an action creator */
 
 /* pass form properties through */
+/* Not saving Ids to state here */
 export const signup =
 ({user_type, username, email, firstname, lastname, password}, callback) => async dispatch => {
   try {
@@ -77,11 +80,9 @@ export const logout = () => {
   };
 };
 
-export const edit_profile = ({username, email, firstname, lastname}, callback) => async dispatch => {
+export const edit_profile = ({username, email, firstname, lastname, id}, callback) => async dispatch => {
   try {
-    const id = localStorage.getItem('my_id');
     const token = localStorage.getItem('token');
-    console.log(token);
     const response = await axios.put(
       apiBaseUrl + "users/" + id + "/" + token,
       {username, email, firstname, lastname}
@@ -143,10 +144,16 @@ export const fetchProperties = () => async dispatch => {
     console.log(res.data);
 };
 
-export const propertiesSearch = () => async dispatch => {
-    const res = await axios.get( apiBaseUrl + "property/list");
-    dispatch({ type: FETCH_PROPERTIES, payload: res.data });
-    console.log(res.data);
+export const persist_search_results = ({price_gte, number_of_bedrooms, number_of_bathrooms, prices, city, state, zip, allows_pets, property_type}, callback) => async dispatch => {
+ try {
+   const response = await axios.post(
+     apiBaseUrl + "property/filter", {price_gte, number_of_bedrooms, number_of_bathrooms, prices, city, state, zip, allows_pets, property_type});
+
+    dispatch({ type: PERSIST_SEARCH_RESULTS, payload: response.data });
+    console.log(response.data);
+  } catch (e) {
+    alert(e.response.data.message);
+  }
 };
 
 export const search_property = ({price_gte, number_of_bedrooms, number_of_bathrooms, prices, city, state, zip, allows_pets, property_type}, callback) => async dispatch => {
@@ -156,7 +163,6 @@ export const search_property = ({price_gte, number_of_bedrooms, number_of_bathro
 
   dispatch({ type: SEARCH_PROPERTY, payload: response.data});
   console.log(response.data);
-
   callback();
 
  } catch (e) {
