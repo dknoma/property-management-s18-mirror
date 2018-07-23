@@ -14,7 +14,7 @@ module.exports = (app) => {
 	app.post('/api/tenant/login', usersController.tlogin);
 
 	/* Update profile info */
-	app.put('/api/users/:userId/:token', usersController.update);
+	app.put('/api/users/:userId', usersController.update);
 
 	/* temp db testing */
 	app.get('/api/users', usersController.list);
