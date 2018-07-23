@@ -14,6 +14,9 @@
 const express = require('express');
 const logger = require('morgan');
 const bodyParser = require('body-parser');
+const passport = require('passport');
+
+// require('./server/passport/passport');
 
 //creates the express application
 const app = express();
@@ -23,6 +26,12 @@ const app = express();
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false}));
+
+app.use(passport.initialize());
+
+// Load passport stratgies
+const localAuthStrat = require('./server/passport/local-auth');
+passport.use('local-auth', localAuthStrat);
 
 // Require our various routes into the application.
 require('./server/routes/authRoutes')(app);

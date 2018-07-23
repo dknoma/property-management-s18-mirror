@@ -32,8 +32,9 @@ module.exports = {
 			})
 			.catch(error => res.status(400).send(error));
 	},
-	findApplications(req, res) {
+	reviewApplications(req, res) {
 		//verify if PM
+		/* if user_type === propertymanager, move on, else 403 restricted */
 		return Application
 			.findAll({
 				where: {
@@ -45,4 +46,12 @@ module.exports = {
 			})
 			.catch(error => res.status(400).send(error));
 	},
+	delete(req, res) {
+		return Application
+			.findById({
+				where: {
+					
+				}
+			})
+	}
 };

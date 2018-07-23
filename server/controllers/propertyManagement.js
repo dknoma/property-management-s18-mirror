@@ -8,7 +8,6 @@ module.exports = {
   addToProp(req, res) {
     return PropertyTenant
       .findOrCreate({
-        //tries to find a User with username and/or email and returns false if that User exists
         where: {
             propertyId: req.body.propertyId,
             tenantId: req.body.userId,
