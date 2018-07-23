@@ -2,12 +2,15 @@ import React, { Component } from "react";
 import { connect } from 'react-redux';
 import * as actions from '../../actions';
 
+import requireAuth from '../requireAuth';
+
 class PropertyPage extends Component {
 
   /*when directed*/
   componentDidMount() {
-    console.log(this.props);
-    this.props.get_property_profile(this.props.params);
+    if (this.props.params.propertyId != "undefined") {
+      this.props.get_property_profile(this.props.params);
+    }
   };
 
   renderHeader(headers) {
@@ -17,6 +20,7 @@ class PropertyPage extends Component {
     const { property } = this.props;
     return (
     <tr>
+      <td>{this.props.userId}</td>
       <td>{this.props.id}</td>
       <td>{this.props.property_name}</td>
       <td>{this.props.number_of_bedrooms}</td>
@@ -26,13 +30,20 @@ class PropertyPage extends Component {
       <td>{this.props.city}</td>
       <td>{this.props.state}</td>
       <td>{this.props.zip}</td>
-      <td>{this.props.allows_pets}</td>
+      <td>Pets? {String(this.props.allows_pets)}</td>
     </tr>
   )}
 
-  // renderTable() {
-  //   const
-  // }
+  renderPotentialTenantInfo() {
+      if (localStorage.getItem('user_type') === "tenant") {
+          return (
+            <div>
+              <div> <a class="button" href={"/apply/" + this.props.params.propertyId}> Apply for this property</a></div>
+              <br/>
+            </div>
+          )
+      }
+  }
 
   render() {
     return (
@@ -43,6 +54,7 @@ class PropertyPage extends Component {
       </tbody>
       </table>
       <br/>
+        { this.renderPotentialTenantInfo()}
       </div>
     );
   }
@@ -50,6 +62,7 @@ class PropertyPage extends Component {
 
 function mapStateToProps(state) {
   return {
+    userId: state.property.userId,
     id: state.property.id,
     property_name: state.property.property_name,
     number_of_bedrooms: state.property.number_of_bedrooms,

@@ -19,7 +19,8 @@ class CreateProperty extends Component {
   constructor(props) {
     super(props);
     this.state={
-      property_name: ''
+      property_name: '',
+      userId: localStorage.getItem('id')
     }
   }
   onSubmit = ({property_name, number_of_bedrooms, number_of_bathrooms, prices, property_type, street, city, state, zip, allows_pets, url_address}) => {
@@ -27,7 +28,7 @@ class CreateProperty extends Component {
       alert("Please fill all the fields");
       return;
     }
-    console.log({property_name, number_of_bedrooms, number_of_bathrooms, prices, property_type, street, city, state, zip, allows_pets, url_address});
+    console.log('print' + { property_name, number_of_bedrooms, number_of_bathrooms, prices, property_type, street, city, state, zip, allows_pets, url_address});
     this.props.create_property({property_name, number_of_bedrooms, number_of_bathrooms, prices, property_type, street, city, state, zip, allows_pets, url_address}, () => {
       alert("Property successfully created!");
       this.props.router.push("/propertylisting");
@@ -37,11 +38,15 @@ class CreateProperty extends Component {
 
   render() {
     const { handleSubmit } = this.props;
+    let userId = localStorage.getItem('id');
     return (
         <form className="belowNav" onSubmit={handleSubmit(this.onSubmit)} align="center">
         <Typography color="inherit" variant="display1">
         Create Property
         </Typography>
+        <div>
+          <Field name="userId" id="userId" component={TextField} label={'Prop Manager ID: ' + userId} disabled/>
+        </div>
         <div>
           <Field name="property_name" id="property_name" label="Property Name" component={TextField} validate={[ required ]} />
         </div>
@@ -109,7 +114,9 @@ class CreateProperty extends Component {
 
 
 function mapStateToProps(state) {
-  return {errorMessage: state.auth.errorMessage};
+  return {
+    userId: state.auth.id
+  };
 }
 
 CreateProperty = reduxForm({

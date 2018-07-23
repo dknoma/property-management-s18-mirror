@@ -1,4 +1,4 @@
-import { CREATE_PROPERTY, FETCH_PROPERTIES, GET_PROPERTY, SEARCH_PROPERTY, PERSIST_SEARCH_RESULTS } from '../actions/types';
+import { CREATE_PROPERTY, FETCH_PROPERTIES, GET_PROPERTY, SEARCH_PROPERTY, PERSIST_SEARCH_RESULTS, APPLY_PROPERTY } from '../actions/types';
 
 // reducer for authentication
 // we want to define an initial state constant variable
@@ -44,6 +44,7 @@ export default function(state = INITIAL_STATE, action) {
 
     case GET_PROPERTY:
     return {...state,
+      userId: action.payload.userId,
       id: action.payload.id,
       property_name: action.payload.property_name,
       number_of_bedrooms: action.payload.number_of_bedrooms,
@@ -63,6 +64,10 @@ export default function(state = INITIAL_STATE, action) {
         search_results_list: action.payload
       }
 
+    case APPLY_PROPERTY:
+      return {...state,
+        application: action.payload
+      }
 
     default:
       return state;
