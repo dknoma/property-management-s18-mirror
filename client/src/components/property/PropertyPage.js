@@ -44,17 +44,28 @@ class PropertyPage extends Component {
           )
       }
   }
+  renderPMInfo() {
+    if (localStorage.getItem('user_type') === "propertymanager") {
+        return (
+          <div>
+            <div> <a class="button" href={"/property/review/" + this.props.params.propertyId}>Review Applications</a></div>
+            <br/>
+          </div>
+        )
+    }
+  }
 
   render() {
     return (
       <div className="propTable">
       <table>
       <tbody>
-        {this.renderItem()}
+        { this.renderItem() }
       </tbody>
       </table>
       <br/>
-        { this.renderPotentialTenantInfo()}
+        { this.renderPotentialTenantInfo() }
+        { this.renderPMInfo() }
       </div>
     );
   }
