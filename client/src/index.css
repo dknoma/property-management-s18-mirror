@@ -20,7 +20,10 @@ a:focus {
 }
 
 .belowNav {
-
+  display:inline-block;
+}
+.ReduxForm-root-97 {
+  display:inline-block;
 }
 /* Hide weird radio button on search property page */
 /* .MuiSelect-icon-122{

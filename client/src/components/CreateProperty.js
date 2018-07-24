@@ -10,10 +10,21 @@ import {Field, reduxForm} from 'redux-form';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import { TextField, RadioGroup } from 'redux-form-material-ui';
+import { withStyles } from '@material-ui/core/styles';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import Divider from '@material-ui/core/Divider';
 
 const required = value => value ? undefined : 'Required';
 const number = value => value && isNaN(Number(value)) ? 'Must be a number' : undefined
 
+const styles = theme => ({
+  root: {
+    maxWidth: '360px',
+    backgroundColor: theme.palette.background.paper,
+  },
+});
 
 class CreateProperty extends Component {
   constructor(props) {
@@ -23,6 +34,31 @@ class CreateProperty extends Component {
       userId: localStorage.getItem('id')
     }
   }
+
+  ListDividers() {
+  const { classes } = this.props;
+  return (
+    <div className={classes.root}>
+      <List component="nav">
+        <ListItem button>
+          <ListItemText primary="Inbox" />
+        </ListItem>
+        <Divider />
+        <ListItem button divider>
+          <ListItemText primary="Drafts" />
+        </ListItem>
+        <ListItem button>
+          <ListItemText primary="Trash" />
+        </ListItem>
+        <Divider light />
+        <ListItem button>
+          <ListItemText primary="Spam" />
+        </ListItem>
+      </List>
+    </div>
+  );
+}
+
   onSubmit = ({property_name, number_of_bedrooms, number_of_bathrooms, prices, property_type, street, city, state, zip, allows_pets, url_address}) => {
     if(!property_type || !allows_pets) {
       alert("Please fill all the fields");
@@ -40,10 +76,12 @@ class CreateProperty extends Component {
     const { handleSubmit } = this.props;
     let userId = localStorage.getItem('id');
     return (
+      <div className="row">
+      <Typography color="inherit" variant="display1">
+      Create Property
+      </Typography>
+
         <form className="belowNav" onSubmit={handleSubmit(this.onSubmit)} align="center">
-        <Typography color="inherit" variant="display1">
-        Create Property
-        </Typography>
         <div>
           <Field name="userId" id="userId" component={TextField} label={'Prop Manager ID: ' + userId} disabled/>
         </div>
@@ -107,6 +145,7 @@ class CreateProperty extends Component {
         <button className = "button" type="submit">Create new property</button>
         <br />
       </form>
+      </div>
     )
 
   }
@@ -119,6 +158,10 @@ function mapStateToProps(state) {
   };
 }
 
+CreateProperty.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
+
 CreateProperty = reduxForm({
   form: 'create_property'
 })(CreateProperty)
@@ -126,4 +169,4 @@ CreateProperty = reduxForm({
 
 export default compose (
   connect(mapStateToProps, actions),
-)(CreateProperty);
+)(withStyles(styles)(CreateProperty));

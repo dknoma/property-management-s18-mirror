@@ -24,6 +24,8 @@ import Avatar from '@material-ui/core/Avatar';
 import EmailIcon from '@material-ui/icons/Email';
 import SearchIcon from '@material-ui/icons/Search';
 import AddIcon from '@material-ui/icons/Add';
+import AssignmentIcon from '@material-ui/icons/Assignment';
+import HomeIcon from '@material-ui/icons/Home';
 
 const styles = {
   root: {
@@ -72,6 +74,24 @@ export class Nav extends Component {
     this.setState({ anchorEl: null });
   };
 
+  insertApplicationLink () {
+    console.log(this.props.user_type);
+    const { classes } = this.props;
+    if (this.props.user_type == 'propertymanager') {
+      <a href="/createproperty">
+        <Avatar className={classes.greenAvatar}>
+          <AssignmentIcon />
+        </Avatar>
+      </a>
+    } else {
+      <a href="/createproperty">
+        <Avatar className={classes.greenAvatar}>
+          <AssignmentIcon />
+        </Avatar>
+      </a>
+    }
+  }
+
   renderLinks() {
     const { classes } = this.props;
     const { auth, anchorEl } = this.state;
@@ -83,6 +103,12 @@ export class Nav extends Component {
           Hi, {this.props.my_username}!
           </div>
           <div className={classes.row}>
+          {this.insertApplicationLink()}
+          <a href="/propertylisting">
+            <Avatar className={classes.greenAvatar}>
+              <HomeIcon />
+            </Avatar>
+          </a>
           <a href="/searchproperty">
             <Avatar className={classes.greenAvatar}>
               <SearchIcon />
@@ -160,7 +186,8 @@ function mapStateToProps(state) {
   return {
     authenticated: state.auth.authenticated,
     my_username: state.auth.my_username,
-    my_id: state.auth.my_id
+    my_id: state.auth.my_id,
+    user_type: state.auth.user_type
   };
 }
 
