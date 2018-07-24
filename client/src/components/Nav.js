@@ -98,16 +98,16 @@ export class Nav extends Component {
               <EmailIcon />
             </Avatar>
           </a>
+          <Avatar className={classes.greenAvatar}>
             <IconButton
               aria-owns={open ? 'menu-appbar' : null}
               aria-haspopup="true"
               onClick={this.handleMenu}
               color="inherit"
             >
-            <Avatar className={classes.greenAvatar}>
               <AccountCircle />
-              </Avatar>
             </IconButton>
+            </Avatar>
             <Menu
               id="menu-appbar"
               anchorEl={anchorEl}

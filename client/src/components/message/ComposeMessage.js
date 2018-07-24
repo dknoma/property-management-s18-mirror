@@ -8,7 +8,7 @@ import * as actions from '../../actions';
 import {Field, reduxForm} from 'redux-form';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-
+import PropTypes from 'prop-types';
 import { RadioGroup,TextField } from 'redux-form-material-ui';
 
 /* Higher Order Components */
@@ -62,6 +62,10 @@ function mapStateToProps(state) {
     }
   };
 }
+
+ComposeMessage.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
 
 /* Decorate with redux form */
 ComposeMessage = reduxForm({
