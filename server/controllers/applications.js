@@ -12,7 +12,7 @@ module.exports = {
 		.then(property => {
 			return Application
 			.create({
-				tenantId: req.header('tenantId'),
+				tenantId: req.body.tenantId,
 				propertyId: req.params.propertyId,
 				pmId: property.userId,
 				form_subject: req.body.form_subject,
