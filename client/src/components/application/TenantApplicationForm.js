@@ -18,9 +18,12 @@ class TenantApplicationForm extends Component {
     super(props);
   }
 
-  onSubmit = ({form_subject, form_body}) => {
-    this.props.apply_property(this.props.params.propertyId, {form_subject, form_body}, () => {
-      //this.props.router.push("/propertysearchresults");
+  // const {propertyId} = this.props.params.propertyId;
+  //onSubmit = (data) => ({...data, propertyId: })
+  onSubmit = ({propertyId, form_subject, form_body, pmId, tenantId}) => {
+    console.log('application: '+ propertyId + form_subject, form_body);
+    this.props.apply_property({propertyId, form_subject, form_body, pmId, tenantId}, () => {
+      this.props.router.push("/property" + this.props.params.propertyId);
     })
   //console.log(({user_type, username, email, firstname, lastname, password});
   };
@@ -28,7 +31,7 @@ class TenantApplicationForm extends Component {
   render() {
     const { handleSubmit } = this.props;
     return (
-      <form className="belowNav" onSubmit={handleSubmit(this.onSubmit)} align="center">
+      <form className="belowNav" onSubmit={handleSubmit(data => this.onSubmit({...data, propertyId: this.props.params.propertyId}))} align="center">
       <Typography color="inherit" variant="display1">
       Apply for Property
       </Typography>
@@ -36,7 +39,10 @@ class TenantApplicationForm extends Component {
         <Field name="propertyId" id="propertyId" label={'Property ID: '+this.props.params.propertyId} component={TextField} disabled />
       </div>
       <div>
-        <Field name="tenantId" id="tenantId" label={'Tenant ID: '+localStorage.getItem('id')} component={TextField} disabled />
+        <Field name="tenantId" id="tenantId" label={'Tenant ID: '+localStorage.getItem('id')} component={TextField}  />
+      </div>
+      <div>
+        <Field name='pmId' id='pmId' label='PM ID' component={TextField}/>
       </div>
       <div>
         <Field name="form_subject" id="form_subject" label="Subject" component={TextField} />

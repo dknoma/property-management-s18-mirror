@@ -16,7 +16,7 @@ export default ChildComponent => {
     /* redirects to home if not logged in */
     shouldNavigateAway() {
       if (this.props.user_type != 'propertymanager') {
-        this.props.router.push('/profile/' + this.props.my_id);
+        this.props.router.push('/');
       }
     }
 

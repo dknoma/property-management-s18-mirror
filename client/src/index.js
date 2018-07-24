@@ -35,6 +35,7 @@ import PropertySearchResults from "./components/property/PropertySearchResults.j
 import SearchProperty from "./components/property/SearchProperty.js";
 import PropertyPage from "./components/property/PropertyPage.js";
 import TenantApplicationForm from "./components/application/TenantApplicationForm.js";
+import PMReviewApplication from "./components/application/PMReviewApplication.js";
 
 var destination = document.querySelector("#container");
 
@@ -93,6 +94,8 @@ ReactDOM.render(
           <Route exact path={"property/:propertyId"} component={PropertyPage}>
           </Route>
           <Route exact path={"apply/:propertyId"} component={TenantApplicationForm}>
+          </Route>
+          <Route exact path={"property/review/:propertyId"} component={PMReviewApplication}>
           </Route>
         </Router>
       </div>

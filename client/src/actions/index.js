@@ -1,5 +1,6 @@
 import axios from 'axios';
-import { AUTH_USER, OTHER_USER, ALL_USERS, CREATE_PROPERTY, FETCH_PROPERTIES, GET_PROPERTY, SEARCH_PROPERTY, APPLY_PROPERTY} from './types';
+import { AUTH_USER, OTHER_USER, ALL_USERS, CREATE_PROPERTY, FETCH_PROPERTIES, GET_PROPERTY, SEARCH_PROPERTY, APPLY_PROPERTY,
+          REVIEW_APPLICATIONS } from './types';
 /* State Persist */
 import {loadState, saveState} from '.././localStorage.js';
 
@@ -170,14 +171,25 @@ export const get_property_profile = ({propertyId}) => async dispatch => {
   })
 };
 
-export const apply_property = ({propertyId, form_subject, form_body}) => async dispatch => {
+export const apply_property = ({propertyId, form_subject, form_body, pmId, tenantId}, callback) => async dispatch => {
   try {
-    const response = await axios.get(
-      apiBaseUrl + "property/create", {propertyId, form_subject, form_body}
+    console.log('apply_prop: '+ propertyId + form_subject, form_body);
+    const response = await axios.post(
+      apiBaseUrl + "property/" + propertyId + "/apply", {propertyId, form_subject, form_body, pmId, tenantId}
     );
     dispatch({ type: APPLY_PROPERTY, payload: response.data});
+    callback();
   } catch (e) {
     alert(e.response.data.message);
   }
+};
 
+export const review_applications = ({propertyId}) => async dispatch => {
+  const response = await axios.get(
+    apiBaseUrl + "property/" + propertyId + "/applications",
+  )  .then(function (response) {
+    /* Dispatch a payload of OTHER_USER */
+    dispatch ({ type: REVIEW_APPLICATIONS, payload: response.data });
+
+  })
 };
