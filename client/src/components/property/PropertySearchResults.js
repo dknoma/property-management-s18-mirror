@@ -8,7 +8,6 @@ import 'react-table/react-table.css';
 
 class PropertySearchResults extends Component {
   render() {
-    console.log(this.props.search_results_list);
     const data = this.props.search_results_list;
 
     const columns = [{

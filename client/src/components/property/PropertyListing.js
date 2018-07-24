@@ -7,7 +7,6 @@ class PropertyListing extends Component {
   /*when directed*/
   componentDidMount() {
     this.props.fetchProperties();
-    console.log("property_list" + this.props.propertylist);
   };
 
   renderHeader(headers) {
@@ -25,19 +24,18 @@ class PropertyListing extends Component {
   renderItem() {
     const { propertylist } = this.props;
     return propertylist.map(property =>
-    <tr>
-      <td>{property.id}</td>
-      <td>{property.property_name}</td>
-      <td>{property.number_of_bedrooms}</td>
-      <td>{property.number_of_bathrooms}</td>
-      <td>{property.prices}</td>
-      <td>{property.street}</td>
-      <td>{property.city}</td>
-      <td>{property.state}</td>
-      <td>{property.zip}</td>
-      <td>{property.allows_pets}</td>
+    <tr className="table">
+      <td><a href={"/property/" + property.id}>{property.id}</a></td>
+      <td><a href={"/property/" + property.id}>{property.property_name}</a></td>
+      <td><a href={"/property/" + property.id}>{property.number_of_bedrooms}</a></td>
+      <td><a href={"/property/" + property.id}>{property.number_of_bathrooms}</a></td>
+      <td><a href={"/property/" + property.id}>{property.prices}</a></td>
+      <td><a href={"/property/" + property.id}>{property.street}</a></td>
+      <td><a href={"/property/" + property.id}>{property.city}</a></td>
+      <td><a href={"/property/" + property.id}>{property.state}</a></td>
+      <td><a href={"/property/" + property.id}>{property.zip}</a></td>
+      <td><a href={"/property/" + property.id}>{property.allows_pets}</a></td>
     </tr>
-
   )}
 
   // renderTable() {
