@@ -19,19 +19,20 @@ class PropertyPage extends Component {
   renderItem() {
     const { property } = this.props;
     return (
-    <tr>
-      <td>{this.props.userId}</td>
-      <td>{this.props.id}</td>
-      <td>{this.props.property_name}</td>
-      <td>{this.props.number_of_bedrooms}</td>
-      <td>{this.props.number_of_bathrooms}</td>
-      <td>{this.props.prices}</td>
-      <td>{this.props.street}</td>
-      <td>{this.props.city}</td>
-      <td>{this.props.state}</td>
-      <td>{this.props.zip}</td>
-      <td>Pets? {String(this.props.allows_pets)}</td>
-    </tr>
+      <div>
+      <h2>{this.props.property_name}</h2>
+        <p>Property Manager ID: {this.props.userId}</p>
+        <p>Property ID: {this.props.id}</p>
+        <p>Number of Bedrooms: {this.props.number_of_bedrooms}</p>
+        <p>Number of Bathrooms: {this.props.number_of_bathrooms}</p>
+        <p>Price: {this.props.prices}</p>
+        <p>Address: {this.props.street}</p>
+        <p>{this.props.city}</p>
+        <p>{this.props.state}</p>
+        <p>{this.props.zip}</p>
+        <p>Pets? {String(this.props.allows_pets)}</p>
+
+      </div>
   )}
 
   renderPotentialTenantInfo() {
@@ -58,14 +59,14 @@ class PropertyPage extends Component {
   render() {
     return (
       <div className="propTable">
-      <table>
-      <tbody>
-        { this.renderItem() }
-      </tbody>
-      </table>
-      <br/>
-        { this.renderPotentialTenantInfo() }
-        { this.renderPMInfo() }
+        <table>
+        <tbody>
+          { this.renderItem() }
+        </tbody>
+        </table>
+        <br/>
+          { this.renderPotentialTenantInfo() }
+          { this.renderPMInfo() }
       </div>
     );
   }

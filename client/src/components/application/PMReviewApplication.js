@@ -11,7 +11,7 @@ import requirePropManager from '../requirePropManager';
 class PMReviewApplication extends Component {
 
   componentDidMount() {
-    if(this.props.params.propertyId != "undefined") {
+    if(this.props.params.propertyId !== "undefined") {
       this.props.review_applications(this.props.params);
     }
   };

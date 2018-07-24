@@ -25,16 +25,16 @@ class PropertyListing extends Component {
     const { propertylist } = this.props;
     return propertylist.map(property =>
     <tr className="table">
-      <td><a href={"/property/" + property.id}>{property.id}</a></td>
+      <td>{property.id}</td>
       <td><a href={"/property/" + property.id}>{property.property_name}</a></td>
-      <td><a href={"/property/" + property.id}>{property.number_of_bedrooms}</a></td>
-      <td><a href={"/property/" + property.id}>{property.number_of_bathrooms}</a></td>
-      <td><a href={"/property/" + property.id}>{property.prices}</a></td>
-      <td><a href={"/property/" + property.id}>{property.street}</a></td>
-      <td><a href={"/property/" + property.id}>{property.city}</a></td>
-      <td><a href={"/property/" + property.id}>{property.state}</a></td>
-      <td><a href={"/property/" + property.id}>{property.zip}</a></td>
-      <td><a href={"/property/" + property.id}>{property.allows_pets}</a></td>
+      <td>{property.number_of_bedrooms}</td>
+      <td>{property.number_of_bathrooms}</td>
+      <td>{property.prices}</td>
+      <td>{property.street}</td>
+      <td>{property.city}</td>
+      <td>{property.state}</td>
+      <td>{property.zip}</td>
+      <td>{String(property.allows_pets)}</td>
     </tr>
   )}
 

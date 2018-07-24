@@ -31,7 +31,7 @@ class TenantApplicationForm extends Component {
   render() {
     const { handleSubmit } = this.props;
     return (
-      <form className="belowNav" onSubmit={handleSubmit(data => this.onSubmit({...data, propertyId: this.props.params.propertyId}))} align="center">
+      <form className="belowNav" onSubmit={handleSubmit(data => this.onSubmit({...data, tenantId: localStorage.getItem('my_id'), propertyId: this.props.params.propertyId}))} align="center">
       <Typography color="inherit" variant="display1">
       Apply for Property
       </Typography>
@@ -39,10 +39,7 @@ class TenantApplicationForm extends Component {
         <Field name="propertyId" id="propertyId" label={'Property ID: '+this.props.params.propertyId} component={TextField} disabled />
       </div>
       <div>
-        <Field name="tenantId" id="tenantId" label={'Tenant ID: '+localStorage.getItem('id')} component={TextField}  />
-      </div>
-      <div>
-        <Field name='pmId' id='pmId' label='PM ID' component={TextField}/>
+        <Field name="tenantId" id="tenantId" label={'Tenant ID: '+localStorage.getItem('my_id')} component={TextField}  />
       </div>
       <div>
         <Field name="form_subject" id="form_subject" label="Subject" component={TextField} />
