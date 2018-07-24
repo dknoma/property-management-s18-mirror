@@ -6,6 +6,7 @@ import * as actions from '../../actions';
 import ReactTable from 'react-table';
 import 'react-table/react-table.css';
 
+
 class PropertySearchResults extends Component {
   render() {
     const data = this.props.search_results_list;
@@ -13,10 +14,6 @@ class PropertySearchResults extends Component {
     const columns = [{
       Header: 'Property Name',
       accessor: 'property_name' // String-based value accessors!
-    }, {
-      Header: 'State',
-      accessor: 'state',
-      Cell: props => <span className='number'>{props.value}</span> // Custom cell components!
     }, {
       Header: 'City',
       accessor: 'city',

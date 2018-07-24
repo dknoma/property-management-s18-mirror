@@ -15,8 +15,8 @@ export default ChildComponent => {
 
     /* redirects to home if not logged in */
     shouldNavigateAway() {
-      if (!this.props.auth) {
-        this.props.router.push('/login');
+      if (this.props.user_type != 'tenant') {
+        this.props.router.push('/profile/' + this.props.my_id);
       }
     }
 
@@ -26,8 +26,10 @@ export default ChildComponent => {
   }
 
   function mapStateToProps(state) {
-    return { auth:
-      state.auth.authenticated
+    return {
+      auth: state.auth.authenticated,
+      user_type: state.auth.user_type,
+      my_id: state.auth.my_id
     };
   }
 

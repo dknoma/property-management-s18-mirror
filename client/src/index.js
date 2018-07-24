@@ -34,6 +34,9 @@ import PropertyListing from "./components/property/PropertyListing.js";
 import PropertySearchResults from "./components/property/PropertySearchResults.js";
 import SearchProperty from "./components/property/SearchProperty.js";
 import PropertyPage from "./components/property/PropertyPage.js";
+import ComposeMessage from "./components/message/ComposeMessage.js";
+import Inbox from "./components/message/Inbox.js";
+import Sent from "./components/message/Sent.js";
 
 var destination = document.querySelector("#container");
 
@@ -90,6 +93,12 @@ ReactDOM.render(
           <Route exact path={"searchproperty"} component={SearchProperty}>
           </Route>
           <Route exact path={"property/:id"} component={PropertyPage}>
+          </Route>
+          <Route exact path={"inbox"} component={Inbox}>
+          </Route>
+          <Route exact path={"composemessage"} component={ComposeMessage}>
+          </Route>
+          <Route exact path={"sent"} component={Sent}>
           </Route>
         </Router>
       </div>

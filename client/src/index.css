@@ -15,6 +15,10 @@ body {
   margin: 0 auto;
 }
 
+a:focus {
+  outline:3px solid black;
+}
+
 .belowNav {
 
 }
@@ -40,6 +44,10 @@ body {
   text-transform: uppercase;
 }
 
+.brand{
+  margin-left: 0!important;
+}
+
 .table a{
-  
+
 }

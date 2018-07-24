@@ -2,15 +2,57 @@ import React, { Component } from "react";
 import { connect } from 'react-redux';
 import * as actions from '../../actions';
 
-class PropertyListing extends Component {
+/* Material UI */
+import { withStyles } from '@material-ui/core/styles';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import Divider from '@material-ui/core/Divider';
+
+
+class Sent extends Component {
+
+  render() {
+    const styles = theme => ({
+      root: {
+        width: '100%',
+        maxWidth: '360px',
+        backgroundColor: theme.palette.background.paper,
+      },
+    });
+  }
 
   /*when directed*/
   componentDidMount() {
     this.props.fetchProperties();
   };
 
-  renderHeader(headers) {
+ListDividers(props) {
+  const { classes } = props;
+  return (
+    <div className={classes.root}>
+      <List component="nav">
+        <ListItem button>
+          <ListItemText primary="Inbox" />
+        </ListItem>
+        <Divider />
+        <ListItem button divider>
+          <ListItemText primary="Drafts" />
+        </ListItem>
+        <ListItem button>
+          <ListItemText primary="Trash" />
+        </ListItem>
+        <Divider light />
+        <ListItem button>
+          <ListItemText primary="Spam" />
+        </ListItem>
+      </List>
+    </div>
+  );
+}
 
+
+  renderHeader(headers) {
     return headers.map(header => {
       return <th
       key={header.key}
@@ -22,8 +64,8 @@ class PropertyListing extends Component {
   }
 
   renderItem() {
-    const { propertylist } = this.props;
-    return propertylist.map(property =>
+    const { inbox } = this.props;
+    return inbox.map(property =>
     <tr className="table">
       <td><a href={"/property/" + property.id}>{property.id}</a></td>
       <td><a href={"/property/" + property.id}>{property.property_name}</a></td>
@@ -37,6 +79,10 @@ class PropertyListing extends Component {
       <td><a href={"/property/" + property.id}>{property.allows_pets}</a></td>
     </tr>
   )}
+
+  // renderTable() {
+  //   const
+  // }
 
   render() {
     let headers = [
@@ -52,8 +98,6 @@ class PropertyListing extends Component {
       { key: 'allows_pets', label: 'Allow Pets', columnWidth: '80px'}
     ];
     return (
-      <div>
-      <h1> Property Listings </h1>
       <div className="propTable">
       <table>
         {this.renderHeader(headers)}
@@ -63,7 +107,6 @@ class PropertyListing extends Component {
       </table>
       <br/>
       <div> <a class="button" href="/createproperty"> Create New Property </a></div>
-      </div>
       </div>
     );
   }
@@ -75,4 +118,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, actions)(PropertyListing);
+export default connect(mapStateToProps, actions)(Sent);
