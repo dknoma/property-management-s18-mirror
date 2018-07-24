@@ -37,6 +37,8 @@ import PropertyPage from "./components/property/PropertyPage.js";
 import ComposeMessage from "./components/message/ComposeMessage.js";
 import Inbox from "./components/message/Inbox.js";
 import Sent from "./components/message/Sent.js";
+import TenantApplicationForm from "./components/application/TenantApplicationForm.js";
+import PMReviewApplication from "./components/application/PMReviewApplication.js";
 
 var destination = document.querySelector("#container");
 
@@ -92,7 +94,11 @@ ReactDOM.render(
           </Route>
           <Route exact path={"searchproperty"} component={SearchProperty}>
           </Route>
-          <Route exact path={"property/:id"} component={PropertyPage}>
+          <Route exact path={"property/:propertyId"} component={PropertyPage}>
+          </Route>
+          <Route exact path={"apply/:propertyId"} component={TenantApplicationForm}>
+          </Route>
+          <Route exact path={"property/review/:propertyId"} component={PMReviewApplication}>
           </Route>
           <Route exact path={"inbox"} component={Inbox}>
           </Route>

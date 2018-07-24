@@ -84,4 +84,4 @@ function mapStateToProps(state) {
   };
 }
 /* Need to connect actions here */
-export default connect(mapStateToProps, actions)(ProfilePage);
+export default connect(mapStateToProps, actions)(requireAuth(ProfilePage));
