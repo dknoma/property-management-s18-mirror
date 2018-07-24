@@ -6,6 +6,7 @@ const Op = Sequelize.Op;
 
 module.exports = {
   addToProp(req, res) {
+    //authorize if user owns the property before updating
     return PropertyTenant
       .findOrCreate({
         where: {
@@ -49,6 +50,7 @@ module.exports = {
       .catch(error => res.status(400).send(error));
   },
   removeTenant(req, res) {
+    //authorize if user owns the property before updating
     return PropertyTenant
       .find({
         where: {
