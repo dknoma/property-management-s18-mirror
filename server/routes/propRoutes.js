@@ -1,6 +1,7 @@
 const propertiesController = require('../controllers').properties;
 const propertyManagementController = require('../controllers').propertyManagement;
 const applicationController = require('../controllers').applications;
+const messageController = require('../controllers').messages;
 
 module.exports = (app) => {
 	app.get('/api', (req, res) => res.status(200).send({
@@ -24,6 +25,8 @@ module.exports = (app) => {
 		//TODO: delete
 	app.post('/api/property/:propertyId/apply', applicationController.create);
 	app.get('/api/property/:propertyId/applications', applicationController.reviewApplications);
+
+	app.get('/api/:userId/inboxes', messageController.list);
 
 	app.all('/api/users', (req, res) =>
 		res.status(405).send({
