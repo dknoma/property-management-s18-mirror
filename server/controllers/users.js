@@ -227,13 +227,18 @@ module.exports = {
 			.catch(error => res.status(400).send(error));
 	},
 	/* Update information for a specific user */
-	update(req, res) {
+	update(req, res, next) {
         // console.log(req.header('token'));
 		
-		return passport.authorize('local-auth', (error, match) => {
-			if(match) {
+		return passport.authorize('local-auth', (error, user) => {
+			if(error) {
+				return res.status(500).send(error);
+			}
+			console.log(user);
+
+			if(user) {
 				return User
-					.findById(currentUser.userId)
+					.findById(user.id)
 					.then(user => {
 						if(!user) {
 							return res.status(404).send({
@@ -265,9 +270,11 @@ module.exports = {
 					})
 					.catch((error) => res.status(400).send(error));
 			} else {
-				return res.status(400).send(error);
+				return res.status(400).send({
+					message: 'ANSFLASF'
+				});
 			}
-		});
+		})(req, res, next);
 		// try {
 		// 	//verify if can update a profile by checking if has valid token
 		// 	var currentUser = jwt.verify(req.header.token, config.secret);
