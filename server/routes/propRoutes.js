@@ -17,9 +17,10 @@ module.exports = (app) => {
 	/* Property Manager Routes */
 		/* Create property */
     app.post('/api/property/create', propertiesController.create);
-    app.post('/api/propertymanager/add', propertyManagementController.addToProp);
     app.get('/api/propertymanager/:propertyId/tenants', propertyManagementController.findTenants);
-	app.delete('/api/propertymanager/:propertyId/:tenantId', propertyManagementController.removeTenant);
+		/* Authorization required */
+    app.post('/auth/propertymanager/add', propertyManagementController.addToProp);
+	app.delete('/auth/propertymanager/:propertyId', propertyManagementController.removeTenant);
 
 	/* Application */
 		//TODO: delete
