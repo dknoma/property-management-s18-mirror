@@ -1,29 +1,42 @@
 const User = require('../models').User;
+const config = require('../controllers/config');
 const jwt = require('jsonwebtoken');
 
-module.exports = (req, res, next) => {
-    if(!req.header('token')) {
+module.exports = function authorize(req, res, next) {
+    console.log(req.header('token'));
+    if(!req.header('token') 
+        || req.header('token') == null 
+        || req.header('token') == undefined) {
         return res.status(401).send();
     }
 
     try {
         //verify if can update a profile by checking if has valid token
         var currentUser = jwt.verify(req.header('token'), config.secret);
-        // console.log(currentUser.userId);
-        if(req.params.userId == currentUser.userId) {
-            return User
-            .findById(currentUser.userId, (err, user) => {
-                if (err || !user) {
-                  return res.status(401).end();
-                }
-          
-                return next();
-            });
+        // console.log('currentUser: ' + currentUser.userId);
+
+        if(currentUser.userId) {
+            // console.log(currentUser.userId);
+            User
+                .findById(currentUser.userId)
+                .then(user => {
+                    req.currentUser = user.id;
+                    console.log('inside find: ' + req.currentUser);
+                    next();
+                })
+                .catch((err, user) => {
+                    if (err || !user) {
+                        return res.status(401).send({message: 'Xos'});
+                    }
+                });
+
+            // console.log(bob);
+        } else {
+            req.currentUser = false;
+            next();
         }
     } catch (error) {
-        return res.status(401).send({
-            message: "Unable to authenticate. Please try again.",
-            error
-        });
+        req.currentUser = false;
+        next();
     }
 }

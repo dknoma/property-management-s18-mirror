@@ -14,6 +14,7 @@
 const express = require('express');
 const logger = require('morgan');
 const bodyParser = require('body-parser');
+const authorizor = require('./server/middleware/auth-check')
 // const passport = require('passport');
 
 //creates the express application
@@ -26,6 +27,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false}));
 
 // app.use(passport.initialize());
+app.use('/auth', authorizor);
 
 // Load passport stratgies
 // const localAuthStrat = require('./server/passport/local-auth');
