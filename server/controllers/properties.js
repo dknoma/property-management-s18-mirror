@@ -6,8 +6,7 @@ const Op = Sequelize.Op;
 
 module.exports = {
 	create(req, res) {
-		//verify if user is propertymanager,
-		//each property should have an ownerId as well which contains the id of the creator
+		//verify if user is propertymanager
 		return Property
 			.create({
 				property_type: req.body.property_type,
