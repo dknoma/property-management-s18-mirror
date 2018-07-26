@@ -40,16 +40,25 @@ module.exports = {
 	reviewApplications(req, res) {
 		//verify if PM
 		/* if user_type === propertymanager, move on, else 403 restricted */
-		return Application
-			.findAll({
-				where: {
-					propertyId: req.params.propertyId,
-				}
-			})
-			.then(applications => {
-				return res.status(200).send(applications)
-			})
-			.catch(error => res.status(400).send(error));
+		var currentUser = req.currentUser;
+		Property.findById(currentUser)
+		.then(property => {
+			if(property.userId == currentUser) {
+				return Application
+					.findAll({
+						where: {
+							propertyId: req.params.propertyId,
+						}
+					})
+					.then(applications => {
+						return res.status(200).send(applications)
+					})
+					.catch(error => res.status(400).send(error));
+			} else {
+				return res.status(400).send({message: 'Unable to authenticate.'});
+			}
+		})
+		.catch(error => res.status(400).send(error));
 	},
 	delete(req, res) {
 		return Application

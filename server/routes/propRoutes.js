@@ -25,7 +25,7 @@ module.exports = (app) => {
 	/* Application */
 		//TODO: delete
 	app.post('/api/property/:propertyId/apply', applicationController.create);
-	app.get('/api/property/:propertyId/applications', applicationController.reviewApplications);
+	app.get('/auth/property/:propertyId/applications', applicationController.reviewApplications);
 
 	app.get('/api/:userId/inboxes', messageController.list);
 
