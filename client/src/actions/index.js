@@ -144,7 +144,6 @@ export const create_property = ({property_name, number_of_bedrooms, number_of_ba
 export const fetchProperties = () => async dispatch => {
     const res = await axios.get( apiBaseUrl + "property/list");
     dispatch({ type: FETCH_PROPERTIES, payload: res.data });
-    console.log(res.data);
 };
 
 export const search_property = ({price_gte, number_of_bedrooms, number_of_bathrooms, prices, city, state, zip, allows_pets, property_type}, callback) => async dispatch => {
@@ -185,6 +184,7 @@ export const apply_property = ({propertyId, form_subject, form_body, pmId, tenan
 };
 
 export const review_applications = ({propertyId}) => async dispatch => {
+  console.log('propId: '+ propertyId);
   const response = await axios.get(
     apiBaseUrl + "property/" + propertyId + "/applications",
   )  .then(function (response) {

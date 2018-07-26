@@ -13,7 +13,8 @@ class PropertySearchResults extends Component {
 
     const columns = [{
       Header: 'Property Name',
-      accessor: 'property_name' // String-based value accessors!
+      accessor: 'property_name',// String-based value accessors!
+      Cell: props =><a href={"/property/" + props.original.id}>{props.value}</a>
     }, {
       Header: 'City',
       accessor: 'city',
@@ -32,10 +33,13 @@ class PropertySearchResults extends Component {
       accessor: d => d.prices // Custom value accessors!
     }]
     return (
+      <div>
+      <h1> Search Results </h1>
       <ReactTable
         data={data}
         columns={columns}
       />
+      </div>
     )
   }
 }

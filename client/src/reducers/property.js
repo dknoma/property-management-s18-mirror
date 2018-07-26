@@ -59,21 +59,10 @@ export default function(state = INITIAL_STATE, action) {
     };
 
     case SEARCH_PROPERTY:
-    console.log(action.payload);
       return {...state,
         search_results_list: action.payload
       }
 
-    /*Maybe create new Reducer?*/
-    case APPLY_PROPERTY:
-      return {...state,
-        application: action.payload
-      }
-
-   case REVIEW_APPLICATIONS:
-      return {...state,
-        applications: action.payload
-      }
 
     default:
       return state;
