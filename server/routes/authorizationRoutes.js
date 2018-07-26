@@ -2,7 +2,7 @@ const usersController = require('../controllers').users;
 const messageController = require('../controllers').messages;
 
 module.exports = (app) => {
-	app.get('/api', (req, res) => res.status(200).send({
+	app.get('/auth', (req, res) => res.status(200).send({
 		message: 'Welcome to the Todos API!',
 	}));
 
@@ -13,11 +13,13 @@ module.exports = (app) => {
     app.delete('/auth/user/:userId/message/:messageId', messageController.delete);
     app.get('/auth/user/:userId/inbox', messageController.allMessages);
     
+	/* Update profile info */
+	app.put('/auth/users/:userId', usersController.update);
 
     //testing
     app.get('/messages', messageController.listM);
 
-	app.all('/api/users', (req, res) =>
+	app.all('/auth/users', (req, res) =>
 		res.status(405).send({
 			message: 'Method Not Allowed',
 	}));
