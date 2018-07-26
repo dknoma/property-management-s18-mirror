@@ -9,10 +9,14 @@ module.exports = (app) => {
 	/***********************************
 	 * Authorization related requests *
 	 ***********************************/
-    app.get('/api/messages', messageController.listM);
     app.post('/api/user/message', messageController.create);
-    app.get('/api/user/:userId/inbox', messageController.allMessages);
+    app.delete('/auth/user/:userId/message/:messageId', messageController.delete);
+    app.get('/auth/user/:userId/inbox', messageController.allMessages);
     
+
+    //testing
+    app.get('/messages', messageController.listM);
+
 	app.all('/api/users', (req, res) =>
 		res.status(405).send({
 			message: 'Method Not Allowed',
