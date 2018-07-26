@@ -13,15 +13,11 @@ module.exports = function authorize(req, res, next) {
     try {
         //verify if can update a profile by checking if has valid token
         var currentUser = jwt.verify(req.header('token'), config.secret);
-        // console.log('currentUser: ' + currentUser.userId);
 
         if(currentUser.userId) {
-            // console.log(currentUser.userId);
-            User
-                .findById(currentUser.userId)
+            User.findById(currentUser.userId)
                 .then(user => {
                     req.currentUser = user.id;
-                    console.log('inside find: ' + req.currentUser);
                     next();
                 })
                 .catch((err, user) => {
@@ -29,8 +25,6 @@ module.exports = function authorize(req, res, next) {
                         return res.status(401).send({message: 'Xos'});
                     }
                 });
-
-            // console.log(bob);
         } else {
             req.currentUser = false;
             next();
