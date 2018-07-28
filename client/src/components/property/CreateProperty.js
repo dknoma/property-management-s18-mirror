@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 /* Redux */
 import { createStore, compose } from 'redux';
 import { connect } from 'react-redux';
-import * as actions from '../actions';
+import * as actions from '../../actions';
 
 /* Using Redux form, material UI, and redux-form-material-ui for forms */
 import {Field, reduxForm} from 'redux-form';

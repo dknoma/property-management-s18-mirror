@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { AUTH_USER, OTHER_USER, ALL_USERS, CREATE_PROPERTY, FETCH_PROPERTIES, GET_PROPERTY, SEARCH_PROPERTY, APPLY_PROPERTY,
-          REVIEW_APPLICATIONS } from './types';
+          REVIEW_APPLICATIONS, CREATE_MESSAGE, FETCH_MESSAGES } from './types';
 /* State Persist */
 import {loadState, saveState} from '.././localStorage.js';
 

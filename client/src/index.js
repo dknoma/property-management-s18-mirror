@@ -29,7 +29,7 @@ import Register from "./components/auth/Register.js";
 import ProfilePage from "./components/profile/ProfilePage.js";
 import ProfileEdit from "./components/profile/ProfileEdit.js";
 import Users from "./components/Users.js";
-import CreateProperty from "./components/CreateProperty.js";
+import CreateProperty from "./components/property/CreateProperty.js";
 import PropertyListing from "./components/property/PropertyListing.js";
 import PropertySearchResults from "./components/property/PropertySearchResults.js";
 import SearchProperty from "./components/property/SearchProperty.js";
