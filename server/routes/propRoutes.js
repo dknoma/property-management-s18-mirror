@@ -1,6 +1,7 @@
 const propertiesController = require('../controllers').properties;
 const propertyManagementController = require('../controllers').propertyManagement;
 const applicationController = require('../controllers').applications;
+const messageController = require('../controllers').messages;
 
 module.exports = (app) => {
 	app.get('/api', (req, res) => res.status(200).send({
@@ -8,25 +9,25 @@ module.exports = (app) => {
 	}));
 
 	/* Property Search Routes */
-	/* list and filter property */
+		/* list and filter property */
 	app.get('/api/property/list', propertiesController.list);
 	app.post('/api/property/filter',propertiesController.filter);
 	app.get('/api/property/:propertyId', propertiesController.retrieve);
 
 	/* Property Manager Routes */
-	/* Create property */
+		/* Create property */
     app.post('/api/property/create', propertiesController.create);
-    app.post('/api/propertymanager/add', propertyManagementController.addToProp);
     app.get('/api/propertymanager/:propertyId/tenants', propertyManagementController.findTenants);
-	app.delete('/api/propertymanager/:propertyId/:tenantId', propertyManagementController.removeTenant);
+		/* Authorization required */
+    app.post('/auth/propertymanager/add', propertyManagementController.addToProp);
+	app.delete('/auth/propertymanager/:propertyId', propertyManagementController.removeTenant);
 
 	/* Application */
-	//TODO: create, findAll, delete
+		//TODO: delete
 	app.post('/api/property/:propertyId/apply', applicationController.create);
-	app.get('/api/property/:propertyId/applications', applicationController.findApplications);
+	app.get('/auth/property/:propertyId/applications', applicationController.reviewApplications);
 
-	/* Testing */
-	app.post('/api/property/adduser', propertiesController.addTest);
+	app.get('/api/:userId/inboxes', messageController.list);
 
 	app.all('/api/users', (req, res) =>
 		res.status(405).send({
