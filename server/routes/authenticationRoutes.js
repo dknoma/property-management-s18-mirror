@@ -13,9 +13,6 @@ module.exports = (app) => {
 	app.post('/api/propertymanager/login', usersController.pmlogin);
 	app.post('/api/tenant/login', usersController.tlogin);
 
-	/* Update profile info */
-	app.put('/api/users/:userId/:token', usersController.update);
-
 	/* temp db testing */
 	app.get('/api/users', usersController.list);
 	app.get('/api/users/:userId', usersController.retrieve);

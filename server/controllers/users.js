@@ -1,10 +1,12 @@
 const User = require('../models').User;
 const Property = require('../models').Property;
+const Inbox = require('../models').Inbox;
 const Sequelize = require('sequelize');
 const jwt = require('jsonwebtoken');
 const config = require('./config');
 const Op = Sequelize.Op;
 const bcrypt = require('bcrypt');
+// const passport = require('passport');
 
 /* Function to generate a JWT token for the user */
 function generateToken(user) {
@@ -53,6 +55,9 @@ module.exports = {
 					message: 'Username or email already exists. Please try again.'
 				});
 			}
+			Inbox.create({
+				userId: user.id
+			});
 			//generate the token
 			var token = generateToken(user);
 			//returns the user and token
@@ -96,6 +101,9 @@ module.exports = {
 					message: 'Username or email already exists. Please try again.'
 				});
 			}
+			Inbox.create({
+				userId: user.id
+			});
 
 			var token = generateToken(user);
 			//returns the user and token
@@ -197,6 +205,9 @@ module.exports = {
 				include: [{
 					model: Property,
 					as: 'properties',
+				},{
+					model: Inbox,
+					as: 'inboxes',
 				}]
 			})
 			.then(users => res.status(200).send(users))
@@ -227,48 +238,44 @@ module.exports = {
 	},
 	/* Update information for a specific user */
 	update(req, res) {
-		try {
-			//verify if can update a profile by checking if has valid token
-			var currentUser = jwt.verify(req.params.token, config.secret);
-			// console.log(currentUser.userId);
-			if(req.params.userId == currentUser.userId) {
-				return User
-				.findById(currentUser.userId)
-				.then(user => {
-					if(!user) {
-						return res.status(404).send({
-							message: 'User Not Found',
-						});
-					}
-					return user
-						.update({
-							email: req.body.email || user.email,
-							firstname: req.body.firstname || user.firstname,
-							lastname: req.body.lastname || user.lastname,
-						})
-						//allows user to update any valid fields in their account
-						//will need to consider securely resetting/changing passwords
-						//also need checks when changing email or username; notify pm
-						//of any changes to their tenants accounts
-						.then(() => res.status(200).send({
-							user: {
-								user_type: user.user_type,
-								userId: user.id,
-								username: user.username,
-								email: user.email,
-								firstname: user.firstname,
-								lastname: user.lastname
-							}
-						}))
-						//409: conflict with an existing resource; ie. duplicate username/emails
-						.catch((error) => res.status(409).send(error));
-				})
-				.catch((error) => res.status(400).send(error));
-			} else {
-				return res.status(400).send(error);
-			}
-		} catch (error) {
-			return res.status(400).send(error);
+		//verify if can update a profile by checking if has valid token
+		var currentUser = req.currentUser;
+		// console.log(currentUser.userId);
+		if(req.params.userId == currentUser) {
+			return User
+			.findById(currentUser)
+			.then(user => {
+				if(!user) {
+					return res.status(404).send({
+						message: 'User Not Found',
+					});
+				}
+				return user
+					.update({
+						email: req.body.email || user.email,
+						firstname: req.body.firstname || user.firstname,
+						lastname: req.body.lastname || user.lastname,
+					})
+					//allows user to update any valid fields in their account
+					//will need to consider securely resetting/changing passwords
+					//also need checks when changing email or username; notify pm
+					//of any changes to their tenants accounts
+					.then(() => res.status(200).send({
+						user: {
+							user_type: user.user_type,
+							userId: user.id,
+							username: user.username,
+							email: user.email,
+							firstname: user.firstname,
+							lastname: user.lastname
+						}
+					}))
+					//409: conflict with an existing resource; ie. duplicate username/emails
+					.catch((error) => res.status(409).send(error));
+			})
+			.catch((error) => res.status(400).send(error));
+		} else {
+			return res.status(400).send({message: 'Unable to authenticate.'});
 		}
 	},
 	// /* Deletes a user from db */

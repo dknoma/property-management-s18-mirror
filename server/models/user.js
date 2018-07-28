@@ -58,12 +58,11 @@ module.exports = (sequelize, DataTypes) => {
 		User.hasMany(models.Application, {
 			foreignKey: 'tenantId',
 			as: 'applications',
+		}),
+		User.hasOne(models.Inbox, {
+			foreignKey: 'userId',
+			as: 'inboxes',
 		});
-		// User.belongsToMany(models.Property, {
-		// 	foreignKey: 'propertyId',
-		// 	through: 'UserProperty',
-		// 	as: 'user'
-		// })
 	};
 	return User;
 };
