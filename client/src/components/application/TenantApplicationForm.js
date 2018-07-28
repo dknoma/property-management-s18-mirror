@@ -39,13 +39,13 @@ class TenantApplicationForm extends Component {
         <Field name="propertyId" id="propertyId" label={'Property ID: '+this.props.params.propertyId} component={TextField} disabled />
       </div>
       <div>
-        <Field name="tenantId" id="tenantId" label={'Tenant ID: '+localStorage.getItem('my_id')} component={TextField}  />
+        <Field name="tenantId" id="tenantId" label={'Tenant ID: '+localStorage.getItem('my_id')} component={TextField} disabled />
       </div>
       <div>
         <Field name="form_subject" id="form_subject" label="Subject" component={TextField} />
       </div>
       <div>
-        <Field name="form_body" id="form_body" component={TextField} multiLine={ true } rows={6}/>
+        <Field name="form_body" id="form_body" label="Message" component={TextField} />
       </div>
       <br/>
       <button className = "button" type="submit">Apply!</button>

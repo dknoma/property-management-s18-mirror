@@ -21,7 +21,7 @@ class PropertyPage extends Component {
     return (
       <div>
       <h2>{this.props.property_name}</h2>
-        <p>Property Manager ID: {this.props.userId}</p>
+        <p><b>Property Manager ID: </b>{this.props.userId}</p>
         <p>Property ID: {this.props.id}</p>
         <p>Number of Bedrooms: {this.props.number_of_bedrooms}</p>
         <p>Number of Bathrooms: {this.props.number_of_bathrooms}</p>
@@ -58,12 +58,10 @@ class PropertyPage extends Component {
 
   render() {
     return (
-      <div className="propTable">
-        <table>
-        <tbody>
+      <div className="propInfo">
+
           { this.renderItem() }
-        </tbody>
-        </table>
+
         <br/>
           { this.renderPotentialTenantInfo() }
           { this.renderPMInfo() }

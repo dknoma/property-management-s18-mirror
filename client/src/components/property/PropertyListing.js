@@ -2,6 +2,10 @@ import React, { Component } from "react";
 import { connect } from 'react-redux';
 import * as actions from '../../actions';
 
+/* Use React Table for Sorting */
+import ReactTable from 'react-table';
+import 'react-table/react-table.css';
+
 class PropertyListing extends Component {
 
   /*when directed*/
@@ -9,69 +13,47 @@ class PropertyListing extends Component {
     this.props.fetchProperties();
   };
 
-  renderHeader(headers) {
-
-    return headers.map(header => {
-      return <th
-      key={header.key}
-      id={header.key}
-      width={header.columnWidth}
-      onClick={this.handleClick}
-      >{header.label}</th>
-    });
-  }
-
-  renderItem() {
-    const { propertylist } = this.props;
-    return propertylist.map(property =>
-    <tr className="table">
-      <td>{property.id}</td>
-      <td><a href={"/property/" + property.id}>{property.property_name}</a></td>
-      <td>{property.number_of_bedrooms}</td>
-      <td>{property.number_of_bathrooms}</td>
-      <td>{property.prices}</td>
-      <td>{property.street}</td>
-      <td>{property.city}</td>
-      <td>{property.state}</td>
-      <td>{property.zip}</td>
-      <td>{String(property.allows_pets)}</td>
-    </tr>
-  )}
 
   render() {
-    let headers = [
-      { key: 'index', label: '#', columnWidth: '5' },
-      { key: 'property_name', label: 'Property Name', columnWidth: '250px' },
-      { key: 'number_of_bedrooms', label: 'Number of Bedrooms', columnWidth: '100px' },
-      { key: 'number_of_bathrooms', label: 'Number of Bathrooms', columnWidth: '100px' },
-      { key: 'prices', label: 'Rent', columnWidth: '100px' },
-      { key: 'street', label: 'Street', columnWidth: '150px' },
-      { key: 'city', label: 'City', columnWidth: '100px' },
-      { key: 'state', label: 'State', columnWidth: '100px' },
-      { key: 'zip', label: 'Zip', columnWidth: '90px' },
-      { key: 'allows_pets', label: 'Allow Pets', columnWidth: '80px'}
-    ];
+    const data = this.props.property_list;
+    console.log(this.props.property_list);
+    const columns = [{
+      Header: 'Property Name',
+      accessor: 'property_name',// String-based value accessors!
+      Cell: props => <a href={"/property/" + props.original.id}>{props.value}</a>
+
+    }, {
+      Header: 'City',
+      accessor: 'city',
+      Cell: props => <span className='number'>{props.value}</span> // Custom cell components!
+    }, {
+      Header: 'Number of Bedrooms',
+      accessor: 'number_of_bedrooms',
+      Cell: props => <span className='number'>{props.value}</span> // Custom cell components!
+    }, {
+      Header: 'State',
+      accessor: 'state',
+      Cell: props => <span className='number'>{props.value}</span> // Custom cell components!
+    }, {
+      id: 'prices', // Required because our accessor is not a string
+      Header: 'Price',
+      accessor: d => d.prices // Custom value accessors!
+    }]
     return (
       <div>
-      <h1> Property Listings </h1>
-      <div className="propTable">
-      <table>
-        {this.renderHeader(headers)}
-      <tbody>
-        {this.renderItem()}
-      </tbody>
-      </table>
-      <br/>
-      <div> <a class="button" href="/createproperty"> Create New Property </a></div>
+      <h1> Property Listing </h1>
+      <ReactTable
+        data={data}
+        columns={columns}
+      />
       </div>
-      </div>
-    );
+    )
   }
 }
 
 function mapStateToProps(state) {
   return {
-    propertylist: state.property.property_list
+    property_list: state.property.property_list
   };
 }
 

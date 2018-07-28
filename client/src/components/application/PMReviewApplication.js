@@ -53,7 +53,7 @@ class PMReviewApplication extends Component {
 
 function mapStateToProps(state) {
   return {
-    applications: state.property.applications
+    applications: state.application.applications
   }
 }
 
