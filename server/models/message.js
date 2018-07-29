@@ -8,7 +8,11 @@ module.exports = (sequelize, DataTypes) => {
     body: {
       type: DataTypes.STRING,
       allowNull: false
-    }
+    },
+    unread: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: true
+    },
   }, {});
   Message.associate = (models) => {
     Message.belongsTo(models.Inbox, {
