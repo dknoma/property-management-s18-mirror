@@ -13,7 +13,7 @@ import requireAuth from '../requireAuth';
 class ProfilePage extends React.Component {
 
   componentDidMount() {
-    if (this.props.params.id != "undefined") {
+    if (this.props.params.id !== "undefined") {
       this.props.get_user_profile(this.props.params);
     }
   };

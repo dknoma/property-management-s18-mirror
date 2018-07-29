@@ -85,8 +85,9 @@ export const edit_profile = ({username, email, firstname, lastname, id}, callbac
   try {
     const token = localStorage.getItem('token');
     const response = await axios.put(
-      apiBaseUrl + "api/"+ "users/" + id + "/" + token,
-      {username, email, firstname, lastname}
+      apiBaseUrl + "auth/"+ "users/" + id,
+      {username, email, firstname, lastname}, { headers: {"token" : token}}
+
     );
 
     localStorage.setItem('my_username', username);
@@ -126,13 +127,11 @@ export const create_property = ({property_name, number_of_bedrooms, number_of_ba
                                   street, city, state, zip, allows_pets,url_address}, callback) => async dispatch => {
  try {
    let userId = localStorage.getItem('id');
-   console.log(userId);
    const response = await axios.post(
      apiBaseUrl +"api/"+ "property/create", {userId, property_name, number_of_bedrooms, number_of_bathrooms, prices, property_type,
                                        street, city, state, zip, allows_pets,url_address});
 
   dispatch({ type: CREATE_PROPERTY, payload: response.data});
-  console.log('response: '+ response.data.userId);
 
   callback();
 
@@ -184,13 +183,18 @@ export const apply_property = ({propertyId, form_subject, form_body, pmId, tenan
 };
 
 export const review_applications = ({propertyId}) => async dispatch => {
-  let token = localStorage.getItem('token');
-  console.log('propId: '+ propertyId);
-  const response = await axios.get(
-    apiBaseUrl +"auth/"+ "property/" + propertyId + "/applications", { headers: {"token" : token}}
-  )  .then(function (response) {
-    /* Dispatch a payload of OTHER_USER */
-    dispatch ({ type: REVIEW_APPLICATIONS, payload: response.data });
+  try {
+    let token = localStorage.getItem('token');
+    console.log('propId: '+ propertyId);
+    const response = await axios.get(
+      apiBaseUrl +"auth/"+ "property/" + propertyId + "/applications", { headers: {"token" : token}}
+    )  .then(function (response) {
+      /* Dispatch a payload of OTHER_USER */
+      dispatch ({ type: REVIEW_APPLICATIONS, payload: response.data });
 
-  })
+    })
+  } catch (e) {
+    alert(e.response.data.message);
+  }
+
 };

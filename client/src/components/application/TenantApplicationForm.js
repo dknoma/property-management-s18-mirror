@@ -23,7 +23,8 @@ class TenantApplicationForm extends Component {
   onSubmit = ({propertyId, form_subject, form_body, pmId, tenantId}) => {
     console.log('application: '+ propertyId + form_subject, form_body);
     this.props.apply_property({propertyId, form_subject, form_body, pmId, tenantId}, () => {
-      this.props.router.push("/property" + this.props.params.propertyId);
+      alert("Application was sent successfully!");
+      this.props.router.push("/property/" + this.props.params.propertyId);
     })
   //console.log(({user_type, username, email, firstname, lastname, password});
   };
