@@ -10,24 +10,43 @@ module.exports = (app) => {
 		message: 'Welcome to the property API!',
 	}));
 
-	/* Property Search Routes */
-		/* list and filter property */
+	/**************************************
+	 * Property Routes 					  *
+	 * 	-	get all properties			  *
+	 *  -	filter property results		  *
+	 * 	-	get specific property profile *
+	 **************************************/
 	app.get('/api/property/list', propertiesController.list);
 	app.post('/api/property/filter',propertiesController.filter);
 	app.get('/api/property/:propertyId', propertiesController.retrieve);
 
-	/* Property Manager Routes */
-		/* Create property */
+	/**************************************
+	 * Property Manager Routes 			  *
+	 * 	-	create property				  *
+	 *  -	find tenants in a property	  *
+	 * 	 +-+ Authorization required +-+	  *
+	 * 	-	add tenant to a property	  *
+	 *  -	remove tenant from a property *
+	 **************************************/
     app.post('/api/property/create', propertiesController.create);
     app.get('/api/propertymanager/:propertyId/tenants', propertyManagementController.findTenants);
-		/* Authorization required */
     app.post('/auth/propertymanager/add', propertyManagementController.addToProp);
 		app.delete('/auth/propertymanager/:propertyId', propertyManagementController.removeTenant);
 
-	/* Application */
+	/**************************************
+	 * Application  Routes 				  *
+	 * 	-	create application			  *
+	 * 	 +-+ Authorization required +-+	  *
+	 *  -	view all applications of	  *
+	 * 		a property					  *
+	 * 	-	view a single application	  *
+	 *  -	delete application			  *
+	 **************************************/
 	app.post('/api/property/:propertyId/apply', applicationController.create);
-		/* Authorization required */
 	app.get('/auth/property/:propertyId/applications', applicationController.reviewApplications);
+  app.get('/auth/property/:propertyId/applications/:appId', applicationController.viewSingle);
+  app.delete('/auth/property/:propertyId/applications/:appId', applicationController.deleteApplication);
+
 
 	/* Maintenance request */
 	app.post('/api/property/:propertyId/maintain', maintenanceController.create);
