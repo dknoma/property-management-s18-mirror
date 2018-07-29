@@ -2,6 +2,8 @@ const propertiesController = require('../controllers').properties;
 const propertyManagementController = require('../controllers').propertyManagement;
 const applicationController = require('../controllers').applications;
 const messageController = require('../controllers').messages;
+const maintenanceController = require('../controllers').maintenancerequest;
+
 
 module.exports = (app) => {
 	app.get('/api', (req, res) => res.status(200).send({
@@ -20,17 +22,19 @@ module.exports = (app) => {
     app.get('/api/propertymanager/:propertyId/tenants', propertyManagementController.findTenants);
 		/* Authorization required */
     app.post('/auth/propertymanager/add', propertyManagementController.addToProp);
-	app.delete('/auth/propertymanager/:propertyId', propertyManagementController.removeTenant);
+		app.delete('/auth/propertymanager/:propertyId', propertyManagementController.removeTenant);
 
 	/* Application */
-	//TODO: delete
 	app.post('/api/property/:propertyId/apply', applicationController.create);
 		/* Authorization required */
 	app.get('/auth/property/:propertyId/applications', applicationController.reviewApplications);
 
+	/* Maintenance request */
+	app.post('/api/property/:propertyId/maintain', maintenanceController.create);
 
+		/* Authorization required */
+	app.get('/auth/property/:propertyId/review', maintenanceController.reviewMaintenanceRequest);
 
-	
 	//testing
 	app.get('/api/:userId/inboxes', messageController.list);
 
