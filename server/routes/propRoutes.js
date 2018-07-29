@@ -2,6 +2,7 @@ const propertiesController = require('../controllers').properties;
 const propertyManagementController = require('../controllers').propertyManagement;
 const applicationController = require('../controllers').applications;
 const messageController = require('../controllers').messages;
+const maintenanceController = require('../controllers').maintenanceRequest;
 
 module.exports = (app) => {
 	app.get('/api', (req, res) => res.status(200).send({
@@ -17,6 +18,7 @@ module.exports = (app) => {
 	app.get('/api/property/list', propertiesController.list);
 	app.post('/api/property/filter',propertiesController.filter);
 	app.get('/api/property/:propertyId', propertiesController.retrieve);
+	app.post('/api/property/:propertyId/maintenance', maintenanceController.create)
 
 	/**************************************
 	 * Property Manager Routes 			  *
