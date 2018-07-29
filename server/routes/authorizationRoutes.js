@@ -16,6 +16,8 @@ module.exports = (app) => {
 	/* Update profile info */
 	app.put('/auth/users/:userId', usersController.update);
 
+
+    
     //testing
     app.get('/messages', messageController.listM);
 
