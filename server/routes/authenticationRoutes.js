@@ -5,13 +5,19 @@ module.exports = (app) => {
 		message: 'Welcome to the Todos API!',
 	}));
 
-	/***********************************
-	 * Authentication related requests *
-	 ***********************************/
+	/************************************
+	 * Authentication related requests  *
+	 * 	-	Property manager sign up 	*
+	 * 	-	Tenant sign up				*
+	 * 	-	Property manager login		*
+	 * 	-	Tenant login				*
+	 * 	-	User profile update			*
+	 ************************************/
 	app.post('/api/propertymanager/signup', usersController.pmsignup);
 	app.post('/api/tenant/signup', usersController.tsignup);
 	app.post('/api/propertymanager/login', usersController.pmlogin);
 	app.post('/api/tenant/login', usersController.tlogin);
+	app.put('/auth/users/:userId', usersController.update);
 
 	/* temp db testing */
 	app.get('/api/users', usersController.list);

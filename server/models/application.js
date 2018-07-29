@@ -20,7 +20,11 @@ module.exports = (sequelize, DataTypes) => {
     form_body: {
       type: DataTypes.STRING,
       allowNull: false
-    }
+    },
+    reviewed: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
+    },
   }, {});
   Application.associate = (models) => {
     Application.belongsTo(models.User, {
