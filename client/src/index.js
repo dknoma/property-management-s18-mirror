@@ -35,6 +35,7 @@ import PropertySearchResults from "./components/property/PropertySearchResults.j
 import SearchProperty from "./components/property/SearchProperty.js";
 import PropertyPage from "./components/property/PropertyPage.js";
 import ComposeMessage from "./components/message/ComposeMessage.js";
+import Message from "./components/message/Message.js";
 import Inbox from "./components/message/Inbox.js";
 import Sent from "./components/message/Sent.js";
 import TenantApplicationForm from "./components/application/TenantApplicationForm.js";
@@ -58,7 +59,6 @@ store.subscribe(throttle(() => {
     property: store.getState().property
   });
 }, 1000));
-console.log(store.getState().property.search_results_list)
 
 //console.log(store.getState());
 
@@ -100,7 +100,9 @@ ReactDOM.render(
           </Route>
           <Route exact path={"property/review/:propertyId"} component={PMReviewApplication}>
           </Route>
-          <Route exact path={"inbox"} component={Inbox}>
+          <Route exact path={"inbox/:id"} component={Inbox}>
+          </Route>
+          <Route exact path={"message"} component={Message}>
           </Route>
           <Route exact path={"composemessage"} component={ComposeMessage}>
           </Route>

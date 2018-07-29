@@ -21,35 +21,56 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Divider from '@material-ui/core/Divider';
 
+const required = value => value ? undefined : 'Required';
+const number = value => value && isNaN(Number(value)) ? 'Must be a number' : undefined
+
 class ComposeMessage extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state={
+      userId: localStorage.getItem('my_id'),
+      sender: localStorage.getItem('my_id')
+    }
+  }
 
   /* Change this to submit the payload */
-
-onSubmit = ({sender, receiver, body}) => {
-  const id = localStorage.getItem("my_id");
-  this.props.send_message({sender, receiver, body}, () => {
+onSubmit = ({receiverId, subject, body}) => {
+  const senderId = localStorage.getItem("my_id");
+  const inboxId = localStorage.getItem("my_id");
+  console.log(localStorage.getItem("my_id"));
+  this.props.create_message({senderId, receiverId, inboxId, subject, body}, () => {
     // where do we want to send them?
     // this.props.router.push("/profile/" + id );
   });
 };
 
   render() {
-    const data = {
-      // used to populate "account" reducer when "Load" is clicked
-      username: this.props.my_username,
-    }
-    /* handleSubmit is provided by Redux Form */
     const { handleSubmit } = this.props;
+    let userId = localStorage.getItem('id');
     return (
-      <form onSubmit={handleSubmit(this.onSubmit)}>
-        <br />
-        <Typography color="inherit" variant="display1">
-        Compose Message
-        </Typography>
+      <div className="row">
+      <Typography color="inherit" variant="display1">
+      Compose Message
+      </Typography>
+        <form className="belowNav" onSubmit={handleSubmit(this.onSubmit)} align="center">
+        <div>
+          <Field name="userId" id="userId" component={TextField} label={'User ID: ' + userId} disabled hidden/>
+        </div>
+        <div>
+          <Field name="receiverId" id="receiverId" label="Receiver ID" component={TextField} validate={[ required ]} />
+        </div>
+        <div>
+          <Field name="subject" id="subject" label="Subject" component={TextField} validate={[ required ]} />
+        </div>
+        <div>
+          <Field name="body" id="body" label="Body" component={TextField} validate={[ required ]} />
+        </div>
         <br/>
+        <button className = "button" type="submit">Send Message</button>
         <br />
       </form>
-    );
+      </div>
+    )
   }
 }
 
@@ -57,8 +78,8 @@ onSubmit = ({sender, receiver, body}) => {
 function mapStateToProps(state) {
   return {
     initialValues: {
-      sender: state.auth.my_username,
-      //receiver: state.auth.firstname,
+      sender: state.auth.my_id,
+      // receiver: state.auth.firstname,
     }
   };
 }

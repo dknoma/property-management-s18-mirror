@@ -43,20 +43,20 @@ export default function(state = INITIAL_STATE, action) {
       }
 
     case GET_PROPERTY:
-    return {...state,
-      userId: action.payload.userId,
-      id: action.payload.id,
-      property_name: action.payload.property_name,
-      number_of_bedrooms: action.payload.number_of_bedrooms,
-      number_of_bathrooms: action.payload.number_of_bathrooms,
-      prices: action.payload.prices,
-      property_type: action.payload.property_type,
-      state: action.payload.state,
-      street: action.payload.street,
-      url_address: action.payload.url_address,
-      zip: action.payload.zip,
-      allows_pets: action.payload.allows_pets
-    };
+      return {...state,
+        userId: action.payload.userId,
+        id: action.payload.id,
+        property_name: action.payload.property_name,
+        number_of_bedrooms: action.payload.number_of_bedrooms,
+        number_of_bathrooms: action.payload.number_of_bathrooms,
+        prices: action.payload.prices,
+        property_type: action.payload.property_type,
+        state: action.payload.state,
+        street: action.payload.street,
+        url_address: action.payload.url_address,
+        zip: action.payload.zip,
+        allows_pets: action.payload.allows_pets
+      };
 
     case SEARCH_PROPERTY:
       return {...state,

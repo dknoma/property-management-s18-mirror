@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { AUTH_USER, OTHER_USER, ALL_USERS, CREATE_PROPERTY, FETCH_PROPERTIES, GET_PROPERTY, SEARCH_PROPERTY, APPLY_PROPERTY,
-          REVIEW_APPLICATIONS, CREATE_MESSAGE, FETCH_MESSAGES } from './types';
+          REVIEW_APPLICATIONS, CREATE_MESSAGE, GET_MESSAGES } from './types';
 /* State Persist */
 import {loadState, saveState} from '.././localStorage.js';
 
@@ -192,5 +192,30 @@ export const review_applications = ({propertyId}) => async dispatch => {
     /* Dispatch a payload of OTHER_USER */
     dispatch ({ type: REVIEW_APPLICATIONS, payload: response.data });
 
+  })
+};
+
+export const create_message = ({senderId, receiverId, inboxId, subject, body}) => async dispatch => {
+  let token = localStorage.getItem('token');
+  // let senderId = localStorage.getItem('my_id');
+  // let inboxId = localStorage.getItem('my_id');
+  const response = await axios.post(
+    apiBaseUrl +"api/user/message", {senderId, receiverId, inboxId, subject, body} ,{ headers: {"token" : token}}
+  )  .then(function (response) {
+    dispatch ({ type: CREATE_MESSAGE, payload: response.data });
+    console.log(response.data);
+
+  })
+};
+
+export const get_messages = ({id}) => async dispatch => {
+  let token = localStorage.getItem('token');
+  let user_id = localStorage.getItem('my_id');
+  console.log('Id: '+ user_id);
+  const response = await axios.get(
+    apiBaseUrl + "auth/user/" + user_id + "/inbox", { headers: {"token" : token}}
+  )  .then(function (response) {
+    /* Dispatch a payload of OTHER_USER */
+    dispatch ({ type: GET_MESSAGES, payload: response.data });
   })
 };

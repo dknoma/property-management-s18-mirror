@@ -64,7 +64,7 @@ class ProfilePage extends React.Component {
               <p>Role: {this.props.user_type} </p>
               {this.renderPMInformation()}
             </div>
-            <div> <a class="button" href="/searchproperty"> Search Property </a></div>
+            <div> <a class="button" href="/searchproperty">Search Property</a></div>
           </div>
       </div>
     );

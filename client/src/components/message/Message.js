@@ -19,11 +19,11 @@ const styles = theme => ({
 });
 
 
-class Inbox extends Component {
+class Message extends Component {
 
   /*when directed*/
   componentDidMount() {
-    this.props.get_messages(localStorage.getItem('my_id'));
+    this.props.fetchProperties();
   };
 
   ListDividers() {
@@ -38,7 +38,7 @@ class Inbox extends Component {
         <ListItem button divider>
           <ListItemText primary="Sent" />
         </ListItem>
-        <Divider light/>
+        <Divider light />
       </List>
     </div>
   );
@@ -87,15 +87,15 @@ class Inbox extends Component {
 
 function mapStateToProps(state) {
   return {
-    messages: state.message.messages,
+    inbox: state.property.property_list,
     id: state.auth.id
   };
 }
 
-Inbox.propTypes = {
+Message.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
 
 
-export default connect(mapStateToProps, actions)(withStyles(styles)(Inbox));
+export default connect(mapStateToProps, actions)(withStyles(styles)(Message));

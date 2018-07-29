@@ -9,4 +9,4 @@ export const GET_PROPERTY = "get_property";
 export const APPLY_PROPERTY = "apply_property";
 export const REVIEW_APPLICATIONS = "review_applications";
 export const CREATE_MESSAGE = "create_message";
-export const FETCH_MESSAGES = "fetch_messages";
+export const GET_MESSAGES = "get_messages";

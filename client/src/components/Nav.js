@@ -119,7 +119,7 @@ export class Nav extends Component {
               <AddIcon />
             </Avatar>
           </a>
-          <a href="/inbox">
+          <a href={"/inbox/" + localStorage.getItem('my_id')}>
             <Avatar className={classes.greenAvatar}>
               <EmailIcon />
             </Avatar>
