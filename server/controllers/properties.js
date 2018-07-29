@@ -1,5 +1,6 @@
 const Property = require('../models').Property;
 const User = require('../models').User;
+const Maintenance = require('../models').Maintenance;
 const config = require('./config');
 const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
@@ -32,7 +33,7 @@ module.exports = {
 			where: {
 				[Op.and]: [
 					{
-						property_type: req.body.property_type != null ? 
+						property_type: req.body.property_type != null ?
 							req.body.property_type : {[Op.iLike]: '%'}
 					},
 					{
@@ -51,7 +52,7 @@ module.exports = {
 						} : {[Op.iLike]: '%'}
 					},
 					{
-						number_of_bedrooms: req.body.number_of_bedrooms != null ? 
+						number_of_bedrooms: req.body.number_of_bedrooms != null ?
 							req.body.number_of_bedrooms : {[Op.gte]: 1}
 					},
 					{
@@ -63,9 +64,9 @@ module.exports = {
 							req.body.allows_pets : {[Op.any]: [true, false]}
 					},
 					{
-						prices:  req.body.price_gte === '>' ? 
+						prices:  req.body.price_gte === '>' ?
 							{[Op.gte]: req.body.prices} :
-							req.body.price_gte === '<' ? 
+							req.body.price_gte === '<' ?
 								{[Op.lte]: req.body.prices} :
 								{[Op.gte]: 0}
 					}
