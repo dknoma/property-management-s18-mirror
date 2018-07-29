@@ -12,9 +12,9 @@ import requireAuth from '../requireAuth';
 
 class ApplicationPage extends React.Component {
   componentDidMount() {
-    if (this.props.params.id !== "undefined") {
+    if (this.props.params.applicationId !== "undefined") {
       //CHANGE THIS
-      this.props.get_application(this.props.params);
+      this.props.get_application(this.props.params.propertyId, this.props.params.applicationId);
     }
   };
 

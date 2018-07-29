@@ -32,8 +32,8 @@ export default function(state = INITIAL_STATE, action) {
 
   case GET_APPLICATION:
     return {...state,
-      approval_status: action.payload.application.approval_status,
       id: action.payload.application.id,
+      approval_status: action.payload.application.approval_status,
       tenantId: action.payload.application.tenantId,
       tenant_name: action.payload.application.tenant_name,
       propertyId: action.payload.application.propertyId,
