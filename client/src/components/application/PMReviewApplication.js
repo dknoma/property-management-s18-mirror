@@ -17,14 +17,11 @@ class PMReviewApplication extends Component {
   };
 
   render() {
-    console.log(this.props.applications);
+    //console.log(this.props.applications);
 
     const data = this.props.applications;
 
     const columns = [{
-      Header: 'Property Name',
-      accessor: 'property_name' // String-based value accessors!
-    }, {
       Header: 'Property ID',
       accessor: 'propertyId',
       Cell: props => <span className='number'>{props.value}</span> // Custom cell components!

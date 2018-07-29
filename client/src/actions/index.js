@@ -4,7 +4,7 @@ import { AUTH_USER, OTHER_USER, ALL_USERS, CREATE_PROPERTY, FETCH_PROPERTIES, GE
 /* State Persist */
 import {loadState, saveState} from '.././localStorage.js';
 
-var apiBaseUrl = "http://localhost:3000/api/";
+var apiBaseUrl = "http://localhost:3000/";
 
 /* Because of redux thunk, we can return a function that calls dispatch. This is
 an action creator */
@@ -15,7 +15,7 @@ export const signup =
 ({user_type, username, email, firstname, lastname, password}, callback) => async dispatch => {
   try {
     const response = await axios.post(
-      apiBaseUrl + user_type + "/signup",
+      apiBaseUrl +"api/"+ user_type + "/signup",
      {user_type, username, email, firstname, lastname, password}
     );
      /* and get the whole object as payload, not just token!
@@ -45,7 +45,7 @@ export const login =
 ({user_type, username, password}, callback) => async dispatch => {
     try {
       const response = await axios.post(
-        apiBaseUrl + user_type + "/login", {user_type, username, password}
+        apiBaseUrl + "api/" + user_type + "/login", {user_type, username, password}
       );
 
        /* and get the token as payload */
@@ -85,7 +85,7 @@ export const edit_profile = ({username, email, firstname, lastname, id}, callbac
   try {
     const token = localStorage.getItem('token');
     const response = await axios.put(
-      apiBaseUrl + "users/" + id + "/" + token,
+      apiBaseUrl + "api/"+ "users/" + id + "/" + token,
       {username, email, firstname, lastname}
     );
 
@@ -104,7 +104,7 @@ export const edit_profile = ({username, email, firstname, lastname, id}, callbac
 
 export const get_user_profile = ({id}) => async dispatch => {
   const response = await axios.get(
-    apiBaseUrl + "users/" + id,
+    apiBaseUrl +"api/"+ "users/" + id,
   )  .then(function (response) {
     /* Dispatch a payload of OTHER_USER */
     dispatch ({ type: OTHER_USER, payload: response.data });
@@ -114,7 +114,7 @@ export const get_user_profile = ({id}) => async dispatch => {
 
 export const get_users = () => async dispatch => {
   const response = await axios.get(
-    apiBaseUrl + "users",
+    apiBaseUrl +"api/"+ "users",
   )  .then(function (response) {
     /* Dispatch a payload of OTHER_USER */
       dispatch ({ type: ALL_USERS, payload: response.data });
@@ -128,7 +128,7 @@ export const create_property = ({property_name, number_of_bedrooms, number_of_ba
    let userId = localStorage.getItem('id');
    console.log(userId);
    const response = await axios.post(
-     apiBaseUrl + "property/create", {userId, property_name, number_of_bedrooms, number_of_bathrooms, prices, property_type,
+     apiBaseUrl +"api/"+ "property/create", {userId, property_name, number_of_bedrooms, number_of_bathrooms, prices, property_type,
                                        street, city, state, zip, allows_pets,url_address});
 
   dispatch({ type: CREATE_PROPERTY, payload: response.data});
@@ -142,14 +142,14 @@ export const create_property = ({property_name, number_of_bedrooms, number_of_ba
 };
 
 export const fetchProperties = () => async dispatch => {
-    const res = await axios.get( apiBaseUrl + "property/list");
+    const res = await axios.get( apiBaseUrl +"api/"+ "property/list");
     dispatch({ type: FETCH_PROPERTIES, payload: res.data });
 };
 
 export const search_property = ({price_gte, number_of_bedrooms, number_of_bathrooms, prices, city, state, zip, allows_pets, property_type}, callback) => async dispatch => {
  try {
    const response = await axios.post(
-     apiBaseUrl + "property/filter", {price_gte, number_of_bedrooms, number_of_bathrooms, prices, city, state, zip, allows_pets, property_type});
+     apiBaseUrl +"api/"+ "property/filter", {price_gte, number_of_bedrooms, number_of_bathrooms, prices, city, state, zip, allows_pets, property_type});
 
   dispatch({ type: SEARCH_PROPERTY, payload: response.data});
   console.log(response.data);
@@ -162,7 +162,7 @@ export const search_property = ({price_gte, number_of_bedrooms, number_of_bathro
 
 export const get_property_profile = ({propertyId}) => async dispatch => {
   const response = await axios.get(
-    apiBaseUrl + "property/" + propertyId,
+    apiBaseUrl +"api/"+ "property/" + propertyId,
   )  .then(function (response) {
     /* Dispatch a payload of OTHER_USER */
     dispatch ({ type: GET_PROPERTY, payload: response.data });
@@ -174,7 +174,7 @@ export const apply_property = ({propertyId, form_subject, form_body, pmId, tenan
   try {
     console.log('apply_prop: '+ propertyId + form_subject, form_body);
     const response = await axios.post(
-      apiBaseUrl + "property/" + propertyId + "/apply", {propertyId, form_subject, form_body, pmId, tenantId}
+      apiBaseUrl +"api/"+ "property/" + propertyId + "/apply", {propertyId, form_subject, form_body, pmId, tenantId}
     );
     dispatch({ type: APPLY_PROPERTY, payload: response.data});
     callback();
@@ -184,9 +184,10 @@ export const apply_property = ({propertyId, form_subject, form_body, pmId, tenan
 };
 
 export const review_applications = ({propertyId}) => async dispatch => {
+  let token = localStorage.getItem('token');
   console.log('propId: '+ propertyId);
   const response = await axios.get(
-    apiBaseUrl + "property/" + propertyId + "/applications",
+    apiBaseUrl +"auth/"+ "property/" + propertyId + "/applications", { headers: {"token" : token}}
   )  .then(function (response) {
     /* Dispatch a payload of OTHER_USER */
     dispatch ({ type: REVIEW_APPLICATIONS, payload: response.data });
