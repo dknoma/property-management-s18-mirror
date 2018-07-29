@@ -41,32 +41,51 @@ module.exports = {
 		//verify if PM
 		/* if user_type === propertymanager, move on, else 403 restricted */
 		var currentUser = req.currentUser;
-            if(req.params.propertyId == currentUser) {
-				return Application
-					.findAll({
-						where: {
-							propertyId: req.params.propertyId,
-						}
-					})
-					.then(applications => {
-						return res.status(200).send(applications)
-					})
-					.catch(error => res.status(400).send(error));
-			} else {
-				return res.status(400).send({message: 'Unable to authenticate.'});
-			}
+		if(currentUser) {
+			console.log(currentUser);
+			
+			Property.findById(req.params.propertyId)
+			.then(property => {
+				if(property.userId == currentUser) {
+					console.log("prop owner: " + property.userId);
+					return Application
+						.findAll({
+							where: {
+								propertyId: req.params.propertyId,
+							}
+						})
+						.then(applications => {
+							return res.status(200).send(applications)
+						})
+						.catch(error => res.status(400).send(error));
+				} else {
+					return res.status(400).send({message: 'Unable to authenticate.'});
+				}
+			})
+			.catch(error => res.status(400).send({message: 'Unable to authenticate.', error}));
+		} else {
+			return res.status(400).send({message: 'Unable to authenticate.'});
+		}
 	},
 	deleteApplication(req, res) {
 		//authorize if user owns the property
 		var currentUser = req.currentUser;
-		if(req.params.propertyId == currentUser) {
-			return Application
-				.findById(req.body.tenantId)
-				.then(application => {
-					return application
-						.destroy()
-						.then(() => res.status(200).send({ message: 'Application successfully removed!'}))
-				})
+		if(currentUser) {
+			Property.findById(req.params.propertyId)
+			.then(property => {
+				if(property.userId = currentUser) {
+					return Application
+						.findById(req.body.tenantId)
+						.then(application => {
+							return application
+								.destroy()
+								.then(() => res.status(200).send({ message: 'Application successfully removed!'}))
+						})
+				} else {
+					return res.status(400).send({message: 'Unable to authenticate.'});
+				}
+			})
+			.catch(error => res.status(400).send({message: 'Unable to find user', error}));
 		} else {
 			return res.status(400).send({message: 'Unable to authenticate.'});
 		}
