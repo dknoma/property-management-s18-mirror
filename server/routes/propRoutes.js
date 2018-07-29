@@ -42,8 +42,11 @@ module.exports = (app) => {
 	 **************************************/
 	app.post('/api/property/:propertyId/apply', applicationController.create);
 	app.get('/auth/property/:propertyId/applications', applicationController.reviewApplications);
-    app.get('/auth/property/:propertyId/applications/:appId', applicationController.viewSingle);
+	app.get('/auth/property/:propertyId/applications/:appId', applicationController.viewSingle);
+	app.put('/auth/property/:propertyId/applications/:appId', applicationController.updateApprovalStatus);
     app.delete('/auth/property/:propertyId/applications/:appId', applicationController.deleteApplication);
+	app.get('/auth/user/myapplications', applicationController.viewMyApplications);
+    app.delete('/auth/user/myapplications/:appId', applicationController.deleteOwnApplication);
 
 
 

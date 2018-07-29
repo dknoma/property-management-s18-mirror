@@ -57,7 +57,7 @@ module.exports = {
                 });
             }
 		} else {
-			return res.status(400).send({message: 'Unable to authenticate.'});
+			return res.status(401).send({message: 'Unable to authenticate.'});
 		}
     },
     viewMessage(req, res) {
@@ -90,7 +90,7 @@ module.exports = {
             }
 
 		} else {
-			return res.status(400).send({message: 'Unable to authenticate.'});
+			return res.status(401).send({message: 'Unable to authenticate.'});
 		}
     },
     delete(req, res) {
@@ -121,7 +121,7 @@ module.exports = {
             }
 
 		} else {
-			return res.status(400).send({message: 'Unable to authenticate.'});
+			return res.status(401).send({message: 'Unable to authenticate.'});
 		}
     }
 }

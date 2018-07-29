@@ -17,6 +17,10 @@ module.exports = {
           as: 'tenantId',
         },
       },
+      tenant_name: {
+        type: Sequelize.String,
+        allowNull: false,
+      },
       propertyId: {
         type: Sequelize.INTEGER,
         allowNull: false,
@@ -25,6 +29,10 @@ module.exports = {
           key: 'id',
           as: 'propertyId',
         },
+      },
+      property_name: {
+        type: Sequelize.String,
+        allowNull: false,
       },
       pmId: {
         type: Sequelize.INTEGER,
@@ -43,9 +51,9 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false
       },
-      reviewed: {
+      approval_status: {
         type: Sequelize.BOOLEAN,
-        defaultValue: false
+        defaultValue: null
       },
       createdAt: {
         allowNull: false,
