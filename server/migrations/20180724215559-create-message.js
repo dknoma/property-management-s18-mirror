@@ -10,11 +10,15 @@ module.exports = {
       },
       subject: {
         type: Sequelize.STRING,
-        allowNull: false 
+        allowNull: false
       },
       body: {
        type: Sequelize.STRING,
-       allowNull: false 
+       allowNull: false
+      },
+      viewed: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: false
       },
       senderId: {
         type: Sequelize.INTEGER,

@@ -60,11 +60,45 @@ module.exports = {
                 });
             }
 		} else {
-			return res.status(400).send({message: 'Unable to authenticate.'});
+			return res.status(401).send({message: 'Unable to authenticate.'});
+		}
+    },
+    viewMessage(req, res) {
+        var currentUser = req.currentUser;
+
+        if(currentUser) {
+            if(req.params.userId == currentUser) {
+                return Message
+                    .findById(req.params.messageId)
+                    .then(message => {
+                        if(!message) {
+                            return res.status(404).send({
+                                message: 'Message Not Found',
+                            });
+                        }
+                        if(!message.viewed) {
+                            message.update({viewed: true});
+                        }
+                        return res.status(200).send(message);
+                    })
+                    .catch(error => res.status(401).send({
+                        message: "Unable to find message.",
+                        error
+                    }));
+            } else {
+                return res.status(401).send({
+                    message: "Unable to authenticate. Please try again.",
+                    error
+                });
+            }
+
+		} else {
+			return res.status(401).send({message: 'Unable to authenticate.'});
 		}
     },
     delete(req, res) {
         var currentUser = req.currentUser;
+
         if(currentUser) {
             if(req.params.userId == currentUser) {
                 return Message
@@ -90,7 +124,7 @@ module.exports = {
             }
 
 		} else {
-			return res.status(400).send({message: 'Unable to authenticate.'});
+			return res.status(401).send({message: 'Unable to authenticate.'});
 		}
     }
 }
