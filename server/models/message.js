@@ -9,9 +9,9 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false
     },
-    unread: {
+    viewed: {
       type: DataTypes.BOOLEAN,
-      defaultValue: true
+      defaultValue: false
     },
   }, {});
   Message.associate = (models) => {

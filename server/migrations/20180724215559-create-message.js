@@ -16,9 +16,9 @@ module.exports = {
        type: Sequelize.STRING,
        allowNull: false 
       },
-      unread: {
+      viewed: {
         type: Sequelize.BOOLEAN,
-        defaultValue: true
+        defaultValue: false
       },
       senderId: {
         type: Sequelize.INTEGER,

@@ -73,6 +73,9 @@ module.exports = {
                                 message: 'Message Not Found',
                             });
                         }
+                        if(!message.viewed) {
+                            message.update({viewed: true});
+                        }
                         return res.status(200).send(message);
                     })
                     .catch(error => res.status(401).send({
