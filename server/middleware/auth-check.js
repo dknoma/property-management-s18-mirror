@@ -3,7 +3,6 @@ const config = require('../controllers/config');
 const jwt = require('jsonwebtoken');
 
 module.exports = function authorize(req, res, next) {
-    console.log(req.header('token'));
     if(!req.header('token') 
         || req.header('token') == null 
         || req.header('token') == undefined) {

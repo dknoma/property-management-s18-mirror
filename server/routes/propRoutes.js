@@ -23,10 +23,15 @@ module.exports = (app) => {
 	app.delete('/auth/propertymanager/:propertyId', propertyManagementController.removeTenant);
 
 	/* Application */
-		//TODO: delete
+	//TODO: delete
 	app.post('/api/property/:propertyId/apply', applicationController.create);
+		/* Authorization required */
 	app.get('/auth/property/:propertyId/applications', applicationController.reviewApplications);
 
+
+
+	
+	//testing
 	app.get('/api/:userId/inboxes', messageController.list);
 
 	app.all('/api/users', (req, res) =>
