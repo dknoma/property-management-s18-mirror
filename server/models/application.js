@@ -5,8 +5,16 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: false
     },
+    tenant_name: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
     propertyId: {
       type: DataTypes.INTEGER,
+      allowNull: false
+    },
+    property_name: {
+      type: DataTypes.STRING,
       allowNull: false
     },
     pmId: {
@@ -20,6 +28,10 @@ module.exports = (sequelize, DataTypes) => {
     form_body: {
       type: DataTypes.STRING,
       allowNull: false
+    },
+    approval_status: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: null
     }
   }, {});
   Application.associate = (models) => {

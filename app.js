@@ -15,28 +15,22 @@ const express = require('express');
 const logger = require('morgan');
 const bodyParser = require('body-parser');
 const authorizor = require('./server/middleware/auth-check')
-// const passport = require('passport');
 
 //creates the express application
 const app = express();
 
 // Use application-level middleware for common functionality, including
 // logging, parsing, and session handling.
+// auth: middleware for verifying a user through a valid token
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false}));
-
-// app.use(passport.initialize());
 app.use('/auth', authorizor);
-
-// Load passport stratgies
-// const localAuthStrat = require('./server/passport/local-auth');
-// passport.use('local-auth', localAuthStrat);
 
 // Require our various routes into the application.
 require('./server/routes/authenticationRoutes')(app);
 require('./server/routes/propRoutes')(app);
-require('./server/routes/authorizationRoutes')(app);
+require('./server/routes/messageRoutes')(app);
 
 app.get('*', (request, response) => response.status(200).send({
 	message: 'Welcome to the beginning of Wut.',

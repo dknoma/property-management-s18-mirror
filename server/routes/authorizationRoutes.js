@@ -12,9 +12,11 @@ module.exports = (app) => {
     app.post('/api/user/message', messageController.create);
     app.delete('/auth/user/:userId/message/:messageId', messageController.delete);
     app.get('/auth/user/:userId/inbox', messageController.allMessages);
-    
+
 	/* Update profile info */
 	app.put('/auth/users/:userId', usersController.update);
+
+
 
     //testing
     app.get('/messages', messageController.listM);

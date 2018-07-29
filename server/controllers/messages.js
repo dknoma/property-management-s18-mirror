@@ -42,50 +42,89 @@ module.exports = {
     allMessages(req ,res) {
         //verify if user is owner of inbox trying to view
         var currentUser = req.currentUser;
-        console.log('WORKING? ' + currentUser);
+        if(currentUser) {
+            if(req.params.userId == currentUser) {
+                return Message
+                    .findAll({
+                        where: {
+                            inboxId: currentUser
+                        }
+                    })
+                    .then(messages => {
+                        return res.status(200).send(messages);
+                    })
+                    .catch(error => res.status(401).send(error));
+            } else {
+                return res.status(401).send({
+                    message: "Unable to authenticate. Please try again.",
+                });
+            }
+		} else {
+			return res.status(401).send({message: 'Unable to authenticate.'});
+		}
+    },
+    viewMessage(req, res) {
+        var currentUser = req.currentUser;
 
-        if(req.params.userId == currentUser) {
-            console.log('ids match');
-            return Message
-                .findAll({
-                    where: {
-                        inboxId: currentUser
-                    }
-                })
-                .then(messages => {
-                    return res.status(200).send(messages);
-                })
-                .catch(error => res.status(401).send(error));
-        } else {
-            return res.status(401).send({
-                message: "Unable to authenticate. Please try again.",
-            });
-        }
+        if(currentUser) {
+            if(req.params.userId == currentUser) {
+                return Message
+                    .findById(req.params.messageId)
+                    .then(message => {
+                        if(!message) {
+                            return res.status(404).send({
+                                message: 'Message Not Found',
+                            });
+                        }
+                        if(!message.viewed) {
+                            message.update({viewed: true});
+                        }
+                        return res.status(200).send(message);
+                    })
+                    .catch(error => res.status(401).send({
+                        message: "Unable to find message.",
+                        error
+                    }));
+            } else {
+                return res.status(401).send({
+                    message: "Unable to authenticate. Please try again.",
+                    error
+                });
+            }
+
+		} else {
+			return res.status(401).send({message: 'Unable to authenticate.'});
+		}
     },
     delete(req, res) {
         var currentUser = req.currentUser;
-        
-        if(req.params.userId == currentUser) {
-            return Message
-                .findById(req.params.messageId)
-                .then(message => {
-                    if(!message) {
-                        return res.status(404).send({
-                            message: 'Message Not Found',
-                        });
-                    }
-                    return message
-                        .destroy()
-                        //status(204).send()) : 204 No Content
-                        .then(() => res.status(200).send({ message: 'Message successfully deleted'}))
-                        .catch(error => res.status(400).send(error));
-                })
-                .catch(error => res.status(401).send(error));
-        } else {
-            return res.status(401).send({
-                message: "Unable to authenticate. Please try again.",
-                error
-            });
-        }
+
+        if(currentUser) {
+            if(req.params.userId == currentUser) {
+                return Message
+                    .findById(req.params.messageId)
+                    .then(message => {
+                        if(!message) {
+                            return res.status(404).send({
+                                message: 'Message Not Found',
+                            });
+                        }
+                        return message
+                            .destroy()
+                            //status(204).send()) : 204 No Content
+                            .then(() => res.status(200).send({ message: 'Message successfully deleted'}))
+                            .catch(error => res.status(400).send(error));
+                    })
+                    .catch(error => res.status(401).send(error));
+            } else {
+                return res.status(401).send({
+                    message: "Unable to authenticate. Please try again.",
+                    error
+                });
+            }
+
+		} else {
+			return res.status(401).send({message: 'Unable to authenticate.'});
+		}
     }
 }

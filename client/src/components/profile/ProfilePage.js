@@ -13,16 +13,18 @@ import requireAuth from '../requireAuth';
 class ProfilePage extends React.Component {
 
   componentDidMount() {
-    this.props.get_user_profile(this.props.params);
+    if (this.props.params.id !== "undefined") {
+      this.props.get_user_profile(this.props.params);
+    }
   };
 
   renderPMInformation() {
     if (this.props.user_type ==="propertymanager") {
         return (
           <div>
-            <div> <a class="button" href="/propertylisting"> View Property Listing</a></div>
+            <div> <a class="button" href="/propertylisting">View Property Listing</a></div>
             <br/>
-            <div> <a class="button" href="/createproperty"> Create New Property</a></div>
+            <div> <a class="button" href="/createproperty">Create New Property</a></div>
             <br/>
           </div>
         )
@@ -62,7 +64,7 @@ class ProfilePage extends React.Component {
               <p>Role: {this.props.user_type} </p>
               {this.renderPMInformation()}
             </div>
-            <div> <a class="button" href="/searchproperty"> Search Property </a></div>
+            <div> <a class="button" href="/searchproperty">Search Property</a></div>
           </div>
       </div>
     );
@@ -82,4 +84,4 @@ function mapStateToProps(state) {
   };
 }
 /* Need to connect actions here */
-export default connect(mapStateToProps, actions)(ProfilePage);
+export default connect(mapStateToProps, actions)(requireAuth(ProfilePage));
