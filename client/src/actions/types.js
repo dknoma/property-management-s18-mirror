@@ -11,3 +11,4 @@ export const REVIEW_APPLICATIONS = "review_applications";
 export const CREATE_MESSAGE = "create_message";
 export const FETCH_MESSAGES = "fetch_messages";
 export const DELETE_APPLICATION = "delete_application";
+export const GET_APPLICATION = "get_application";

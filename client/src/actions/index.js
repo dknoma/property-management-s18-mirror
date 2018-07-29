@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { AUTH_USER, OTHER_USER, ALL_USERS, CREATE_PROPERTY, FETCH_PROPERTIES, GET_PROPERTY, SEARCH_PROPERTY, APPLY_PROPERTY,
-          REVIEW_APPLICATIONS, CREATE_MESSAGE, FETCH_MESSAGES } from './types';
+          REVIEW_APPLICATIONS, CREATE_MESSAGE, FETCH_MESSAGES, DELETE_APPLICATION, GET_APPLICATION } from './types';
 /* State Persist */
 import {loadState, saveState} from '.././localStorage.js';
 
@@ -194,7 +194,17 @@ export const review_applications = ({propertyId}) => async dispatch => {
 
     })
   } catch (e) {
-    alert(e.response.data.message);
+    alert(e.response.message);
   }
+};
+
+export const get_application = ({propertyId, applicationId}) => async dispatch => {
+
+    let token = localStorage.getItem('token');
+    const res = await axios.get(
+      apiBaseUrl + "auth/property/" + propertyId + "/applications" + applicationId, { headers: {"token" : token}}
+    ).then(function (res) {
+      dispatch({ type: GET_APPLICATION, payload: res.data});
+    })
 
 };
