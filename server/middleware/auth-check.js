@@ -6,7 +6,7 @@ module.exports = function authorize(req, res, next) {
     if(!req.header('token') 
         || req.header('token') == null 
         || req.header('token') == undefined) {
-        return res.status(401).send();
+        return res.status(401).send({message: 'Unable to authenticate'});
     }
 
     try {
@@ -21,7 +21,7 @@ module.exports = function authorize(req, res, next) {
                 })
                 .catch((err, user) => {
                     if (err || !user) {
-                        return res.status(401).send({message: 'Xos'});
+                        return res.status(401).send({message: 'Unable to authenticate'});
                     }
                 });
         } else {

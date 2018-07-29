@@ -11,28 +11,43 @@ module.exports = {
 		.findById(req.params.propertyId)
 		.then(property => {
 			return Application
-			.create({
-				tenantId: req.body.tenantId,
-				propertyId: req.params.propertyId,
-				pmId: property.userId,
-				form_subject: req.body.form_subject,
-				form_body: req.body.form_body,
-				})
-				.then((application, created) => {
-					//if relation exists, need to try again
-					if(application == null) {
-						//409: conflict with an existing resource; ie. duplicate username/emails
-						return res.status(404).send({
-							message: 'An error has occurred. Please try again.'
-						});
-					}
-					
-					return res.status(201).send({
-							application,
-							message: 'Application was sent successfully!'
+
+			.findOrCreate({
+				//tries to find user already has an existing application for the property
+				where: {
+					[Op.and]: [
+						{tenantId: req.body.tenantId,},
+						{propertyId: req.params.propertyId}
+					]
+				},
+				defaults: {
+					tenantId: req.body.tenantId,
+					propertyId: req.params.propertyId,
+					pmId: property.userId,
+					form_subject: req.body.form_subject.trim(),
+					form_body: req.body.form_body.trim(),
+				}
+			})
+			.spread((application, created) => {
+				//if relation exists, need to try again
+				if(!created) {
+					return res.status(409).send({
+						message: 'You already applied to this property!'
 					});
+				}
+				if(application == null) {
+					//409: conflict with an existing resource; ie. duplicate username/emails
+					return res.status(404).send({
+						message: 'An error has occurred. Please try again.'
+					});
+				}
+				
+				return res.status(201).send({
+						application,
+						message: 'Application was sent successfully!'
 				})
-				.catch(error => res.status(400).send(error));
+			})
+			.catch(error => res.status(400).send(error));
 		})
 		.catch(error => res.status(400).send(error));
 		
@@ -44,10 +59,12 @@ module.exports = {
 		if(currentUser) {
 			console.log(currentUser);
 			
+			//find property by propId
 			Property.findById(req.params.propertyId)
 			.then(property => {
+				//compare owner of prop to the current user
 				if(property.userId == currentUser) {
-					console.log("prop owner: " + property.userId);
+					//get all applications to the property
 					return Application
 						.findAll({
 							where: {
@@ -59,12 +76,36 @@ module.exports = {
 						})
 						.catch(error => res.status(400).send(error));
 				} else {
-					return res.status(400).send({message: 'Unable to authenticate.'});
+					return res.status(400).send({message: 'Unable to authorize.'});
 				}
 			})
-			.catch(error => res.status(400).send({message: 'Unable to authenticate.', error}));
+			.catch(error => res.status(400).send({message: 'Unable to authorize.', error}));
 		} else {
-			return res.status(400).send({message: 'Unable to authenticate.'});
+			return res.status(400).send({message: 'Unable to authorize.'});
+		}
+	},
+	viewSingle(req, res) {
+		var currentUser = req.currentUser;
+		if(currentUser) {
+			console.log(currentUser);
+			Property.findById(req.params.propertyId)
+			.then(property => {
+				//compare owner of prop to the current user
+				if(property.userId == currentUser) {
+					//get all applications to the property
+					return Application
+						.findById(req.params.appId)
+						.then(application => {
+							return res.status(200).send(application)
+						})
+						.catch(error => res.status(400).send(error));
+				} else {
+					return res.status(400).send({message: 'Unable to authorize.'});
+				}
+			})
+			.catch(error => res.status(400).send({message: 'Unable to authorize.', error}));
+		} else {
+			return res.status(400).send({message: 'Unable to authorize.'});
 		}
 	},
 	deleteApplication(req, res) {
@@ -74,20 +115,21 @@ module.exports = {
 			Property.findById(req.params.propertyId)
 			.then(property => {
 				if(property.userId = currentUser) {
+					//find application by specified tenant for specified property
 					return Application
-						.findById(req.body.tenantId)
+						.findById(req.params.appId)
 						.then(application => {
 							return application
 								.destroy()
 								.then(() => res.status(200).send({ message: 'Application successfully removed!'}))
 						})
 				} else {
-					return res.status(400).send({message: 'Unable to authenticate.'});
+					return res.status(400).send({message: 'Unable to authorize.'});
 				}
 			})
-			.catch(error => res.status(400).send({message: 'Unable to find user', error}));
+			.catch(error => res.status(400).send({message: 'An error has occured', error}));
 		} else {
-			return res.status(400).send({message: 'Unable to authenticate.'});
+			return res.status(400).send({message: 'Unable to authorize.'});
 		}
 	}
 };
