@@ -1,15 +1,10 @@
 const Message = require('../models').Message;
 const Inbox = require('../models').Inbox;
+const config = require('./config');
+const jwt = require('jsonwebtoken');
+const authorizor = require('../middleware/auth-check')
 
 module.exports = {
-    listM(req, res) {
-        return Message
-        .findAll()
-        .then(messages => {
-            return res.status(200).send(messages);
-        })
-        .catch(error => res.status(401).send(error));
-    },
     list(req, res) {
         return Inbox
             .findAll({
@@ -35,6 +30,14 @@ module.exports = {
                 return res.status(201).send(message)
             })
             .catch(error => res.status(401).send(error));
+    },
+    listM(req, res) {
+        return Message
+        .findAll()
+        .then(messages => {
+            return res.status(200).send(messages);
+        })
+        .catch(error => res.status(401).send(error));
     },
     allMessages(req ,res) {
         //verify if user is owner of inbox trying to view
@@ -62,7 +65,7 @@ module.exports = {
     },
     viewMessage(req, res) {
         var currentUser = req.currentUser;
-        
+
         if(currentUser) {
             if(req.params.userId == currentUser) {
                 return Message
@@ -95,7 +98,7 @@ module.exports = {
     },
     delete(req, res) {
         var currentUser = req.currentUser;
-        
+
         if(currentUser) {
             if(req.params.userId == currentUser) {
                 return Message

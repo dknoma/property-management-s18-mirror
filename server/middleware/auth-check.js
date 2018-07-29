@@ -3,8 +3,8 @@ const config = require('../controllers/config');
 const jwt = require('jsonwebtoken');
 
 module.exports = function authorize(req, res, next) {
-    if(!req.header('token') 
-        || req.header('token') == null 
+    if(!req.header('token')
+        || req.header('token') == null
         || req.header('token') == undefined) {
         return res.status(401).send({message: 'Unable to authenticate'});
     }
