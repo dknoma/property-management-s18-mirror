@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { AUTH_USER, OTHER_USER, ALL_USERS, CREATE_PROPERTY, FETCH_PROPERTIES, GET_PROPERTY, SEARCH_PROPERTY, APPLY_PROPERTY,
-          REVIEW_APPLICATIONS, CREATE_MESSAGE, GET_MESSAGES } from './types';
+          REVIEW_APPLICATIONS, CREATE_MESSAGE, GET_MESSAGES, DELETE_APPLICATION, GET_APPLICATION } from './types';
 /* State Persist */
 import {loadState, saveState} from '.././localStorage.js';
 
@@ -85,8 +85,9 @@ export const edit_profile = ({username, email, firstname, lastname, id}, callbac
   try {
     const token = localStorage.getItem('token');
     const response = await axios.put(
-      apiBaseUrl + "api/"+ "users/" + id + "/" + token,
-      {username, email, firstname, lastname}
+      apiBaseUrl + "auth/"+ "users/" + id,
+      {username, email, firstname, lastname}, { headers: {"token" : token}}
+
     );
 
     localStorage.setItem('my_username', username);
@@ -126,13 +127,11 @@ export const create_property = ({property_name, number_of_bedrooms, number_of_ba
                                   street, city, state, zip, allows_pets,url_address}, callback) => async dispatch => {
  try {
    let userId = localStorage.getItem('id');
-   console.log(userId);
    const response = await axios.post(
      apiBaseUrl +"api/"+ "property/create", {userId, property_name, number_of_bedrooms, number_of_bathrooms, prices, property_type,
                                        street, city, state, zip, allows_pets,url_address});
 
   dispatch({ type: CREATE_PROPERTY, payload: response.data});
-  console.log('response: '+ response.data.userId);
 
   callback();
 
@@ -184,15 +183,30 @@ export const apply_property = ({propertyId, form_subject, form_body, pmId, tenan
 };
 
 export const review_applications = ({propertyId}) => async dispatch => {
-  let token = localStorage.getItem('token');
-  console.log('propId: '+ propertyId);
-  const response = await axios.get(
-    apiBaseUrl +"auth/"+ "property/" + propertyId + "/applications", { headers: {"token" : token}}
-  )  .then(function (response) {
-    /* Dispatch a payload of OTHER_USER */
-    dispatch ({ type: REVIEW_APPLICATIONS, payload: response.data });
+  try {
+    let token = localStorage.getItem('token');
+    console.log('propId: '+ propertyId);
+    const response = await axios.get(
+      apiBaseUrl +"auth/"+ "property/" + propertyId + "/applications", { headers: {"token" : token}}
+    )  .then(function (response) {
+      /* Dispatch a payload of OTHER_USER */
+      dispatch ({ type: REVIEW_APPLICATIONS, payload: response.data });
 
-  })
+    })
+  } catch (e) {
+    alert(e.response.message);
+  }
+};
+
+export const get_application = ({propertyId, applicationId}) => async dispatch => {
+
+    let token = localStorage.getItem('token');
+    const res = await axios.get(
+      apiBaseUrl + "auth/property/" + propertyId + "/applications" + applicationId, { headers: {"token" : token}}
+    ).then(function (res) {
+      dispatch({ type: GET_APPLICATION, payload: res.data});
+    })
+
 };
 
 export const create_message = ({senderId, receiverId, inboxId, subject, body}) => async dispatch => {

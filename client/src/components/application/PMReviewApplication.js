@@ -17,11 +17,12 @@ class PMReviewApplication extends Component {
   };
 
   render() {
-    //console.log(this.props.applications);
-
     const data = this.props.applications;
 
     const columns = [{
+      Header: 'Property Name',
+      accessor: 'property_name'
+    }, {
       Header: 'Property ID',
       accessor: 'propertyId',
       Cell: props => <span className='number'>{props.value}</span> // Custom cell components!
@@ -30,14 +31,19 @@ class PMReviewApplication extends Component {
       accessor: 'tenantId',
       Cell: props => <span className='number'>{props.value}</span> // Custom cell components!
     }, {
+      Header: 'Tenant Name',
+      accessor: 'tenant_name'
+    },{
       Header: 'Subject',
-      accessor: 'form_subject',
-      Cell: props => <span className='number'>{props.value}</span> // Custom cell components!
+      accessor: 'form_subject'
     }, {
       Header: 'Body',
-      accessor: 'form_body',
-      Cell: props => <span className='number'>{props.value}</span> // Custom cell components!
-    }]
+      accessor: 'form_body'
+    },{
+      Header: 'Status',
+      accessor: 'approval_status', // boolean
+      Cell: props =>  {props.value === null ? 'Pending' : props.value === true ? 'Approved' : 'Denied'}
+    },]
     return (
       <ReactTable
         data={data}

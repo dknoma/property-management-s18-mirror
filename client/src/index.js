@@ -40,6 +40,7 @@ import Inbox from "./components/message/Inbox.js";
 import Sent from "./components/message/Sent.js";
 import TenantApplicationForm from "./components/application/TenantApplicationForm.js";
 import PMReviewApplication from "./components/application/PMReviewApplication.js";
+import ApplicationPage from "./components/application/ApplicationPage.js";
 
 var destination = document.querySelector("#container");
 
@@ -107,6 +108,8 @@ ReactDOM.render(
           <Route exact path={"composemessage"} component={ComposeMessage}>
           </Route>
           <Route exact path={"sent"} component={Sent}>
+          </Route>
+          <Route exact path={"property/:propertyId/applications/:applicationId"} component={ApplicationPage}>
           </Route>
         </Router>
       </div>
