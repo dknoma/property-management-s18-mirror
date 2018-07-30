@@ -9,6 +9,7 @@ export const GET_PROPERTY = "get_property";
 export const APPLY_PROPERTY = "apply_property";
 export const REVIEW_APPLICATIONS = "review_applications";
 export const CREATE_MESSAGE = "create_message";
+export const GET_MESSAGE = "get_message";
 export const GET_MESSAGES = "get_messages";
 export const DELETE_APPLICATION = "delete_application";
 export const GET_APPLICATION = "get_application";

@@ -26,6 +26,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import AddIcon from '@material-ui/icons/Add';
 import AssignmentIcon from '@material-ui/icons/Assignment';
 import HomeIcon from '@material-ui/icons/Home';
+import Badge from '@material-ui/core/Badge';
 
 const styles = {
   root: {
@@ -52,12 +53,19 @@ const styles = {
     display: 'flex',
     justifyContent: 'center',
   },
+  badge: {
+    top: 1,
+    right: -15,
+    // The border color match the background color.
+  },
 };
 
 export class Nav extends Component {
   state = {
     auth: true,
-    anchorEl: null,
+    profilemenu: null,
+    mailmenu: null,
+    unviewedMessages: this.props.unviewedMessages
   };
 
   handleChange = (event, checked) => {
@@ -65,36 +73,101 @@ export class Nav extends Component {
   };
 
   /* Shifts focus of anchor element */
-  handleMenu = event => {
+  handleProfileMenu = event => {
     this.setState({ anchorEl: event.currentTarget });
   };
 
   /* Closes the menu */
-  handleClose = () => {
+  handleProfileMenuClose = () => {
     this.setState({ anchorEl: null });
   };
 
-  insertApplicationLink () {
-    console.log(this.props.user_type);
+  /* Shifts focus of anchor element */
+  handleMailMenu = event => {
+    this.setState({ anchorEl2: event.currentTarget });
+  };
+
+  /* Closes the menu */
+  handleMailMenuClose = () => {
+    this.setState({ anchorEl2: null });
+  };
+
+  insertPMLinks () {
     const { classes } = this.props;
     if (this.props.user_type == 'propertymanager') {
+    console.log(this.props.user_type);
+    return (
       <a href="/createproperty">
         <Avatar className={classes.greenAvatar}>
-          <AssignmentIcon />
+          <AddIcon />
         </Avatar>
       </a>
+    )
+    }
+  }
+
+  insertTenantLinks () {
+    const { classes } = this.props;
+    if (this.props.user_type == 'tenant') {
+      console.log(this.props.user_type);
+    }
+  }
+
+  insertNotifications () {
+    const { classes } = this.props;
+    const { anchorEl2 } = this.state;
+    const open = Boolean(anchorEl2);
+    console.log(this.props.unviewedMessages);
+    if (this.props.unviewedMessages > 0){
+      return (
+      <a href={"/inbox/" + localStorage.getItem('my_id')}>
+        <IconButton aria-label="Email">
+          <Badge badgeContent={this.props.unviewedMessages} classes={{ badge: classes.orangeAvatar }}>
+          <Avatar className={classes.greenAvatar}>
+            <EmailIcon />
+            </Avatar>
+          </Badge>
+        </IconButton>
+      </a>
+    );
     } else {
-      <a href="/createproperty">
+      return (
+        <div>
         <Avatar className={classes.greenAvatar}>
-          <AssignmentIcon />
+        <IconButton
+          aria-owns={open ? 'mail-appbar' : null}
+          aria-haspopup="true"
+          onClick={this.handleMailMenu}
+          color="inherit"
+        >
+          <EmailIcon />
+        </IconButton>
         </Avatar>
-      </a>
+          <Menu
+            id="mail-appbar"
+            anchorEl={anchorEl2}
+            anchorOrigin={{
+              vertical: 'top',
+              horizontal: 'right',
+            }}
+            transformOrigin={{
+              vertical: 'top',
+              horizontal: 'right',
+            }}
+            open={open}
+            onClose={this.handleMailMenuClose}
+          >
+              <a href={"/inbox/" + localStorage.getItem('my_id')} ><MenuItem>Inbox</MenuItem></a>
+              <a href={"/composeMessage"} ><MenuItem>New Message</MenuItem></a>
+          </Menu>
+        </div>
+      );
     }
   }
 
   renderLinks() {
     const { classes } = this.props;
-    const { auth, anchorEl } = this.state;
+    const { anchorEl } = this.state;
     const open = Boolean(anchorEl);
     if (this.props.authenticated) {
       return (
@@ -103,7 +176,8 @@ export class Nav extends Component {
           Hi, {this.props.my_username}!
           </div>
           <div className={classes.row}>
-          {this.insertApplicationLink()}
+          {this.insertTenantLinks()}
+          {this.insertPMLinks()}
           <a href="/propertylisting">
             <Avatar className={classes.greenAvatar}>
               <HomeIcon />
@@ -114,21 +188,12 @@ export class Nav extends Component {
               <SearchIcon />
             </Avatar>
           </a>
-          <a href="/createproperty">
-            <Avatar className={classes.greenAvatar}>
-              <AddIcon />
-            </Avatar>
-          </a>
-          <a href={"/inbox/" + localStorage.getItem('my_id')}>
-            <Avatar className={classes.greenAvatar}>
-              <EmailIcon />
-            </Avatar>
-          </a>
+          {this.insertNotifications()}
           <Avatar className={classes.greenAvatar}>
             <IconButton
               aria-owns={open ? 'menu-appbar' : null}
               aria-haspopup="true"
-              onClick={this.handleMenu}
+              onClick={this.handleProfileMenu}
               color="inherit"
             >
               <AccountCircle />
@@ -146,7 +211,7 @@ export class Nav extends Component {
                 horizontal: 'right',
               }}
               open={open}
-              onClose={this.handleClose}
+              onClose={this.handleProfileMenuClose}
             >
                 <a href={"/profile/" + localStorage.getItem('my_id')} ><MenuItem>Profile</MenuItem></a>
                 <a href={"/edit"} ><MenuItem>Edit Profile</MenuItem></a>
@@ -165,7 +230,6 @@ export class Nav extends Component {
     const { classes } = this.props;
 
     return (
-
       <div className={classes.root}>
         <AppBar position="static" className="nav">
           <Toolbar>
@@ -187,7 +251,8 @@ function mapStateToProps(state) {
     authenticated: state.auth.authenticated,
     my_username: state.auth.my_username,
     my_id: state.auth.my_id,
-    user_type: state.auth.user_type
+    user_type: state.auth.user_type,
+    unviewedMessages: state.auth.unviewedMessages
   };
 }
 

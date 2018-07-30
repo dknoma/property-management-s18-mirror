@@ -37,10 +37,10 @@ class ComposeMessage extends React.Component {
 onSubmit = ({receiverId, subject, body}) => {
   const senderId = localStorage.getItem("my_id");
   const inboxId = localStorage.getItem("my_id");
-  console.log(localStorage.getItem("my_id"));
   this.props.create_message({senderId, receiverId, inboxId, subject, body}, () => {
     // where do we want to send them?
-    // this.props.router.push("/profile/" + id );
+    alert("Message Sent!");
+    this.props.router.push("/inbox/" + localStorage.getItem('my_id'));
   });
 };
 

@@ -11,7 +11,6 @@ import Divider from '@material-ui/core/Divider';
 
 
 class Sent extends Component {
-
   render() {
     const styles = theme => ({
       root: {

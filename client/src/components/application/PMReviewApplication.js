@@ -6,7 +6,7 @@ import * as actions from '../../actions';
 import ReactTable from 'react-table';
 import 'react-table/react-table.css';
 
-import requirePropManager from '../requirePropManager';
+import RequirePropManager from '../RequirePropManager';
 
 class PMReviewApplication extends Component {
 
@@ -60,4 +60,4 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps, actions)(requirePropManager(PMReviewApplication));
+export default connect(mapStateToProps, actions)(RequirePropManager(PMReviewApplication));
