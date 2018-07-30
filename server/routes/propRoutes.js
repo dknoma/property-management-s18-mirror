@@ -21,7 +21,7 @@ module.exports = (app) => {
 	app.get('/api/property/:propertyId', propertiesController.retrieve);
 
 	/**************************************
-	 * Property Manager Routes 			  *
+	 * Property Management Routes 		  *
 	 * 	-	create property				  *
 	 *  -	find tenants in a property	  *
 	 * 	 +-+ Authorization required +-+	  *
@@ -48,6 +48,7 @@ module.exports = (app) => {
 	app.put('/auth/property/:propertyId/applications/:appId', applicationController.updateApprovalStatus);
 	app.delete('/auth/property/:propertyId/applications/:appId', applicationController.deleteApplication);
 	
+	app.get('/auth/user/mypropertyapplications', applicationController.seeAllApplications);
 	app.get('/auth/user/:userId/myapplications', applicationController.viewMyApplications);
     app.delete('/auth/user/:userId/myapplications/:appId', applicationController.deleteOwnApplication);
 

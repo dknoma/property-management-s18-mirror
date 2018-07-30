@@ -109,6 +109,24 @@ module.exports = {
 			return res.status(401).send({message: 'Unable to authorize.'});
 		}
 	},
+	//allows pm to view all applications to all their properties
+	seeAllApplications(req, res) {
+		var currentUser = req.currentUser;
+		if(currentUser) {
+			return Application
+				.findAll({
+					where: {
+						pmId: currentUser,
+					}
+				})
+				.then(applications => {
+					return res.status(200).send(applications)
+				})
+				.catch(error => res.status(400).send(error));
+		} else {
+			return res.status(401).send({message: 'Unable to authorize.'});
+		}
+	},
 	//allows pm to view a single application
 	viewSingle(req, res) {
 		var currentUser = req.currentUser;
