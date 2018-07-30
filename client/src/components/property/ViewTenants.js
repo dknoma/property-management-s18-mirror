@@ -6,51 +6,41 @@ import * as actions from '../../actions';
 import ReactTable from 'react-table';
 import 'react-table/react-table.css';
 
-class PropertyListing extends Component {
+class ViewTenants extends Component {
 
   /*when directed*/
   componentDidMount() {
-    this.props.fetchProperties();
+    this.props.fetch_tenants(this.props.params);
   };
 
 
   render() {
-    const data = this.props.property_list;
-    console.log(this.props.property_list);
+    const data = this.props.propertyTenants;
     const columns = [{
       Header: 'Property Name',
       accessor: 'property_name',// String-based value accessors!
       Cell: props => <a href={"/property/" + props.original.id}>{props.value}</a>
 
     }, {
+      Header: 'City',
+      accessor: 'city',
+      Cell: props => <span className='number'>{props.value}</span> // Custom cell components!
+    }, {
       Header: 'Number of Bedrooms',
       accessor: 'number_of_bedrooms',
       Cell: props => <span className='number'>{props.value}</span> // Custom cell components!
-    },{
-      Header: 'Number of Bathrooms',
-      accessor: 'number_of_bathrooms',
-      Cell: props => <span className='number'>{props.value}</span> // Custom cell components!
-    },{
-      Header: 'Street',
-      accessor: 'street'
-    }, {
-      Header: 'City',
-      accessor: 'city'
     }, {
       Header: 'State',
-      accessor: 'state'
+      accessor: 'state',
+      Cell: props => <span className='number'>{props.value}</span> // Custom cell components!
     }, {
       id: 'prices', // Required because our accessor is not a string
       Header: 'Price',
       accessor: d => d.prices // Custom value accessors!
-    },{
-      Header: 'Allow Pets?',
-      accessor: 'allows_pets',
-      Cell: props => props.value === true ? 'Yes' : 'No'
     }]
     return (
       <div>
-      <h1> Property Listing </h1>
+      <h1> View Tenants </h1>
       <ReactTable
         data={data}
         columns={columns}
@@ -62,8 +52,8 @@ class PropertyListing extends Component {
 
 function mapStateToProps(state) {
   return {
-    property_list: state.property.property_list
+    propertyTenants: state.property.propertyTenants
   };
 }
 
-export default connect(mapStateToProps, actions)(PropertyListing);
+export default connect(mapStateToProps, actions)(ViewTenants);

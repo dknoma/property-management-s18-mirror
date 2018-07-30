@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { AUTH_USER, OTHER_USER, ALL_USERS, CREATE_PROPERTY, FETCH_PROPERTIES, GET_PROPERTY, SEARCH_PROPERTY, APPLY_PROPERTY,
-          REVIEW_APPLICATIONS, CREATE_MESSAGE, GET_MESSAGES, DELETE_APPLICATION, GET_APPLICATION, APPROVE_APP } from './types';
+          REVIEW_APPLICATIONS, CREATE_MESSAGE, GET_MESSAGES, DELETE_APPLICATION, GET_APPLICATION, APPROVE_APP, FETCH_TENANTS } from './types';
 /* State Persist */
 import {loadState, saveState} from '.././localStorage.js';
 
@@ -235,7 +235,7 @@ export const get_messages = ({id}) => async dispatch => {
 
 export const approve_app = ({propertyId, appId}, callback) => async dispatch => {
   let token = localStorage.getItem('token');
-  const response = await axios.put(
+  const res= await axios.put(
     apiBaseUrl + "auth/property/" + propertyId + "/applications/" + appId, {approval_status : true}, { headers: {"token" : token}}
   ).then(function (res) {
     dispatch({ type: APPROVE_APP, payload: res.data});
@@ -245,10 +245,20 @@ export const approve_app = ({propertyId, appId}, callback) => async dispatch => 
 
 export const deny_app = ({propertyId, appId}, callback) => async dispatch => {
   let token = localStorage.getItem('token');
-  const response = await axios.put(
+  const res = await axios.put(
     apiBaseUrl + "auth/property/" + propertyId + "/applications/" + appId, {approval_status : false}, { headers: {"token" : token}}
   ).then(function (res) {
     dispatch({ type: APPROVE_APP, payload: res.data});
     callback();
   })
 };
+
+export const fetch_tenants = ({propertyId}) => async dispatch => {
+  let token = localStorage.getItem('token');
+  const response = await axios.get(
+    apiBaseUrl + "api/propertymanager/" + propertyId + "/tenants/", { headers: {"token" : token}}
+  ).then(function (res) {
+    dispatch({ type: FETCH_TENANTS, payload: res.data});
+
+  })
+}

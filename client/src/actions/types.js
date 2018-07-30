@@ -14,3 +14,4 @@ export const DELETE_APPLICATION = "delete_application";
 export const GET_APPLICATION = "get_application";
 export const APPROVE_APP = "approve_app";
 export const DENY_APP = "deny_app";
+export const FETCH_TENANTS = "fetch_tenants";
