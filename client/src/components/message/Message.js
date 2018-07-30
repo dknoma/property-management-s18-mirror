@@ -1,85 +1,53 @@
 import React, { Component } from "react";
 import { connect } from 'react-redux';
 import * as actions from '../../actions';
-import PropTypes from 'prop-types';
 
-/* Material UI */
-import { withStyles } from '@material-ui/core/styles';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import Divider from '@material-ui/core/Divider';
-
-const styles = theme => ({
-  root: {
-    width: '100%',
-    maxWidth: '360px',
-    backgroundColor: theme.palette.background.paper,
-  },
-});
-
+import requireAuth from '../requireAuth';
 
 class Message extends Component {
 
   /*when directed*/
   componentDidMount() {
-    this.props.fetchProperties();
+    if (this.props.params.propertyId != "undefined") {
+      this.props.get_message(this.props.params);
+    }
   };
 
-  ListDividers() {
-  const { classes } = this.props;
-  return (
-    <div className={classes.root}>
-      <List component="nav">
-        <ListItem button>
-          <ListItemText primary="Inbox" />
-        </ListItem>
-        <Divider />
-        <ListItem button divider>
-          <ListItemText primary="Sent" />
-        </ListItem>
-        <Divider light />
-      </List>
-    </div>
-  );
-}
-
-
   renderHeader(headers) {
-    return headers.map(header => {
-      return <th
-      key={header.key}
-      id={header.key}
-      width={header.columnWidth}
-      onClick={this.handleClick}
-      >{header.label}</th>
-    });
+
   }
 
   renderItem() {
-    const { inbox } = this.props;
-  };
-
-  // renderTable() {
-  //   const
-  // }
-
-  render() {
-    let headers = [
-
-    ];
+    const { property } = this.props;
     return (
       <div>
-      <h1>Inbox</h1>
-      {this.ListDividers(this.props)}
-        <div className="propTable">
-        <table>
-          {this.renderHeader(headers)}
-        <tbody>
-          {this.renderItem()}
-        </tbody>
-        </table>
-        </div>
+      <h2>{this.props.messageId}</h2>
+
+      </div>
+  )}
+
+  renderPotentialTenantInfo() {
+      if (localStorage.getItem('user_type') === "tenant") {
+          return (
+            <div>
+              <div> <a class="button" href={"/apply/" + this.props.params.propertyId}> Apply for this property</a></div>
+              <br/>
+            </div>
+          )
+      }
+  }
+  renderPMInfo() {
+    if (localStorage.getItem('user_type') === "propertymanager") {
+    }
+  }
+
+  render() {
+    return (
+      <div className="propInfo">
+          { this.renderItem() }
+        <br/>
+          { this.renderPotentialTenantInfo() }
+          { this.renderPMInfo() }
       </div>
     );
   }
@@ -87,15 +55,8 @@ class Message extends Component {
 
 function mapStateToProps(state) {
   return {
-    inbox: state.property.property_list,
-    id: state.auth.id
+    messageId: state.message.id,
   };
 }
 
-Message.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
-
-
-
-export default connect(mapStateToProps, actions)(withStyles(styles)(Message));
+export default connect(mapStateToProps, actions)(Message);

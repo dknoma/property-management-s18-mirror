@@ -10,6 +10,10 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Divider from '@material-ui/core/Divider';
 
+/* Use React Table for Sorting */
+import ReactTable from 'react-table';
+import 'react-table/react-table.css';
+
 const styles = theme => ({
   root: {
     width: '100%',
@@ -60,25 +64,36 @@ class Inbox extends Component {
     const { inbox } = this.props;
   };
 
-  // renderTable() {
-  //   const
-  // }
 
   render() {
-    let headers = [
-
-    ];
+    const data = this.props.messages;
+    console.log(this.props.messages);
+    const columns = [{
+      Header: 'Sender',
+      accessor: 'senderId', // String-based value accessors!
+      Cell: props => <a href={"/message/" + props.original.id}>{props.value}</a>
+    }, {
+      Header: 'Time Received',
+      accessor: 'createdAt',
+    }, {
+      Header: 'Subject',
+      accessor: 'subject',
+    },{
+      Header: 'Body',
+      accessor: 'body',
+    },{
+      Header: 'Read?',
+      accessor: 'viewed',
+      Cell: props => <span className='boolean'>{props.value.toString()}</span>
+    }]
     return (
       <div>
       <h1>Inbox</h1>
-      {this.ListDividers(this.props)}
         <div className="propTable">
-        <table>
-          {this.renderHeader(headers)}
-        <tbody>
-          {this.renderItem()}
-        </tbody>
-        </table>
+        <ReactTable
+          data={data}
+          columns={columns}
+        />
         </div>
       </div>
     );

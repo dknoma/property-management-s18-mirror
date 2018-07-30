@@ -16,7 +16,11 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Divider from '@material-ui/core/Divider';
 
+<<<<<<< HEAD
 import requirePropManager from '../requirePropManager';
+=======
+import RequirePropManager from '../RequirePropManager';
+>>>>>>> f7f4bbd98d6f32ef7a9689eef4580a60323a779d
 
 const required = value => value ? undefined : 'Required';
 const number = value => value && isNaN(Number(value)) ? 'Must be a number' : undefined
@@ -171,4 +175,8 @@ CreateProperty = reduxForm({
 
 export default compose (
   connect(mapStateToProps, actions),
+<<<<<<< HEAD
 )(withStyles(styles)(requirePropManager(CreateProperty)));
+=======
+)(RequirePropManager(withStyles(styles)(CreateProperty)));
+>>>>>>> f7f4bbd98d6f32ef7a9689eef4580a60323a779d

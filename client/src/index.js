@@ -45,8 +45,6 @@ import ViewTenants from "./components/property/ViewTenants.js"
 
 var destination = document.querySelector("#container");
 
-/* Check for token every time app starts up */
-
 /* Runs this every time on application page load */
 const persistedState = loadState();
 const store = createStore(
@@ -61,9 +59,6 @@ store.subscribe(throttle(() => {
     property: store.getState().property
   });
 }, 1000));
-
-//console.log(store.getState());
-
 
 /* Currently handle frontend routing here, may be a better way to do this */
 
@@ -104,7 +99,7 @@ ReactDOM.render(
           </Route>
           <Route exact path={"inbox/:id"} component={Inbox}>
           </Route>
-          <Route exact path={"message"} component={Message}>
+          <Route exact path={"message/:messageId"} component={Message}>
           </Route>
           <Route exact path={"composemessage"} component={ComposeMessage}>
           </Route>
