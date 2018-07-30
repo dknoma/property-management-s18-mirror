@@ -109,7 +109,7 @@ ReactDOM.render(
           </Route>
           <Route exact path={"sent"} component={Sent}>
           </Route>
-          <Route exact path={"property/:propertyId/applications/:applicationId"} component={ApplicationPage}>
+          <Route exact path={"property/:propertyId/applications/:appId"} component={ApplicationPage}>
           </Route>
         </Router>
       </div>

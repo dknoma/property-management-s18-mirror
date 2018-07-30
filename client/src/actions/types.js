@@ -12,3 +12,5 @@ export const CREATE_MESSAGE = "create_message";
 export const GET_MESSAGES = "get_messages";
 export const DELETE_APPLICATION = "delete_application";
 export const GET_APPLICATION = "get_application";
+export const APPROVE_APP = "approve_app";
+export const DENY_APP = "deny_app";

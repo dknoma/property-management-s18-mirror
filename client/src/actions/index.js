@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { AUTH_USER, OTHER_USER, ALL_USERS, CREATE_PROPERTY, FETCH_PROPERTIES, GET_PROPERTY, SEARCH_PROPERTY, APPLY_PROPERTY,
-          REVIEW_APPLICATIONS, CREATE_MESSAGE, GET_MESSAGES, DELETE_APPLICATION, GET_APPLICATION } from './types';
+          REVIEW_APPLICATIONS, CREATE_MESSAGE, GET_MESSAGES, DELETE_APPLICATION, GET_APPLICATION, APPROVE_APP } from './types';
 /* State Persist */
 import {loadState, saveState} from '.././localStorage.js';
 
@@ -198,11 +198,10 @@ export const review_applications = ({propertyId}) => async dispatch => {
   }
 };
 
-export const get_application = ({propertyId, applicationId}) => async dispatch => {
-
+export const get_application = ({propertyId, appId}) => async dispatch => {
     let token = localStorage.getItem('token');
     const res = await axios.get(
-      apiBaseUrl + "auth/property/" + propertyId + "/applications" + applicationId, { headers: {"token" : token}}
+      apiBaseUrl + "auth/property/" + propertyId + "/applications/" + appId, { headers: {"token" : token}}
     ).then(function (res) {
       dispatch({ type: GET_APPLICATION, payload: res.data});
     })
@@ -231,5 +230,25 @@ export const get_messages = ({id}) => async dispatch => {
   )  .then(function (response) {
     /* Dispatch a payload of OTHER_USER */
     dispatch ({ type: GET_MESSAGES, payload: response.data });
+  })
+};
+
+export const approve_app = ({propertyId, appId}, callback) => async dispatch => {
+  let token = localStorage.getItem('token');
+  const response = await axios.put(
+    apiBaseUrl + "auth/property/" + propertyId + "/applications/" + appId, {approval_status : true}, { headers: {"token" : token}}
+  ).then(function (res) {
+    dispatch({ type: APPROVE_APP, payload: res.data});
+    callback();
+  })
+};
+
+export const deny_app = ({propertyId, appId}, callback) => async dispatch => {
+  let token = localStorage.getItem('token');
+  const response = await axios.put(
+    apiBaseUrl + "auth/property/" + propertyId + "/applications/" + appId, {approval_status : false}, { headers: {"token" : token}}
+  ).then(function (res) {
+    dispatch({ type: APPROVE_APP, payload: res.data});
+    callback();
   })
 };
