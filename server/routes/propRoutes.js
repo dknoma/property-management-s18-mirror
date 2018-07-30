@@ -48,8 +48,8 @@ module.exports = (app) => {
 	app.put('/auth/property/:propertyId/applications/:appId', applicationController.updateApprovalStatus);
 	app.delete('/auth/property/:propertyId/applications/:appId', applicationController.deleteApplication);
 	
-	app.get('/auth/user/myapplications', applicationController.viewMyApplications);
-    app.delete('/auth/user/myapplications/:appId', applicationController.deleteOwnApplication);
+	app.get('/auth/user/:userId/myapplications', applicationController.viewMyApplications);
+    app.delete('/auth/user/:userId/myapplications/:appId', applicationController.deleteOwnApplication);
 
 
 	/* Maintenance request */

@@ -62,7 +62,7 @@ module.exports = {
 	},
 	viewMyApplications(req, res) {
 		var currentUser = req.currentUser;
-		if(currentUser) {
+		if(currentUser && req.params.userId == currentUser) {
 			return Application
 				.findAll({
 					where: {
@@ -146,7 +146,7 @@ module.exports = {
 						.then(application => {
 							if(application.approval_status == null) {
 								application
-								.update({approval_status: req.body.approved})
+								.update({approval_status: req.body.approval_status})
 								.then(application => {
 									if(application.approval_status) {
 										Message.create({
@@ -220,7 +220,7 @@ module.exports = {
 			return Application
 				.findById(req.params.appId)
 				.then(application => {
-					if(application.tenantId == currentUser) {
+					if(req.params.userId == currentUser && application.tenantId == currentUser) {
 						return application
 						.destroy()
 						.then(() => res.status(200).send({ message: 'Application successfully removed!'}))
