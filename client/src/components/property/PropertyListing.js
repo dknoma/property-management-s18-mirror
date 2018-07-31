@@ -18,16 +18,16 @@ class PropertyListing extends Component {
     const data = this.props.property_list;
     console.log(this.props.property_list);
     const columns = [{
-      Header: 'Property Name',
+      Header: 'Name',
       accessor: 'property_name',// String-based value accessors!
       Cell: props => <a href={"/property/" + props.original.id}>{props.value}</a>
 
     }, {
-      Header: 'Number of Bedrooms',
+      Header: 'Bedrooms',
       accessor: 'number_of_bedrooms',
       Cell: props => <span className='number'>{props.value}</span> // Custom cell components!
     },{
-      Header: 'Number of Bathrooms',
+      Header: 'Bathrooms',
       accessor: 'number_of_bathrooms',
       Cell: props => <span className='number'>{props.value}</span> // Custom cell components!
     },{
@@ -54,6 +54,7 @@ class PropertyListing extends Component {
       <ReactTable
         data={data}
         columns={columns}
+        defaultPageSize={10}
       />
       </div>
     )

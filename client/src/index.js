@@ -22,6 +22,7 @@ import throttle from "lodash/throttle";
 import reducers from "./reducers";
 import "./index.css";
 import Nav from "./components/Nav.js";
+import Footer from "./components/Footer.js";
 import Home from "./components/Home.js";
 import Login from "./components/auth/Login.js";
 import Logout from "./components/auth/Logout.js";
@@ -68,8 +69,7 @@ store.subscribe(throttle(() => {
 ReactDOM.render(
   <Provider store={store}>
 
-    <div className="container wrapper">
-      <div className="row">
+    <div className="wrapper">
         <Nav/>
         <Router history={browserHistory}>
           <Route path='/' component={Home}>
@@ -117,10 +117,7 @@ ReactDOM.render(
           <Route exact path={"application/viewallapplications"} component={ViewAllApplications}>
           </Route>
         </Router>
-      </div>
-      <div className="row">
-
-      </div>
+        <Footer/>
     </div>
 
     </Provider>

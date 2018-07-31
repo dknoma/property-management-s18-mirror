@@ -106,7 +106,7 @@ export const edit_profile = ({username, email, firstname, lastname, id}, callbac
 
 export const get_user_profile = ({id}) => async dispatch => {
   const response = await axios.get(
-    apiBaseUrl +"api/"+ "users/" + id,
+    apiBaseUrl +"auth/"+ "users/" + id,
   )  .then(function (response) {
     /* Dispatch a payload of OTHER_USER */
     dispatch ({ type: OTHER_USER, payload: response.data });
@@ -127,10 +127,12 @@ export const get_users = () => async dispatch => {
 export const create_property = ({property_name, number_of_bedrooms, number_of_bathrooms, prices, property_type,
                                   street, city, state, zip, allows_pets,url_address}, callback) => async dispatch => {
  try {
+   let token = localStorage.getItem('token');
    let userId = localStorage.getItem('id');
    const response = await axios.post(
-     apiBaseUrl +"api/"+ "property/create", {userId, property_name, number_of_bedrooms, number_of_bathrooms, prices, property_type,
-                                       street, city, state, zip, allows_pets,url_address});
+     apiBaseUrl +"auth/"+ "property/create", {userId, property_name, number_of_bedrooms, number_of_bathrooms, prices, property_type,
+                                       street, city, state, zip, allows_pets,url_address}, { headers: {"token" : token}}
+                                     );
 
   dispatch({ type: CREATE_PROPERTY, payload: response.data});
 
@@ -215,7 +217,7 @@ export const create_message = ({senderId, receiverId, inboxId, subject, body}, c
   // let inboxId = localStorage.getItem('my_id');
     try {
       const response = await axios.post(
-        apiBaseUrl +"api/user/message", {senderId, receiverId, inboxId, subject, body} ,{ headers: {"token" : token}}
+        apiBaseUrl +"auth/user/message", {senderId, receiverId, inboxId, subject, body} ,{ headers: {"token" : token}}
       )  .then(function (response) {
         dispatch ({ type: CREATE_MESSAGE, payload: response.data });
         console.log(response.data);

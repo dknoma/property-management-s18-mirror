@@ -3,12 +3,17 @@ import { CREATE_MESSAGE, GET_MESSAGES, GET_MESSAGE } from '../actions/types';
 // reducer for authentication
 // we want to define an initial state constant variable
 const INITIAL_STATE = {
-  sender_id: '',
-  recipient_id: '',
+  senderId: '',
+  senderUsername: '',
+  receiverId: '',
   messages: [],
   message_body: '',
   message:'',
-  id: ''
+  id: '',
+  createdAt: '',
+  inboxId: '',
+  subject: '',
+  body: '',
 };
 
 /* Reducer takes two arguments, the current state and an action */
@@ -33,7 +38,12 @@ export default function(state = INITIAL_STATE, action) {
     case GET_MESSAGE:
     console.log(action.payload);
       return {...state,
-        message: action.payload
+        id: action.payload.id,
+        subject: action.payload.subject,
+        senderId: action.payload.senderId,
+        senderUsername: action.payload.senderUsername,
+        receiverId: action.payload.receiverId,
+        viewed: action.payload.body,
       }
 
     case GET_MESSAGES:

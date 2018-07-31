@@ -70,7 +70,7 @@ class Inbox extends Component {
     console.log(this.props.messages);
     const columns = [{
       Header: 'Sender',
-      accessor: 'senderId', // String-based value accessors!
+      accessor: 'sender_username', // String-based value accessors!
       Cell: props => <a href={"/message/" + props.original.id}>{props.value}</a>
     }, {
       Header: 'Time Received',
@@ -93,6 +93,7 @@ class Inbox extends Component {
         <ReactTable
           data={data}
           columns={columns}
+          defaultPageSize={10}
         />
         </div>
       </div>

@@ -1,5 +1,6 @@
 const Message = require('../models').Message;
 const Inbox = require('../models').Inbox;
+const User = require('../models').User;
 const config = require('./config');
 const jwt = require('jsonwebtoken');
 const authorizor = require('../middleware/auth-check')
@@ -18,18 +19,28 @@ module.exports = {
             .catch(error => res.status(400).send(error));
     },
     create(req, res) {
-        return Message
-            .create({
-                senderId: req.body.senderId,
-                receiverId: req.body.receiverId,
-                inboxId: req.body.receiverId,
-                subject: req.body.subject,
-                body: req.body.body,
-            })
-            .then(message => {
-                return res.status(201).send(message)
+        var currentUser = req.currentUser;
+        if(currentUser) {
+            User.findById(currentUser)
+            .then(user => {
+                return Message
+                    .create({
+                        senderId: req.body.senderId,
+                        sender_username: user.username,
+                        receiverId: req.body.receiverId,
+                        inboxId: req.body.receiverId,
+                        subject: req.body.subject,
+                        body: req.body.body,
+                    })
+                    .then(message => {
+                        return res.status(201).send(message)
+                    })
+                    .catch(error => res.status(401).send(error));
             })
             .catch(error => res.status(401).send(error));
+        } else {
+            return res.status(401).send({message: 'Unable to authenticate.'});
+        }
     },
     listM(req, res) {
         return Message

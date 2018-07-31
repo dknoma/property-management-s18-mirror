@@ -21,33 +21,17 @@ class Message extends Component {
     const { property } = this.props;
     return (
       <div>
-      <h2>{this.props.messageId}</h2>
-
+        <h2>{this.props.subject}</h2>
+        <p>{this.props.body}</p>
+        <p>{this.props.viewed}</p>
       </div>
   )}
-
-  renderPotentialTenantInfo() {
-      if (localStorage.getItem('user_type') === "tenant") {
-          return (
-            <div>
-              <div> <a class="button" href={"/apply/" + this.props.params.propertyId}> Apply for this property</a></div>
-              <br/>
-            </div>
-          )
-      }
-  }
-  renderPMInfo() {
-    if (localStorage.getItem('user_type') === "propertymanager") {
-    }
-  }
 
   render() {
     return (
       <div className="propInfo">
           { this.renderItem() }
         <br/>
-          { this.renderPotentialTenantInfo() }
-          { this.renderPMInfo() }
       </div>
     );
   }
@@ -56,6 +40,12 @@ class Message extends Component {
 function mapStateToProps(state) {
   return {
     messageId: state.message.id,
+    receiverId: state.message.receiverId,
+    senderId: state.message.senderId,
+    subject: state.message.subject,
+    body: state.message.body,
+    viewed: state.message.viewed,
+
   };
 }
 

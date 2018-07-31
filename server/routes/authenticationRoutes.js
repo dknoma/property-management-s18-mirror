@@ -21,7 +21,7 @@ module.exports = (app) => {
 
 	/* temp db testing */
 	app.get('/api/users', usersController.list);
-	app.get('/api/users/:userId', usersController.retrieve);
+	app.get('/auth/users/:userId', usersController.retrieve);
 	app.delete('/api/users/:userId', usersController.destroy);
 
 	app.all('/api/users', (req, res) =>

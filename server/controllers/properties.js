@@ -7,24 +7,28 @@ const Op = Sequelize.Op;
 
 module.exports = {
 	create(req, res) {
-		//verify if user is propertymanager
-		return Property
-			.create({
-				property_type: req.body.property_type,
-				property_name: req.body.property_name,
-				street: req.body.street,
-				city: req.body.city,
-				state: req.body.state,
-				zip: req.body.zip,
-				number_of_bedrooms: req.body.number_of_bedrooms,
-				number_of_bathrooms: req.body.number_of_bathrooms,
-				allows_pets: req.body.allows_pets,
-				prices: req.body.prices,
-				url_address: req.body.url_address,
-				userId: req.body.userId
-			})
-			.then(property => res.status(201).send(property))
-			.catch(error => res.status(400).send(error));
+		var currentUser = req.currentUser;
+		if(currentUser) {
+			return Property
+				.create({
+					property_type: req.body.property_type,
+					property_name: req.body.property_name,
+					street: req.body.street,
+					city: req.body.city,
+					state: req.body.state,
+					zip: req.body.zip,
+					number_of_bedrooms: req.body.number_of_bedrooms,
+					number_of_bathrooms: req.body.number_of_bathrooms,
+					allows_pets: req.body.allows_pets,
+					prices: req.body.prices,
+					url_address: req.body.url_address,
+					userId: currentUser
+				})
+				.then(property => res.status(201).send(property))
+				.catch(error => res.status(400).send(error));
+		} else {
+			return res.status(400).send({message: 'Unable to authenticate.'});
+		}
 	},
 
 	filter(req, res) {
