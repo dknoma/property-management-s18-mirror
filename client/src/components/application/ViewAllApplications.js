@@ -6,7 +6,7 @@ import * as actions from '../../actions';
 import ReactTable from 'react-table';
 import 'react-table/react-table.css';
 
-import requirePropManager from '../requirePropManager';
+import RequirePropManager from '../RequirePropManager';
 
 class ViewAllApplications extends Component {
 
@@ -46,10 +46,13 @@ class ViewAllApplications extends Component {
       Cell: props =>  props.value === null ? 'Pending' : props.value === true ? 'Approved' : 'Denied'
     },]
     return (
+      <div>
+      <h1> All Application </h1>
       <ReactTable
         data={data}
         columns={columns}
       />
+      </div>
     )
   }
 }
@@ -61,4 +64,4 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps, actions)(requirePropManager(ViewAllApplications));
+export default connect(mapStateToProps, actions)(RequirePropManager(ViewAllApplications));

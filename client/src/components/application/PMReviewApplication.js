@@ -46,10 +46,13 @@ class PMReviewApplication extends Component {
       Cell: props =>  props.value === null ? 'Pending' : props.value === true ? 'Approved' : 'Denied'
     },]
     return (
+      <div>
+      <h1> Review Application for Property {this.props.params.propertyId}</h1>
       <ReactTable
         data={data}
         columns={columns}
       />
+      </div>
     )
   }
 }
