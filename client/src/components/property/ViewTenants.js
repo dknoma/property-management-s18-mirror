@@ -20,8 +20,11 @@ class ViewTenants extends Component {
       Header: 'Property ID',
       accessor: 'propertyId'
     }, {
-      Header: 'TenantId',
+      Header: 'Tenant Id',
       accessor: 'tenantId',
+    }, {
+      Header: 'Tenant Username',
+      accessor: 'tenant_username',
     }]
     return (
       <div>
