@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { AUTH_USER, OTHER_USER, ALL_USERS, CREATE_PROPERTY, FETCH_PROPERTIES, GET_PROPERTY, SEARCH_PROPERTY, APPLY_PROPERTY,
           REVIEW_APPLICATIONS, CREATE_MESSAGE, GET_MESSAGE, GET_MESSAGES, DELETE_APPLICATION, GET_APPLICATION, APPROVE_APP, DENY_APP,
-          FETCH_TENANTS, ADD_TO_PROP, FETCH_ALL_APPLICATIONS } from './types';
+          FETCH_TENANTS, ADD_TO_PROP, FETCH_ALL_APPLICATIONS, FETCH_MY_APPLICATIONS } from './types';
 /* State Persist */
 import {loadState, saveState} from '.././localStorage.js';
 
@@ -301,5 +301,14 @@ export const fetch_all_applications = () => async dispatch => {
     apiBaseUrl + "auth/user/mypropertyapplications", { headers: {"token" : token}}
   ).then(function (res) {
     dispatch({ type: FETCH_ALL_APPLICATIONS, payload: res.data});
+  })
+};
+
+export const fetch_my_applications = ({userId}) => async dispatch => {
+  let token = localStorage.getItem('token');
+  const res = await axios.get(
+    apiBaseUrl + "auth/user/" + userId + "/myapplications", { headers: {"token" : token}}
+  ).then(function (res) {
+    dispatch({ type: FETCH_MY_APPLICATIONS, payload: res.data});
   })
 };

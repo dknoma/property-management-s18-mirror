@@ -13,10 +13,10 @@ import requireAuth from '../requireAuth';
 class ApplicationPage extends React.Component {
   componentDidMount() {
     if (this.props.params.appId !== "undefined") {
+      console.log(this.props.params);
       this.props.get_application(this.props.params);
     }
   };
-
 
   renderPMInformation() {
     if (localStorage.getItem('user_type') ==="propertymanager") {
@@ -47,6 +47,7 @@ class ApplicationPage extends React.Component {
     }
   };
 
+  //NEED TO BE UPDATED!
   renderTenantInformation() {
       if (localStorage.getItem('user_type') === "tenant") {
         return (
@@ -97,13 +98,5 @@ function mapStateToProps(state) {
     form_body: state.application.form_body
   };
 }
-
-// const mapDispatchToProps = dispatch => ({
-//   approve_app({approval_status, propertyId, appId}) {
-//     return () => {
-//       this.props.update_app_status({approval_status, propertyId, appId});
-//     };
-//   },
-// });
 
 export default connect(mapStateToProps, actions)(requireAuth(ApplicationPage));

@@ -44,6 +44,7 @@ import PMReviewApplication from "./components/application/PMReviewApplication.js
 import ApplicationPage from "./components/application/ApplicationPage.js";
 import ViewTenants from "./components/property/ViewTenants.js";
 import ViewAllApplications from "./components/application/ViewAllApplications.js";
+import ViewMyApplication from "./components/application/ViewMyApplication.js";
 /* Testing */
 import UserProfile from "./components/UserProfile/UserProfile.jsx";
 
@@ -115,6 +116,8 @@ ReactDOM.render(
           <Route exact path={"userprofile"} component={UserProfile}>
           </Route>
           <Route exact path={"application/viewallapplications"} component={ViewAllApplications}>
+          </Route>
+          <Route exact path={"user/:userId/myapplications"} component={ViewMyApplication}>
           </Route>
         </Router>
         <Footer/>
