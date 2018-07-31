@@ -14,7 +14,7 @@ module.exports = (app) => {
 	 *  -	get all messages			  *
 	 * 	-	delete message				  *
 	 **************************************/
-	app.post('/api/user/message', messageController.create);
+	app.post('/auth/user/message', messageController.create);
     app.get('/auth/user/:userId/inbox', messageController.allMessages);
     app.get('/auth/user/:userId/inbox/:messageId', messageController.viewMessage);
     app.delete('/auth/user/:userId/message/:messageId', messageController.delete);

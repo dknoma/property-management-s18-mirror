@@ -1,6 +1,7 @@
 const User = require('../models').User;
 const Property = require('../models').Property;
 const Inbox = require('../models').Inbox;
+const Message = require('../models').Message;
 const Sequelize = require('sequelize');
 const jwt = require('jsonwebtoken');
 const config = require('./config');
@@ -27,6 +28,26 @@ function generateToken(user) {
 }
 
 module.exports = {
+	//dont really need this function, mostly for testing
+	/* List all users; Need to return only non-sensitive info ie. username, first and last name */
+	list(req, res) {
+		return User
+			.findAll({
+				include: [{
+					model: Property,
+					as: 'properties',
+				},{
+					model: Inbox,
+					as: 'inboxes',
+					include: [{
+						model: Message,
+						as: 'messages',
+					}]
+				}]
+			})
+			.then(users => res.status(200).send(users))
+			.catch(error => res.status(400).send(error));
+	},
 	pmsignup(req, res) {
 		return User
 		.findOrCreate({
@@ -198,41 +219,56 @@ module.exports = {
 			})
 			.catch(error => res.status(400).send(error));
 	},
-	/* List all users; Need to return only non-sensitive info ie. username, first and last name */
-	list(req, res) {
+	/* List a specific user */
+	retrieve(req, res) {
+		var currentUser = req.currentUser;
 		return User
-			.findAll({
+			.find({
+				where: {id: req.params.userId},
 				include: [{
 					model: Property,
 					as: 'properties',
 				},{
 					model: Inbox,
 					as: 'inboxes',
+					include: [{
+						model: Message,
+						as: 'messages',
+					}]
 				}]
 			})
-			.then(users => res.status(200).send(users))
-			.catch(error => res.status(400).send(error));
-	},
-	/* List a specific user */
-	retrieve(req, res) {
-		return User
-			.findById(req.params.userId)
-			.then(user => {
+			.then((user) => {
 				if(!user) {
 					return res.status(404).send({
 						message: 'User Not Found',
 					});
 				}
-				return res.status(200).send({
-					user: {
-						user_type: user.user_type,
-						userId: user.id,
-						username: user.username,
-						email: user.email,
-						firstname: user.firstname,
-						lastname: user.lastname
-					}
-				});
+
+				if(req.params.userId == currentUser) {
+					return res.status(200).send({
+						user: {
+							user_type: user.user_type,
+							userId: user.id,
+							username: user.username,
+							email: user.email,
+							firstname: user.firstname,
+							lastname: user.lastname
+						},
+						properties: user.properties,
+						inboxes: user.inboxes,
+					});
+				} else {
+					return res.status(200).send({
+						user: {
+							user_type: user.user_type,
+							userId: user.id,
+							username: user.username,
+							email: user.email,
+							firstname: user.firstname,
+							lastname: user.lastname
+						}
+					});
+				}
 			})
 			.catch(error => res.status(400).send(error));
 	},

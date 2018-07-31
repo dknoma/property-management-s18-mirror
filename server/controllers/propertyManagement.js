@@ -11,33 +11,39 @@ module.exports = {
     Property.findById(req.body.propertyId)
     .then(property => {
       if(property.userId == currentUser) {
-        return PropertyTenant
-          .findOrCreate({
-            where: {
-              propertyId: req.body.propertyId,
-              tenantId: req.body.tenantId,
-            },
-            defaults: {
-              propertyId: req.body.propertyId,
-              tenantId: req.body.tenantId,
-            }
-          })
-          .spread((propertyTenant, created) => {
-            //if relation exists, need to try again
-            if(!created) {
-              //409: conflict with an existing resource; ie. duplicate username/emails
-              return res.status(409).send({
-                message: 'User is already on the property. Please try again.'
-              });
-            }
-          
-            return res.status(201).send({
-              propertyTenant: {
-                propertyId: propertyTenant.propertyId,
-                tenantId: propertyTenant.tenantId,
-              },
-              message: 'User was added successfully!'
-            });
+        User.findById(req.body.tenantId)
+          .then(user => {
+            return PropertyTenant
+              .findOrCreate({
+                where: {
+                  propertyId: req.body.propertyId,
+                  tenantId: req.body.tenantId,
+                },
+                defaults: {
+                  propertyId: req.body.propertyId,
+                  tenantId: req.body.tenantId,
+                  tenant_username: user.username,
+                }
+              })
+              .spread((propertyTenant, created) => {
+                //if relation exists, need to try again
+                if(!created) {
+                  //409: conflict with an existing resource; ie. duplicate username/emails
+                  return res.status(409).send({
+                    message: 'User is already on the property. Please try again.'
+                  });
+                }
+              
+                return res.status(201).send({
+                  propertyTenant: {
+                    propertyId: propertyTenant.propertyId,
+                    tenantId: propertyTenant.tenantId,
+                    tenant_username: propertyTenant.tenant_username,
+                  },
+                  message: 'User was added successfully!'
+                });
+              })
+              .catch(error => res.status(400).send(error));
           })
           .catch(error => res.status(400).send(error));
         } else {

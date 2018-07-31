@@ -29,6 +29,10 @@ module.exports = {
           as: 'senderId',
         },
       },
+      sender_username: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
       receiverId: {
         type: Sequelize.INTEGER,
         allowNull: false,

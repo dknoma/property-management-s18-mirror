@@ -28,7 +28,7 @@ module.exports = (app) => {
 	 * 	-	add tenant to a property	  *
 	 *  -	remove tenant from a property *
 	 **************************************/
-    app.post('/api/property/create', propertiesController.create);
+    app.post('/auth/property/create', propertiesController.create);
     app.get('/api/propertymanager/:propertyId/tenants', propertyManagementController.findTenants);
     app.post('/auth/propertymanager/add', propertyManagementController.addToProp);
 		app.delete('/auth/propertymanager/:propertyId', propertyManagementController.removeTenant);
