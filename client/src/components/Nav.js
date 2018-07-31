@@ -114,8 +114,17 @@ export class Nav extends Component {
 
   insertTenantLinks () {
     const { classes } = this.props;
+    console.log(this.props.user_type);
     if (this.props.user_type == 'tenant') {
-      console.log(this.props.user_type);
+      return (
+      <span>
+      <a href={"/user/" + localStorage.getItem('my_id') + "/myapplications"}>
+        <Avatar className={classes.greenAvatar}>
+          <AssignmentIcon />
+        </Avatar>
+      </a>
+      </span>
+    )
     }
   }
 
