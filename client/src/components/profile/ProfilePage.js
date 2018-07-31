@@ -1,14 +1,50 @@
 import React from 'react';
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
+import PropTypes from 'prop-types';
+
 
 /* Redux */
 import { connect } from 'react-redux';
 import * as actions from '../../actions';
 
+// @material-ui/core components
+import withStyles from "@material-ui/core/styles/withStyles";
+import InputLabel from "@material-ui/core/InputLabel";
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
+
+// core components
+import GridItem from "../Grid/GridItem.jsx";
+import GridContainer from "../Grid/GridContainer.jsx";
+import CustomInput from "../CustomInput/CustomInput.jsx";
+import ButtonThemed from "../CustomButtons/Button.jsx";
+import Card from "../Card/Card.jsx";
+import CardHeader from "../Card/CardHeader.jsx";
+import CardAvatar from "../Card/CardAvatar.jsx";
+import CardBody from "../Card/CardBody.jsx";
+import CardFooter from "../Card/CardFooter.jsx";
+import "../../index.css";
 /* Higher Order Components */
 import requireAuth from '../requireAuth';
+
+const styles = theme => ({
+  cardCategoryWhite: {
+    color: "rgba(255,255,255,.62)",
+    margin: "0",
+    fontSize: "14px",
+    marginTop: "0",
+    marginBottom: "0"
+  },
+  cardTitleWhite: {
+    color: "#FFFFFF",
+    marginTop: "0px",
+    minHeight: "auto",
+    fontWeight: "300",
+    fontFamily: "'Roboto', 'Helvetica', 'Arial', sans-serif",
+    marginBottom: "3px",
+    textDecoration: "none"
+  }
+});
 
 class ProfilePage extends React.Component {
 
@@ -45,7 +81,37 @@ class ProfilePage extends React.Component {
       }
   }
 
+ renderProfile() {
+    const { classes } = this.props;
+    <div className="center">
+      <GridContainer>
+        <GridItem xs={12} sm={12} md={4}>
+          <Card profile>
+            <CardBody profile>
+              <h6 className={classes.cardCategory}>Role</h6>
+              <h4 className={classes.cardTitle}>Username</h4>
+              <p className={classes.description}>
+              First Name
+              </p>
+              <p className={classes.description}>
+              Last Name
+              </p>
+              <p className={classes.description}>
+              Email
+              </p>
+              <p className={classes.description}>
+              </p>
+              <Button color="primary" round>
+              </Button>
+            </CardBody>
+          </Card>
+        </GridItem>
+      </GridContainer>
+    </div>
+  }
+
   render() {
+
     return (
 
       <div className="container">
@@ -67,9 +133,14 @@ class ProfilePage extends React.Component {
             <div> <a class="button" href="/searchproperty">Search Property</a></div>
           </div>
       </div>
+
     );
   }
 }
+
+ProfilePage.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
 
 /* After adding more, we have to map them here */
 function mapStateToProps(state) {
