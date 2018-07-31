@@ -1,8 +1,11 @@
 import React, { Component } from "react";
 import { connect } from 'react-redux';
 import * as actions from '../../actions';
+import "../../index.css";
 
 import requireAuth from '../requireAuth';
+
+import house1 from '../../assets/img/house1.jpg';
 
 class PropertyPage extends Component {
 
@@ -16,12 +19,13 @@ class PropertyPage extends Component {
   renderHeader(headers) {
 
   }
-  
+
   renderItem() {
     const { property } = this.props;
     return (
       <div>
       <h2>{this.props.property_name}</h2>
+      <img src={house1} className="thumbnail" />
         <p><b>Property Manager ID: </b>{this.props.userId}</p>
         <p>Property ID: {this.props.id}</p>
         <p>Number of Bedrooms: {this.props.number_of_bedrooms}</p>
@@ -52,6 +56,7 @@ class PropertyPage extends Component {
           <div>
             <div> <a class="button" href={"/property/review/" + this.props.params.propertyId}>Review Applications</a></div>
             <br/>
+            <div> <a class="button" href={"/property/" + this.props.params.propertyId + "/viewtenants"}>View Tenants for the property</a></div>
           </div>
         )
     }

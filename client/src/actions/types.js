@@ -17,3 +17,4 @@ export const APPROVE_APP = "approve_app";
 export const DENY_APP = "deny_app";
 export const FETCH_TENANTS = "fetch_tenants";
 export const ADD_TO_PROP = "add_to_prop";
+export const FETCH_ALL_APPLICATIONS = "fetch_all_applications";

@@ -8,11 +8,11 @@ import 'react-table/react-table.css';
 
 import RequirePropManager from '../RequirePropManager';
 
-class PMReviewApplication extends Component {
+class ViewAllApplications extends Component {
 
   componentDidMount() {
     if(this.props.params.propertyId !== "undefined") {
-      this.props.review_applications(this.props.params);
+      this.props.fetch_all_applications();
     }
   };
 
@@ -47,7 +47,7 @@ class PMReviewApplication extends Component {
     },]
     return (
       <div>
-      <h1> Review Application for Property {this.props.params.propertyId}</h1>
+      <h1> All Application </h1>
       <ReactTable
         data={data}
         columns={columns}
@@ -64,4 +64,4 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps, actions)(RequirePropManager(PMReviewApplication));
+export default connect(mapStateToProps, actions)(RequirePropManager(ViewAllApplications));

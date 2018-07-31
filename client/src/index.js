@@ -22,6 +22,7 @@ import throttle from "lodash/throttle";
 import reducers from "./reducers";
 import "./index.css";
 import Nav from "./components/Nav.js";
+import Footer from "./components/Footer.js";
 import Home from "./components/Home.js";
 import Login from "./components/auth/Login.js";
 import Logout from "./components/auth/Logout.js";
@@ -42,6 +43,7 @@ import TenantApplicationForm from "./components/application/TenantApplicationFor
 import PMReviewApplication from "./components/application/PMReviewApplication.js";
 import ApplicationPage from "./components/application/ApplicationPage.js";
 import ViewTenants from "./components/property/ViewTenants.js";
+import ViewAllApplications from "./components/application/ViewAllApplications.js";
 /* Testing */
 import UserProfile from "./components/UserProfile/UserProfile.jsx";
 
@@ -67,8 +69,7 @@ store.subscribe(throttle(() => {
 ReactDOM.render(
   <Provider store={store}>
 
-    <div className="container wrapper">
-      <div className="row">
+    <div className="wrapper">
         <Nav/>
         <Router history={browserHistory}>
           <Route path='/' component={Home}>
@@ -113,11 +114,10 @@ ReactDOM.render(
           </Route>
           <Route exact path={"userprofile"} component={UserProfile}>
           </Route>
+          <Route exact path={"application/viewallapplications"} component={ViewAllApplications}>
+          </Route>
         </Router>
-      </div>
-      <div className="row">
-
-      </div>
+        <Footer/>
     </div>
 
     </Provider>

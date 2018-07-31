@@ -93,6 +93,7 @@ class Inbox extends Component {
         <ReactTable
           data={data}
           columns={columns}
+          defaultPageSize={10}
         />
         </div>
       </div>
