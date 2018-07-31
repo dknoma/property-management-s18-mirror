@@ -6,7 +6,7 @@ import Button from '@material-ui/core/Button';
 import { Slide } from 'react-slideshow-image';
 
 import house1 from '../assets/img/house1.jpg';
-import house2 from '../assets/img/house2.jpg';
+import house2 from '../assets/img/apartment1.jpg';
 import house3 from '../assets/img/house3.jpg';
 // import house4 from '../assets/img/house4.jpg';
 // import house5 from '../assets/img/house5.jpg';
