@@ -2,47 +2,70 @@ import React, { Component } from "react";
 import { connect } from 'react-redux';
 import * as actions from '../../actions';
 
+import requireAuth from '../requireAuth';
+
 class PropertyPage extends Component {
 
   /*when directed*/
   componentDidMount() {
-    console.log(this.props);
-    this.props.get_property_profile(this.props.params);
+    if (this.props.params.propertyId != "undefined") {
+      this.props.get_property_profile(this.props.params);
+    }
   };
 
   renderHeader(headers) {
 
   }
+  
   renderItem() {
     const { property } = this.props;
     return (
-    <tr>
-      <td>{this.props.id}</td>
-      <td>{this.props.property_name}</td>
-      <td>{this.props.number_of_bedrooms}</td>
-      <td>{this.props.number_of_bathrooms}</td>
-      <td>{this.props.prices}</td>
-      <td>{this.props.street}</td>
-      <td>{this.props.city}</td>
-      <td>{this.props.state}</td>
-      <td>{this.props.zip}</td>
-      <td>{this.props.allows_pets}</td>
-    </tr>
+      <div>
+      <h2>{this.props.property_name}</h2>
+        <p><b>Property Manager ID: </b>{this.props.userId}</p>
+        <p>Property ID: {this.props.id}</p>
+        <p>Number of Bedrooms: {this.props.number_of_bedrooms}</p>
+        <p>Number of Bathrooms: {this.props.number_of_bathrooms}</p>
+        <p>Price: {this.props.prices}</p>
+        <p>Address: {this.props.street}</p>
+        <p>{this.props.city}</p>
+        <p>{this.props.state}</p>
+        <p>{this.props.zip}</p>
+        <p>Pets? {String(this.props.allows_pets)}</p>
+
+      </div>
   )}
 
-  // renderTable() {
-  //   const
-  // }
+  renderPotentialTenantInfo() {
+      if (localStorage.getItem('user_type') === "tenant") {
+          return (
+            <div>
+              <div> <a class="button" href={"/apply/" + this.props.params.propertyId}> Apply for this property</a></div>
+              <br/>
+            </div>
+          )
+      }
+  }
+  renderPMInfo() {
+    if (localStorage.getItem('user_type') === "propertymanager") {
+        return (
+          <div>
+            <div> <a class="button" href={"/property/review/" + this.props.params.propertyId}>Review Applications</a></div>
+            <br/>
+          </div>
+        )
+    }
+  }
 
   render() {
     return (
-      <div className="propTable">
-      <table>
-      <tbody>
-        {this.renderItem()}
-      </tbody>
-      </table>
-      <br/>
+      <div className="propInfo">
+
+          { this.renderItem() }
+
+        <br/>
+          { this.renderPotentialTenantInfo() }
+          { this.renderPMInfo() }
       </div>
     );
   }
@@ -50,6 +73,7 @@ class PropertyPage extends Component {
 
 function mapStateToProps(state) {
   return {
+    userId: state.property.userId,
     id: state.property.id,
     property_name: state.property.property_name,
     number_of_bedrooms: state.property.number_of_bedrooms,

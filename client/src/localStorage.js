@@ -1,10 +1,8 @@
 export const loadState = () => {
   try {
     const serializedState = localStorage.getItem('state');
-    console.log(serializedState);
+    /* Turn string into an object */
     const newState = JSON.parse(serializedState);
-    console.log(newState);
-    console.log(newState.property);
     if (serializedState === null) {
       return undefined;
     }
@@ -17,7 +15,7 @@ export const loadState = () => {
 /* Save state to local Storage */
 export const saveState = (state) => {
   try {
-    /* State should be serializable */
+    /* State should be serializable. Turn object back into string */
     const serializedState = JSON.stringify(state);
     localStorage.setItem('state', serializedState);
   } catch (err) {

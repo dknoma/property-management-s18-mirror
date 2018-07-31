@@ -8,6 +8,10 @@ body {
   text-align: center;
 }
 
+.center {
+  margin: 0 auto;
+}
+
 .nav a{
   color: #fff;
   text-align: center;
@@ -15,8 +19,15 @@ body {
   margin: 0 auto;
 }
 
-.belowNav {
+a:focus {
+  outline:3px solid black;
+}
 
+.belowNav {
+  display:inline-block;
+}
+.ReduxForm-root-97 {
+  display:inline-block;
 }
 /* Hide weird radio button on search property page */
 /* .MuiSelect-icon-122{
@@ -38,4 +49,12 @@ body {
   font-weight: 500;
   border-radius: 4px;
   text-transform: uppercase;
+}
+
+.brand{
+  margin-left: 0!important;
+}
+
+.table a{
+
 }

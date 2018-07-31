@@ -3,31 +3,69 @@ import PropTypes from 'prop-types';
 /* Redux */
 import { createStore, compose } from 'redux';
 import { connect } from 'react-redux';
-import * as actions from '../actions';
+import * as actions from '../../actions';
 
 /* Using Redux form, material UI, and redux-form-material-ui for forms */
 import {Field, reduxForm} from 'redux-form';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import { TextField, RadioGroup } from 'redux-form-material-ui';
+import { withStyles } from '@material-ui/core/styles';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import Divider from '@material-ui/core/Divider';
+import RequirePropManager from '../RequirePropManager';
 
 const required = value => value ? undefined : 'Required';
 const number = value => value && isNaN(Number(value)) ? 'Must be a number' : undefined
 
+const styles = theme => ({
+  root: {
+    maxWidth: '360px',
+    backgroundColor: theme.palette.background.paper,
+  },
+});
 
 class CreateProperty extends Component {
   constructor(props) {
     super(props);
     this.state={
-      property_name: ''
+      property_name: '',
+      userId: localStorage.getItem('id')
     }
   }
+
+  ListDividers() {
+  const { classes } = this.props;
+  return (
+    <div className={classes.root}>
+      <List component="nav">
+        <ListItem button>
+          <ListItemText primary="Inbox" />
+        </ListItem>
+        <Divider />
+        <ListItem button divider>
+          <ListItemText primary="Drafts" />
+        </ListItem>
+        <ListItem button>
+          <ListItemText primary="Trash" />
+        </ListItem>
+        <Divider light />
+        <ListItem button>
+          <ListItemText primary="Spam" />
+        </ListItem>
+      </List>
+    </div>
+  );
+}
+
   onSubmit = ({property_name, number_of_bedrooms, number_of_bathrooms, prices, property_type, street, city, state, zip, allows_pets, url_address}) => {
     if(!property_type || !allows_pets) {
       alert("Please fill all the fields");
       return;
     }
-    console.log({property_name, number_of_bedrooms, number_of_bathrooms, prices, property_type, street, city, state, zip, allows_pets, url_address});
+    console.log('print' + { property_name, number_of_bedrooms, number_of_bathrooms, prices, property_type, street, city, state, zip, allows_pets, url_address});
     this.props.create_property({property_name, number_of_bedrooms, number_of_bathrooms, prices, property_type, street, city, state, zip, allows_pets, url_address}, () => {
       alert("Property successfully created!");
       this.props.router.push("/propertylisting");
@@ -37,11 +75,17 @@ class CreateProperty extends Component {
 
   render() {
     const { handleSubmit } = this.props;
+    let userId = localStorage.getItem('id');
     return (
+      <div className="row">
+      <Typography color="inherit" variant="display1">
+      Create Property
+      </Typography>
+
         <form className="belowNav" onSubmit={handleSubmit(this.onSubmit)} align="center">
-        <Typography color="inherit" variant="display1">
-        Create Property
-        </Typography>
+        <div>
+          <Field name="userId" id="userId" component={TextField} label={'Prop Manager ID: ' + userId} disabled/>
+        </div>
         <div>
           <Field name="property_name" id="property_name" label="Property Name" component={TextField} validate={[ required ]} />
         </div>
@@ -102,6 +146,7 @@ class CreateProperty extends Component {
         <button className = "button" type="submit">Create new property</button>
         <br />
       </form>
+      </div>
     )
 
   }
@@ -109,8 +154,14 @@ class CreateProperty extends Component {
 
 
 function mapStateToProps(state) {
-  return {errorMessage: state.auth.errorMessage};
+  return {
+    userId: state.auth.id
+  };
 }
+
+CreateProperty.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
 
 CreateProperty = reduxForm({
   form: 'create_property'
@@ -119,4 +170,4 @@ CreateProperty = reduxForm({
 
 export default compose (
   connect(mapStateToProps, actions),
-)(CreateProperty);
+)(RequirePropManager(withStyles(styles)(CreateProperty)));

@@ -1,4 +1,4 @@
-import { CREATE_PROPERTY, FETCH_PROPERTIES, GET_PROPERTY, SEARCH_PROPERTY, PERSIST_SEARCH_RESULTS } from '../actions/types';
+import { CREATE_PROPERTY, FETCH_PROPERTIES, GET_PROPERTY, SEARCH_PROPERTY, PERSIST_SEARCH_RESULTS, APPLY_PROPERTY, REVIEW_APPLICATIONS, FETCH_TENANTS, ADD_TO_PROP } from '../actions/types';
 
 // reducer for authentication
 // we want to define an initial state constant variable
@@ -43,30 +43,34 @@ export default function(state = INITIAL_STATE, action) {
       }
 
     case GET_PROPERTY:
-    return {...state,
-      id: action.payload.id,
-      property_name: action.payload.property_name,
-      number_of_bedrooms: action.payload.number_of_bedrooms,
-      number_of_bathrooms: action.payload.number_of_bathrooms,
-      prices: action.payload.prices,
-      property_type: action.payload.property_type,
-      state: action.payload.state,
-      street: action.payload.street,
-      url_address: action.payload.url_address,
-      zip: action.payload.zip,
-      allows_pets: action.payload.allows_pets
-    };
+      return {...state,
+        userId: action.payload.userId,
+        id: action.payload.id,
+        property_name: action.payload.property_name,
+        number_of_bedrooms: action.payload.number_of_bedrooms,
+        number_of_bathrooms: action.payload.number_of_bathrooms,
+        prices: action.payload.prices,
+        property_type: action.payload.property_type,
+        state: action.payload.state,
+        street: action.payload.street,
+        url_address: action.payload.url_address,
+        zip: action.payload.zip,
+        allows_pets: action.payload.allows_pets
+      };
 
     case SEARCH_PROPERTY:
-    console.log(action.payload);
       return {...state,
         search_results_list: action.payload
       }
 
-    case PERSIST_SEARCH_RESULTS:
-      return {...state,
-        search_results_list: action.payload
-      }
+    case FETCH_TENANTS:
+     return {...state,
+       propertyTenants: action.payload
+     }
+   case ADD_TO_PROP:
+    return {...state,
+      propertyTenant: action.payload
+    }
 
     default:
       return state;
