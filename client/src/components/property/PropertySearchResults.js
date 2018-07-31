@@ -12,7 +12,7 @@ class PropertySearchResults extends Component {
     const data = this.props.search_results_list;
 
     const columns = [{
-      Header: 'Property Name',
+      Header: 'Name',
       accessor: 'property_name',// String-based value accessors!
       Cell: props =><a href={"/property/" + props.original.id}>{props.value}</a>
     },  {

@@ -24,7 +24,7 @@ body {
   margin: 0 auto;
 }
 
-span {
+.nav span {
   display: inherit;
 }
 
@@ -33,7 +33,7 @@ span {
 } */
 
 .images-wrap{
-  height:600px;
+  height:460px;
 }
 
 .react-slideshow-container .nav{

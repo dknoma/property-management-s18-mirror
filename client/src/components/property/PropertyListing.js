@@ -18,7 +18,7 @@ class PropertyListing extends Component {
     const data = this.props.property_list;
     console.log(this.props.property_list);
     const columns = [{
-      Header: 'Property Name',
+      Header: 'Name',
       accessor: 'property_name',// String-based value accessors!
       Cell: props => <a href={"/property/" + props.original.id}>{props.value}</a>
 

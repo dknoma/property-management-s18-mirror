@@ -177,7 +177,7 @@ export class Nav extends Component {
     const open = Boolean(anchorEl);
     if (this.props.authenticated) {
       return (
-        <div>
+        <div className="nav">
           <div>
           Hi, {this.props.my_username}!
           </div>

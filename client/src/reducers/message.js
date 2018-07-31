@@ -4,6 +4,7 @@ import { CREATE_MESSAGE, GET_MESSAGES, GET_MESSAGE } from '../actions/types';
 // we want to define an initial state constant variable
 const INITIAL_STATE = {
   senderId: '',
+  senderUsername: '',
   receiverId: '',
   messages: [],
   message_body: '',
@@ -40,6 +41,7 @@ export default function(state = INITIAL_STATE, action) {
         id: action.payload.id,
         subject: action.payload.subject,
         senderId: action.payload.senderId,
+        senderUsername: action.payload.senderUsername,
         receiverId: action.payload.receiverId,
         viewed: action.payload.body,
       }
