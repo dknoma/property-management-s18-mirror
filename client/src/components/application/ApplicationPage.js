@@ -21,7 +21,6 @@ class ApplicationPage extends React.Component {
   renderPMInformation() {
     if (localStorage.getItem('user_type') ==="propertymanager") {
       let propertyId = this.props.propertyId;
-      console.log("inAPllicationPage propParam: " + propertyId);
       let tenantId = this.props.tenantId;
       return (
         <div>
