@@ -1,6 +1,10 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   var PropertyTenant = sequelize.define('PropertyTenant', {
+    tenant_username:{ 
+      type: DataTypes.STRING,
+      allowNull: false
+    },
   }, {});
   PropertyTenant.associate = (models) => {
     PropertyTenant.belongsTo(models.Property, {
