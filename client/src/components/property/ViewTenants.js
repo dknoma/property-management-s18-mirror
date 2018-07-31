@@ -17,26 +17,11 @@ class ViewTenants extends Component {
   render() {
     const data = this.props.propertyTenants;
     const columns = [{
-      Header: 'Property Name',
-      accessor: 'property_name',// String-based value accessors!
-      Cell: props => <a href={"/property/" + props.original.id}>{props.value}</a>
-
+      Header: 'Property ID',
+      accessor: 'propertyId'
     }, {
-      Header: 'City',
-      accessor: 'city',
-      Cell: props => <span className='number'>{props.value}</span> // Custom cell components!
-    }, {
-      Header: 'Number of Bedrooms',
-      accessor: 'number_of_bedrooms',
-      Cell: props => <span className='number'>{props.value}</span> // Custom cell components!
-    }, {
-      Header: 'State',
-      accessor: 'state',
-      Cell: props => <span className='number'>{props.value}</span> // Custom cell components!
-    }, {
-      id: 'prices', // Required because our accessor is not a string
-      Header: 'Price',
-      accessor: d => d.prices // Custom value accessors!
+      Header: 'TenantId',
+      accessor: 'tenantId',
     }]
     return (
       <div>

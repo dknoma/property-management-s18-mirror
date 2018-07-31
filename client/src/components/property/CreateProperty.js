@@ -170,4 +170,8 @@ CreateProperty = reduxForm({
 
 export default compose (
   connect(mapStateToProps, actions),
+<<<<<<< HEAD
 )(RequirePropManager(withStyles(styles)(CreateProperty)));
+=======
+)(withStyles(styles)(requirePropManager(CreateProperty)));
+>>>>>>> ccd0c50d17fb7cdb9a0ef5ad13bbb8f446bd1ce5

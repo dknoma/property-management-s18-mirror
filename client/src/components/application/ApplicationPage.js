@@ -20,14 +20,17 @@ class ApplicationPage extends React.Component {
 
   renderPMInformation() {
     if (localStorage.getItem('user_type') ==="propertymanager") {
-      let propParam = this.props.params.propertyId;
-      let appParam = this.props.params.appId;
+      let propertyId = this.props.propertyId;
+      console.log("inAPllicationPage propParam: " + propertyId);
+      let tenantId = this.props.tenantId;
       return (
         <div>
           <div> <Button onClick={() => {
             this.props.approve_app(this.props.params, () => {
-              alert("Approval Success!");
-              this.props.router.push('/property/review/' + this.props.params.propertyId);
+              this.props.add_to_prop({propertyId, tenantId}, () => {
+                alert("Approval Success!");
+                this.props.router.push('/property/review/' + this.props.params.propertyId);
+              });
             });
           }
           }>Approve this application</Button></div>
