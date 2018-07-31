@@ -16,7 +16,7 @@ class PropertyPage extends Component {
   renderHeader(headers) {
 
   }
-  
+
   renderItem() {
     const { property } = this.props;
     return (
@@ -52,6 +52,7 @@ class PropertyPage extends Component {
           <div>
             <div> <a class="button" href={"/property/review/" + this.props.params.propertyId}>Review Applications</a></div>
             <br/>
+            <div> <a class="button" href={"/property/" + this.props.params.propertyId + "/viewtenants"}>View Tenants for the property</a></div>
           </div>
         )
     }
