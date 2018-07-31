@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { AUTH_USER, OTHER_USER, ALL_USERS, CREATE_PROPERTY, FETCH_PROPERTIES, GET_PROPERTY, SEARCH_PROPERTY, APPLY_PROPERTY,
-          REVIEW_APPLICATIONS, CREATE_MESSAGE, GET_MESSAGE, GET_MESSAGES, DELETE_APPLICATION, GET_APPLICATION, APPROVE_APP, DENY_APP, FETCH_TENANTS } from './types';
+          REVIEW_APPLICATIONS, CREATE_MESSAGE, GET_MESSAGE, GET_MESSAGES, DELETE_APPLICATION, GET_APPLICATION, APPROVE_APP, DENY_APP,
+          FETCH_TENANTS, ADD_TO_PROP } from './types';
 /* State Persist */
 import {loadState, saveState} from '.././localStorage.js';
 
@@ -279,4 +280,15 @@ export const fetch_tenants = ({propertyId}) => async dispatch => {
     dispatch({ type: FETCH_TENANTS, payload: res.data});
 
   })
-}
+};
+
+export const add_to_prop = ({propertyId, tenantId}, callback) => async dispatch => {
+  let token = localStorage.getItem('token');
+  console.log("propertyId: " + propertyId);
+  const res = await axios.post(
+    apiBaseUrl + "auth/propertymanager/add", {propertyId, tenantId}, { headers: {"token" : token}}
+  ).then(function (res) {
+    dispatch({ type: DENY_APP, payload: res.data});
+    callback();
+  })
+};
