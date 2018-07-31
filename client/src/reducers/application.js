@@ -1,4 +1,4 @@
-import { APPLY_PROPERTY, REVIEW_APPLICATIONS, DELETE_APPLICATION, GET_APPLICATION, APPROVE_APP, DENY_APP } from '../actions/types';
+import { APPLY_PROPERTY, REVIEW_APPLICATIONS, DELETE_APPLICATION, GET_APPLICATION, APPROVE_APP, DENY_APP, FETCH_ALL_APPLICATIONS } from '../actions/types';
 
 const INITIAL_STATE = {
   form_subject:'',
@@ -68,6 +68,12 @@ export default function(state = INITIAL_STATE, action) {
         form_subject: action.payload.form_subject,
         form_body: action.payload.form_body
       }
+
+    case FETCH_ALL_APPLICATIONS:
+      return {...state,
+        applications: action.payload
+      }
+
   default:
     return state;
   }

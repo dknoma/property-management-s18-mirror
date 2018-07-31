@@ -42,6 +42,7 @@ import TenantApplicationForm from "./components/application/TenantApplicationFor
 import PMReviewApplication from "./components/application/PMReviewApplication.js";
 import ApplicationPage from "./components/application/ApplicationPage.js";
 import ViewTenants from "./components/property/ViewTenants.js";
+import ViewAllApplications from "./components/application/ViewAllApplications.js";
 /* Testing */
 import UserProfile from "./components/UserProfile/UserProfile.jsx";
 
@@ -112,6 +113,8 @@ ReactDOM.render(
           <Route exact path={"property/:propertyId/viewtenants"} component={ViewTenants}>
           </Route>
           <Route exact path={"userprofile"} component={UserProfile}>
+          </Route>
+          <Route exact path={"application/viewallapplications"} component={ViewAllApplications}>
           </Route>
         </Router>
       </div>
