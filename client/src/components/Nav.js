@@ -97,7 +97,7 @@ export class Nav extends Component {
     if (this.props.user_type == 'propertymanager') {
     return (
       <span>
-        <a href="application/viewallapplications">
+        <a href="/application/viewallapplications">
           <Avatar className={classes.greenAvatar}>
             <AssignmentIcon />
           </Avatar>
@@ -197,6 +197,7 @@ export class Nav extends Component {
           </a>
           </span>
           <span>
+          {this.insertNotifications()}
           <Avatar className={classes.greenAvatar}>
             <IconButton
               aria-owns={open ? 'menu-appbar' : null}
@@ -225,7 +226,7 @@ export class Nav extends Component {
                 <a href={"/edit"} ><MenuItem>Edit Profile</MenuItem></a>
                 <a href="/logout"><MenuItem>Logout</MenuItem></a>
             </Menu>
-            {this.insertNotifications()}
+
             </span>
           </div>
         </div>

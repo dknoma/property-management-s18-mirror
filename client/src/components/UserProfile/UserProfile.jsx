@@ -14,6 +14,8 @@ import CardBody from "../Card/CardBody.jsx";
 import CardFooter from "../Card/CardFooter.jsx";
 import "../../index.css";
 
+import { Slide } from 'react-slideshow-image';
+
 
 const styles = {
   cardCategoryWhite: {
@@ -34,37 +36,32 @@ const styles = {
   }
 };
 
-function UserProfile(props) {
-  const { classes } = props;
-  return (
-    <div className="center">
-      <GridContainer>
-        <GridItem xs={12} sm={12} md={4}>
-          <Card profile>
-            <CardBody profile>
-              <h6 className={classes.cardCategory}>Role</h6>
-              <h4 className={classes.cardTitle}>Username</h4>
-              <p className={classes.description}>
-              First Name
-              </p>
-              <p className={classes.description}>
-              Last Name
-              </p>
-              <p className={classes.description}>
-              Email
-              </p>
-              <p className={classes.description}>
-              </p>
+const images = [
+  'images/slide_2.jpg',
+  'images/slide_3.jpg',
+  'images/slide_4.jpg',
+  'images/slide_5.jpg',
+  'images/slide_6.jpg',
+  'images/slide_7.jpg'
+];
 
-              <Button color="primary" round>
-
-              </Button>
-            </CardBody>
-          </Card>
-        </GridItem>
-      </GridContainer>
-    </div>
-  );
+const Slideshow = () => {
+    return (
+        <Slide
+          images={images}
+          duration={5000}
+          transitionDuration={1000}
+        />
+    )
 }
 
-export default withStyles(styles)(UserProfile);
+export class UserProfile extends React.Component {
+
+render() {
+    return (<Slideshow />);
+  }
+}
+
+
+
+export default withStyles(styles)(UserProfile, Slideshow);
