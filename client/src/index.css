@@ -8,6 +8,10 @@ body {
   text-align: center;
 }
 
+.center {
+  margin: 0 auto;
+}
+
 .nav a{
   color: #fff;
   text-align: center;

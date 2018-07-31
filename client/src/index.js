@@ -41,7 +41,9 @@ import Sent from "./components/message/Sent.js";
 import TenantApplicationForm from "./components/application/TenantApplicationForm.js";
 import PMReviewApplication from "./components/application/PMReviewApplication.js";
 import ApplicationPage from "./components/application/ApplicationPage.js";
-import ViewTenants from "./components/property/ViewTenants.js"
+import ViewTenants from "./components/property/ViewTenants.js";
+/* Testing */
+import UserProfile from "./components/UserProfile/UserProfile.jsx";
 
 var destination = document.querySelector("#container");
 
@@ -108,6 +110,8 @@ ReactDOM.render(
           <Route exact path={"property/:propertyId/applications/:appId"} component={ApplicationPage}>
           </Route>
           <Route exact path={"property/:propertyId/viewtenants"} component={ViewTenants}>
+          </Route>
+          <Route exact path={"userprofile"} component={UserProfile}>
           </Route>
         </Router>
       </div>
