@@ -15,22 +15,31 @@ class PropertySearchResults extends Component {
       Header: 'Property Name',
       accessor: 'property_name',// String-based value accessors!
       Cell: props =><a href={"/property/" + props.original.id}>{props.value}</a>
-    }, {
-      Header: 'City',
-      accessor: 'city',
-      Cell: props => <span className='number'>{props.value}</span> // Custom cell components!
-    }, {
+    },  {
       Header: 'Number of Bedrooms',
       accessor: 'number_of_bedrooms',
       Cell: props => <span className='number'>{props.value}</span> // Custom cell components!
+    },{
+      Header: 'Number of Bathrooms',
+      accessor: 'number_of_bathrooms',
+      Cell: props => <span className='number'>{props.value}</span> // Custom cell components!
+    },{
+      Header: 'Street',
+      accessor: 'street'
+    }, {
+      Header: 'City',
+      accessor: 'city'
     }, {
       Header: 'State',
-      accessor: 'state',
-      Cell: props => <span className='number'>{props.value}</span> // Custom cell components!
+      accessor: 'state'
     }, {
       id: 'prices', // Required because our accessor is not a string
       Header: 'Price',
       accessor: d => d.prices // Custom value accessors!
+    },{
+      Header: 'Allow Pets?',
+      accessor: 'allows_pets',
+      Cell: props => props.value === true ? 'Yes' : 'No'
     }]
     return (
       <div>

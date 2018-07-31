@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { AUTH_USER, OTHER_USER, ALL_USERS, CREATE_PROPERTY, FETCH_PROPERTIES, GET_PROPERTY, SEARCH_PROPERTY, APPLY_PROPERTY,
-          REVIEW_APPLICATIONS, CREATE_MESSAGE, GET_MESSAGES, DELETE_APPLICATION, GET_APPLICATION } from './types';
+          REVIEW_APPLICATIONS, CREATE_MESSAGE, GET_MESSAGE, GET_MESSAGES, DELETE_APPLICATION, GET_APPLICATION, APPROVE_APP, DENY_APP,
+          FETCH_TENANTS, ADD_TO_PROP } from './types';
 /* State Persist */
 import {loadState, saveState} from '.././localStorage.js';
 
@@ -198,28 +199,31 @@ export const review_applications = ({propertyId}) => async dispatch => {
   }
 };
 
-export const get_application = ({propertyId, applicationId}) => async dispatch => {
-
+export const get_application = ({propertyId, appId}) => async dispatch => {
     let token = localStorage.getItem('token');
     const res = await axios.get(
-      apiBaseUrl + "auth/property/" + propertyId + "/applications" + applicationId, { headers: {"token" : token}}
+      apiBaseUrl + "auth/property/" + propertyId + "/applications/" + appId, { headers: {"token" : token}}
     ).then(function (res) {
       dispatch({ type: GET_APPLICATION, payload: res.data});
     })
 
 };
 
-export const create_message = ({senderId, receiverId, inboxId, subject, body}) => async dispatch => {
+export const create_message = ({senderId, receiverId, inboxId, subject, body}, callback) => async dispatch => {
   let token = localStorage.getItem('token');
   // let senderId = localStorage.getItem('my_id');
   // let inboxId = localStorage.getItem('my_id');
-  const response = await axios.post(
-    apiBaseUrl +"api/user/message", {senderId, receiverId, inboxId, subject, body} ,{ headers: {"token" : token}}
-  )  .then(function (response) {
-    dispatch ({ type: CREATE_MESSAGE, payload: response.data });
-    console.log(response.data);
-
-  })
+    try {
+      const response = await axios.post(
+        apiBaseUrl +"api/user/message", {senderId, receiverId, inboxId, subject, body} ,{ headers: {"token" : token}}
+      )  .then(function (response) {
+        dispatch ({ type: CREATE_MESSAGE, payload: response.data });
+        console.log(response.data);
+        callback();
+      })
+    } catch (e) {
+      alert(e.response.data.message);
+    }
 };
 
 export const get_messages = ({id}) => async dispatch => {
@@ -231,5 +235,60 @@ export const get_messages = ({id}) => async dispatch => {
   )  .then(function (response) {
     /* Dispatch a payload of OTHER_USER */
     dispatch ({ type: GET_MESSAGES, payload: response.data });
+    console.log(response.data);
+  })
+};
+
+export const get_message = ({messageId}) => async dispatch => {
+  let token = localStorage.getItem('token');
+  let user_id = localStorage.getItem('my_id');
+  console.log('Id: '+ user_id);
+  const response = await axios.get(
+    apiBaseUrl + "auth/user/" + user_id + "/inbox/" + messageId, { headers: {"token" : token}}
+  )  .then(function (response) {
+    /* Dispatch a payload of OTHER_USER */
+    dispatch ({ type: GET_MESSAGE, payload: response.data });
+    console.log(response.data);
+  })
+};
+
+export const approve_app = ({propertyId, appId}, callback) => async dispatch => {
+  let token = localStorage.getItem('token');
+  const res= await axios.put(
+    apiBaseUrl + "auth/property/" + propertyId + "/applications/" + appId, {approval_status : true}, { headers: {"token" : token}}
+  ).then(function (res) {
+    dispatch({ type: APPROVE_APP, payload: res.data});
+    callback();
+  })
+};
+
+export const deny_app = ({propertyId, appId}, callback) => async dispatch => {
+  let token = localStorage.getItem('token');
+  const res = await axios.put(
+    apiBaseUrl + "auth/property/" + propertyId + "/applications/" + appId, {approval_status : false}, { headers: {"token" : token}}
+  ).then(function (res) {
+    dispatch({ type: DENY_APP, payload: res.data});
+    callback();
+  })
+};
+
+export const fetch_tenants = ({propertyId}) => async dispatch => {
+  let token = localStorage.getItem('token');
+  const response = await axios.get(
+    apiBaseUrl + "api/propertymanager/" + propertyId + "/tenants/", { headers: {"token" : token}}
+  ).then(function (res) {
+    dispatch({ type: FETCH_TENANTS, payload: res.data});
+
+  })
+};
+
+export const add_to_prop = ({propertyId, tenantId}, callback) => async dispatch => {
+  let token = localStorage.getItem('token');
+  console.log("propertyId: " + propertyId);
+  const res = await axios.post(
+    apiBaseUrl + "auth/propertymanager/add", {propertyId, tenantId}, { headers: {"token" : token}}
+  ).then(function (res) {
+    dispatch({ type: DENY_APP, payload: res.data});
+    callback();
   })
 };

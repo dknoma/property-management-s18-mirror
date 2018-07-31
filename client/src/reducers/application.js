@@ -1,4 +1,4 @@
-import { APPLY_PROPERTY, REVIEW_APPLICATIONS, DELETE_APPLICATION, GET_APPLICATION } from '../actions/types';
+import { APPLY_PROPERTY, REVIEW_APPLICATIONS, DELETE_APPLICATION, GET_APPLICATION, APPROVE_APP, DENY_APP } from '../actions/types';
 
 const INITIAL_STATE = {
   form_subject:'',
@@ -32,17 +32,42 @@ export default function(state = INITIAL_STATE, action) {
 
   case GET_APPLICATION:
     return {...state,
-      id: action.payload.application.id,
-      approval_status: action.payload.application.approval_status,
-      tenantId: action.payload.application.tenantId,
-      tenant_name: action.payload.application.tenant_name,
-      propertyId: action.payload.application.propertyId,
-      property_name: action.payload.application.property_name,
-      pmId: action.payload.application.pmId,
-      form_subject: action.payload.application.form_subject,
-      form_body: action.payload.application.form_body
+      id: action.payload.id,
+      approval_status: action.payload.approval_status,
+      tenantId: action.payload.tenantId,
+      tenant_name: action.payload.tenant_name,
+      propertyId: action.payload.propertyId,
+      property_name: action.payload.property_name,
+      pmId: action.payload.pmId,
+      form_subject: action.payload.form_subject,
+      form_body: action.payload.form_body
     }
 
+  case APPROVE_APP:
+    return {...state,
+      id: action.payload.id,
+      approval_status: action.payload.approval_status,
+      tenantId: action.payload.tenantId,
+      tenant_name: action.payload.tenant_name,
+      propertyId: action.payload.propertyId,
+      property_name: action.payload.property_name,
+      pmId: action.payload.pmId,
+      form_subject: action.payload.form_subject,
+      form_body: action.payload.form_body
+    }
+
+    case DENY_APP:
+      return {...state,
+        id: action.payload.id,
+        approval_status: action.payload.approval_status,
+        tenantId: action.payload.tenantId,
+        tenant_name: action.payload.tenant_name,
+        propertyId: action.payload.propertyId,
+        property_name: action.payload.property_name,
+        pmId: action.payload.pmId,
+        form_subject: action.payload.form_subject,
+        form_body: action.payload.form_body
+      }
   default:
     return state;
   }

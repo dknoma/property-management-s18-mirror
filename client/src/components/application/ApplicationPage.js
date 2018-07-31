@@ -12,22 +12,39 @@ import requireAuth from '../requireAuth';
 
 class ApplicationPage extends React.Component {
   componentDidMount() {
-    if (this.props.params.applicationId !== "undefined") {
-      //CHANGE THIS
-      this.props.get_application(this.props.params.propertyId, this.props.params.applicationId);
+    if (this.props.params.appId !== "undefined") {
+      this.props.get_application(this.props.params);
     }
   };
 
+
   renderPMInformation() {
     if (localStorage.getItem('user_type') ==="propertymanager") {
-        return (
-          <div>
-            <div> <a class="button" href="/propertylisting">Approve this application</a></div>
-            <br/>
-            <div> <a class="button" href="/createproperty">Disapprove this application</a></div>
-            <br/>
-          </div>
-        )
+      let propertyId = this.props.propertyId;
+      console.log("inAPllicationPage propParam: " + propertyId);
+      let tenantId = this.props.tenantId;
+      return (
+        <div>
+          <div> <Button onClick={() => {
+            this.props.approve_app(this.props.params, () => {
+              this.props.add_to_prop({propertyId, tenantId}, () => {
+                alert("Approval Success!");
+                this.props.router.push('/property/review/' + this.props.params.propertyId);
+              });
+            });
+          }
+          }>Approve this application</Button></div>
+          <br/>
+          <div> <Button onClick={() => {
+            this.props.deny_app(this.props.params, () => {
+              alert("Application Denied");
+              this.props.router.push('/property/review/' + this.props.params.propertyId);
+            });
+          }
+        }>Disapprove this application</Button></div>
+          <br/>
+        </div>
+      )
     }
   };
 
@@ -57,6 +74,7 @@ render() {
             <p>Applicant Name: {this.props.tenant_name}</p>
             <p>Subject: {this.props.form_subject}</p>
             <p>Body: {this.props.form_body}</p>
+            <p>Approval Status: {this.props.approval_status === null ? 'Pending' : this.props.approval_status === true ? 'Approved' : 'Denied'}</p>
             {this.renderPMInformation()}
             {this.renderTenantInformation()}
           </div>
@@ -80,4 +98,13 @@ function mapStateToProps(state) {
     form_body: state.application.form_body
   };
 }
+
+// const mapDispatchToProps = dispatch => ({
+//   approve_app({approval_status, propertyId, appId}) {
+//     return () => {
+//       this.props.update_app_status({approval_status, propertyId, appId});
+//     };
+//   },
+// });
+
 export default connect(mapStateToProps, actions)(requireAuth(ApplicationPage));

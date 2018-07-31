@@ -6,7 +6,7 @@ import * as actions from '../../actions';
 import ReactTable from 'react-table';
 import 'react-table/react-table.css';
 
-import requirePropManager from '../requirePropManager';
+import RequirePropManager from '../RequirePropManager';
 
 class PMReviewApplication extends Component {
 
@@ -21,7 +21,8 @@ class PMReviewApplication extends Component {
 
     const columns = [{
       Header: 'Property Name',
-      accessor: 'property_name'
+      accessor: 'property_name',
+      Cell: props => <a href={"/property/" + props.original.propertyId + "/applications/" + props.original.id}>{props.value}</a>
     }, {
       Header: 'Property ID',
       accessor: 'propertyId',
@@ -42,7 +43,7 @@ class PMReviewApplication extends Component {
     },{
       Header: 'Status',
       accessor: 'approval_status', // boolean
-      Cell: props =>  {props.value === null ? 'Pending' : props.value === true ? 'Approved' : 'Denied'}
+      Cell: props =>  props.value === null ? 'Pending' : props.value === true ? 'Approved' : 'Denied'
     },]
     return (
       <ReactTable
@@ -60,4 +61,4 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps, actions)(requirePropManager(PMReviewApplication));
+export default connect(mapStateToProps, actions)(RequirePropManager(PMReviewApplication));
