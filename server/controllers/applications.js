@@ -166,31 +166,36 @@ module.exports = {
 								application
 								.update({approval_status: req.body.approval_status})
 								.then(application => {
-									if(application.approval_status) {
-										Message.create({
-											senderId: currentUser,
-											receiverId: application.tenantId,
-											inboxId: application.tenantId,
-											subject: 'Application Status of ' + application.property_name,
-											body: 'Your application to ' + application.property_name + ' has been approved!',
-										})
-										.then(message => {
-											return res.status(201).send({message, application})
-										})
-										.catch(error => res.status(401).send(error));
-									} else {
-										Message.create({
-											senderId: currentUser,
-											receiverId: application.tenantId,
-											inboxId: application.tenantId,
-											subject: 'Application Status of ' + application.property_name,
-											body: 'Unfortunately your application to ' + application.property_name + ' has been denied.',
-										})
-										.then(message => {
-											return res.status(201).send({message, application})
-										})
-										.catch(error => res.status(401).send(error));
-									}
+									User.findById(currentUser)
+									.then(user => {
+										if(application.approval_status) {
+											Message.create({
+												senderId: currentUser,
+												sender_username: user.username,
+												receiverId: application.tenantId,
+												inboxId: application.tenantId,
+												subject: 'Application Status of ' + application.property_name,
+												body: 'Your application to ' + application.property_name + ' has been approved!',
+											})
+											.then(message => {
+												return res.status(201).send({message, application})
+											})
+											.catch(error => res.status(401).send(error));
+										} else {
+											Message.create({
+												senderId: currentUser,
+												sender_username: user.username,
+												receiverId: application.tenantId,
+												inboxId: application.tenantId,
+												subject: 'Application Status of ' + application.property_name,
+												body: 'Unfortunately your application to ' + application.property_name + ' has been denied.',
+											})
+											.then(message => {
+												return res.status(201).send({message, application})
+											})
+											.catch(error => res.status(401).send(error));
+										}
+									})
 								})
 								.catch(error => res.status(400).send({message: 'Error in approval status.', error}));
 							} else {
