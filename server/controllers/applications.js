@@ -62,7 +62,7 @@ module.exports = {
 	},
 	viewMyApplications(req, res) {
 		var currentUser = req.currentUser;
-		if(currentUser) {
+		if(currentUser && req.params.userId == currentUser) {
 			return Application
 				.findAll({
 					where: {
@@ -109,6 +109,24 @@ module.exports = {
 			return res.status(401).send({message: 'Unable to authorize.'});
 		}
 	},
+	//allows pm to view all applications to all their properties
+	seeAllApplications(req, res) {
+		var currentUser = req.currentUser;
+		if(currentUser) {
+			return Application
+				.findAll({
+					where: {
+						pmId: currentUser,
+					}
+				})
+				.then(applications => {
+					return res.status(200).send(applications)
+				})
+				.catch(error => res.status(400).send(error));
+		} else {
+			return res.status(401).send({message: 'Unable to authorize.'});
+		}
+	},
 	//allows pm to view a single application
 	viewSingle(req, res) {
 		var currentUser = req.currentUser;
@@ -146,7 +164,7 @@ module.exports = {
 						.then(application => {
 							if(application.approval_status == null) {
 								application
-								.update({approval_status: req.body.approved})
+								.update({approval_status: req.body.approval_status})
 								.then(application => {
 									if(application.approval_status) {
 										Message.create({
@@ -220,7 +238,7 @@ module.exports = {
 			return Application
 				.findById(req.params.appId)
 				.then(application => {
-					if(application.tenantId == currentUser) {
+					if(req.params.userId == currentUser && application.tenantId == currentUser) {
 						return application
 						.destroy()
 						.then(() => res.status(200).send({ message: 'Application successfully removed!'}))
