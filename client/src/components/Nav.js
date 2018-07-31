@@ -95,13 +95,19 @@ export class Nav extends Component {
   insertPMLinks () {
     const { classes } = this.props;
     if (this.props.user_type == 'propertymanager') {
-    console.log(this.props.user_type);
     return (
-      <a href="/createproperty">
-        <Avatar className={classes.greenAvatar}>
-          <AddIcon />
-        </Avatar>
-      </a>
+      <span>
+        <a href="application/viewallapplications">
+          <Avatar className={classes.greenAvatar}>
+            <AssignmentIcon />
+          </Avatar>
+        </a>
+        <a href="/createproperty">
+          <Avatar className={classes.greenAvatar}>
+            <AddIcon />
+          </Avatar>
+        </a>
+      </span>
     )
     }
   }
@@ -178,6 +184,7 @@ export class Nav extends Component {
           <div className={classes.row}>
           {this.insertTenantLinks()}
           {this.insertPMLinks()}
+          <span>
           <a href="/propertylisting">
             <Avatar className={classes.greenAvatar}>
               <HomeIcon />
@@ -188,7 +195,8 @@ export class Nav extends Component {
               <SearchIcon />
             </Avatar>
           </a>
-          {this.insertNotifications()}
+          </span>
+          <span>
           <Avatar className={classes.greenAvatar}>
             <IconButton
               aria-owns={open ? 'menu-appbar' : null}
@@ -217,6 +225,8 @@ export class Nav extends Component {
                 <a href={"/edit"} ><MenuItem>Edit Profile</MenuItem></a>
                 <a href="/logout"><MenuItem>Logout</MenuItem></a>
             </Menu>
+            {this.insertNotifications()}
+            </span>
           </div>
         </div>
     )
