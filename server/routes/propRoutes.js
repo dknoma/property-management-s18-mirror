@@ -47,17 +47,30 @@ module.exports = (app) => {
 	app.get('/auth/property/:propertyId/applications/:appId', applicationController.viewSingle);
 	app.put('/auth/property/:propertyId/applications/:appId', applicationController.updateApprovalStatus);
 	app.delete('/auth/property/:propertyId/applications/:appId', applicationController.deleteApplication);
-	
+
 	app.get('/auth/user/mypropertyapplications', applicationController.seeAllApplications);
 	app.get('/auth/user/:userId/myapplications', applicationController.viewMyApplications);
     app.delete('/auth/user/:userId/myapplications/:appId', applicationController.deleteOwnApplication);
 
 
-	/* Maintenance request */
-	app.post('/api/property/:propertyId/maintain', maintenanceController.create);
+		/**************************************
+		* Maintenance  Routes 				  *
+	  * 	-	create new maintenance request			  *
+	  * 	 +-+ Authorization required +-+	  *
+	  * 	-	view all maintenance request of
+		*			a property
+	  *  -	delete a maintenance request			  *
+	  **************************************/
+		app.post('/api/property/:propertyId/maintain', maintenanceController.create);
+		app.get('/auth/property/:propertyId/maintenancerequests/:appId', maintenanceController.viewSingle);
+		app.get('/api/maintenancerequests', maintenanceController.list);
+		app.put('/auth/property/:propertyId/maintenancerequests/:mrId', maintenanceController.updateProcessStatus);
 
-		/* Authorization required */
-	app.get('/auth/property/:propertyId/review', maintenanceController.reviewMaintenanceRequest);
+			/* Authorization required */
+		app.get('/auth/property/:propertyId/maintenancerequests', maintenanceController.reviewMaintenanceRequest);
+	  app.delete('/auth/property/:propertyId/maintenancerequests/:mrId', maintenanceController.deleteMaintenanceRequest);
+		app.get('/auth/user/mymaintenancerequests', maintenanceController.viewMyMaintenanceRequest);
+		app.delete('/auth/user/mymaintenancerequests/:mrId', maintenanceController.deleteOwnMaintenanceRequest);
 
 	//testing
 	app.get('/api/:userId/inboxes', messageController.list);
