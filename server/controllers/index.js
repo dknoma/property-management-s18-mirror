@@ -4,6 +4,8 @@ const propertyManagement = require('./propertyManagement');
 const applications = require('./applications');
 const messages = require('./messages');
 const maintenancerequest = require('./maintenancerequest');
+const payment = require('./payment');
+
 
 module.exports = {
     users,
@@ -12,4 +14,5 @@ module.exports = {
     applications,
     messages,
     maintenancerequest,
+    payment,
 };

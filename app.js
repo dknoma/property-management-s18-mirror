@@ -1,11 +1,11 @@
 /*
  * Description: TODO test server. This app will let the user create and delete TODO items
- * 
+ *
  * Start application: npm run start:dev
  * Start postgres: pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start
- * Postman: 
+ * Postman:
  * 			- to create items: 127.0.0.1:8000/api/todos/1/items
- * 
+ *
  * Create model: sequelize model:create --name <Name> --attributes <name of attribute>:<type>
  */
 
@@ -31,6 +31,7 @@ app.use('/auth', authorizor);
 require('./server/routes/authenticationRoutes')(app);
 require('./server/routes/propRoutes')(app);
 require('./server/routes/messageRoutes')(app);
+require('./server/routes/paymentRoutes')(app);
 
 app.get('*', (request, response) => response.status(200).send({
 	message: 'Welcome to the beginning of Wut.',
