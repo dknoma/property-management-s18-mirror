@@ -18,11 +18,15 @@ module.exports = {
                 where: {
                   propertyId: req.body.propertyId,
                   tenantId: req.body.tenantId,
+                  owe: req.body.owe,
+                  credits: req.body.credits
                 },
                 defaults: {
                   propertyId: req.body.propertyId,
                   tenantId: req.body.tenantId,
                   tenant_username: user.username,
+                  owe: 0,
+                  credits: 0,
                 }
               })
               .spread((propertyTenant, created) => {
@@ -33,7 +37,7 @@ module.exports = {
                     message: 'User is already on the property. Please try again.'
                   });
                 }
-              
+
                 return res.status(201).send({
                   propertyTenant: {
                     propertyId: propertyTenant.propertyId,
@@ -96,5 +100,11 @@ module.exports = {
         }
       })
       .catch(error => res.status(400).send({message: 'Unable to find user', error}));
-  }
+  },
+//test purposes
+  list(req, res) {
+    return PropertyTenant
+      .findAll()
+      .then(propertyTenant => res.status(200).send(propertyTenant))
+    }
 };
