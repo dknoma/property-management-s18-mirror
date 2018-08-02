@@ -44,7 +44,7 @@ class PropertyPage extends Component {
       if (localStorage.getItem('user_type') === "tenant") {
           return (
             <div>
-              <div> <a class="button" href={"/apply/" + this.props.params.propertyId}> Apply for this property</a></div>
+              <div><a class="button" href={"/apply/" + this.props.params.propertyId}> Apply for this property</a></div>
               <br/>
             </div>
           )
@@ -65,12 +65,12 @@ class PropertyPage extends Component {
   render() {
     return (
       <div className="propInfo">
-
           { this.renderItem() }
-
-        <br/>
+        <br />
           { this.renderPotentialTenantInfo() }
           { this.renderPMInfo() }
+          <br />
+          <div><a class="button" href={"/maintenance/" + this.props.params.propertyId}>Submit Maintenance Request for this property</a></div>
       </div>
     );
   }

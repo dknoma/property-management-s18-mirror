@@ -45,6 +45,10 @@ import ApplicationPage from "./components/application/ApplicationPage.js";
 import ViewTenants from "./components/property/ViewTenants.js";
 import ViewAllApplications from "./components/application/ViewAllApplications.js";
 import ViewMyApplication from "./components/application/ViewMyApplication.js";
+import CreateMaintenanceRequest from "./components/maintenance/CreateMaintenanceRequest.js";
+import ViewAllMaintenanceRequests from "./components/maintenance/ViewAllMaintenanceRequests.js";
+import ViewMaintenanceRequest from "./components/maintenance/ViewMaintenanceRequest.js";
+
 /* Testing */
 import UserProfile from "./components/UserProfile/UserProfile.jsx";
 
@@ -118,6 +122,14 @@ ReactDOM.render(
           <Route exact path={"application/viewallapplications"} component={ViewAllApplications}>
           </Route>
           <Route exact path={"user/:userId/myapplications"} component={ViewMyApplication}>
+          </Route>
+          <Route exact path={"createmaintenancerequest"} component={CreateMaintenanceRequest}>
+          </Route>
+          <Route exact path={"maintenance/:propertyId"} component={CreateMaintenanceRequest}>
+          </Route>
+          <Route exact path={"user/:userId/maintenancerequests"} component={ViewAllMaintenanceRequests}>
+          </Route>
+          <Route exact path={"maintenance/:requestId"} component={ViewMaintenanceRequest}>
           </Route>
         </Router>
         <Footer/>

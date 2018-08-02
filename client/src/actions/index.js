@@ -1,7 +1,12 @@
 import axios from 'axios';
-import { AUTH_USER, OTHER_USER, ALL_USERS, CREATE_PROPERTY, FETCH_PROPERTIES, GET_PROPERTY, SEARCH_PROPERTY, APPLY_PROPERTY,
-          REVIEW_APPLICATIONS, CREATE_MESSAGE, GET_MESSAGE, GET_MESSAGES, DELETE_APPLICATION, GET_APPLICATION, APPROVE_APP, DENY_APP,
-          FETCH_TENANTS, ADD_TO_PROP, FETCH_ALL_APPLICATIONS, FETCH_MY_APPLICATIONS } from './types';
+import {
+  AUTH_USER, OTHER_USER, ALL_USERS,
+  CREATE_PROPERTY, FETCH_PROPERTIES, GET_PROPERTY, SEARCH_PROPERTY, APPLY_PROPERTY,
+  REVIEW_APPLICATIONS, CREATE_MESSAGE, GET_MESSAGE, GET_MESSAGES,
+  DELETE_APPLICATION, GET_APPLICATION, APPROVE_APP, DENY_APP,
+  FETCH_TENANTS, ADD_TO_PROP, FETCH_ALL_APPLICATIONS, FETCH_MY_APPLICATIONS,
+  CREATE_MAINTENANCE_REQUEST, GET_MAINTENANCE_REQUEST, FETCH_MY_MAINTENANCE_REQUESTS
+} from './types';
 /* State Persist */
 import {loadState, saveState} from '.././localStorage.js';
 
@@ -84,7 +89,8 @@ export const logout = () => {
 
 export const edit_profile = ({username, email, firstname, lastname, id}, callback) => async dispatch => {
   try {
-    const token = localStorage.getItem('token');
+    let token = localStorage.getItem('token');
+    let id = localStorage.getItem('my_id');
     const response = await axios.put(
       apiBaseUrl + "auth/"+ "users/" + id,
       {username, email, firstname, lastname}, { headers: {"token" : token}}
@@ -311,4 +317,17 @@ export const fetch_my_applications = ({userId}) => async dispatch => {
   ).then(function (res) {
     dispatch({ type: FETCH_MY_APPLICATIONS, payload: res.data});
   })
+};
+
+export const create_maintenance_request = ({tenantId, propertyId, pmId, form_subject, form_body}, callback) => async dispatch => {
+  try {
+    console.log('apply_prop: '+ propertyId + form_subject, form_body);
+    const response = await axios.post(
+      apiBaseUrl +"api/"+ "property/" + propertyId + "/maintain", {tenantId, propertyId, pmId, form_subject, form_body}
+    );
+    dispatch({ type: CREATE_MAINTENANCE_REQUEST, payload: response.data});
+    callback();
+  } catch (e) {
+    alert(e.response.data.message);
+  }
 };
