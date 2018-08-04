@@ -26,6 +26,10 @@ module.exports = (app) => {
 	 // Charge a user
 	 app.post('/api/payments/:tenantId/charge', paymentController.charge);
 
+	 //list all payment records
+	 app.get('/api/payments/viewall', paymentController.list);
+
+
 	//  // Update the default card of the user
 	//   app.post('/api/payments/updateDefaultCard/:user_id', paymentController.updateDefaultCard);
   //
