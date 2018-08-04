@@ -11,18 +11,19 @@ import RequirePropManager from '../RequirePropManager';
 class ViewAllMaintenanceRequests extends Component {
 
   componentDidMount() {
+    console.log("fires");
     if(this.props.params.propertyId !== "undefined") {
-      this.props.fetch_all_applications();
+      this.props.fetch_my_maintenance_requests();
     }
   };
 
   render() {
-    const data = this.props.applications;
+    const data = this.props.maintenance;
 
     const columns = [{
       Header: 'Property Name',
       accessor: 'property_name',
-      Cell: props => <a href={"/property/" + props.original.propertyId + "/applications/" + props.original.id}>{props.value}</a>
+      Cell: props => <a href={"/property/" + props.original.propertyId + "/maintenance/" + props.original.id}>{props.value}</a>
     }, {
       Header: 'Property ID',
       accessor: 'propertyId',
@@ -47,7 +48,7 @@ class ViewAllMaintenanceRequests extends Component {
     },]
     return (
       <div>
-      <h1> All Application </h1>
+      <h1> All Maintenance Requests </h1>
       <ReactTable
         data={data}
         columns={columns}
@@ -60,7 +61,7 @@ class ViewAllMaintenanceRequests extends Component {
 
 function mapStateToProps(state) {
   return {
-    applications: state.application.applications
+    maintenancerequests: state.maintenance.maintenancerequests
   }
 }
 

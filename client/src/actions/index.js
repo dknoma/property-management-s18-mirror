@@ -331,3 +331,13 @@ export const create_maintenance_request = ({tenantId, propertyId, pmId, form_sub
     alert(e.response.data.message);
   }
 };
+
+export const fetch_my_maintenance_requests = ({userId}) => async dispatch => {
+  let token = localStorage.getItem('token');
+  const res = await axios.get(
+    apiBaseUrl + "auth/user/mymaintenancerequests", { headers: {"token" : token}}
+  ).then(function (res) {
+    console.log(res.data);
+    dispatch({ type: FETCH_MY_MAINTENANCE_REQUESTS, payload: res.data});
+  })
+};

@@ -3,17 +3,14 @@ import { CREATE_MAINTENANCE_REQUEST, GET_MAINTENANCE_REQUEST, FETCH_MY_MAINTENAN
 // reducer for authentication
 // we want to define an initial state constant variable
 const INITIAL_STATE = {
-  senderId: '',
-  senderUsername: '',
-  receiverId: '',
-  maintenance_requests: [],
-  message_body: '',
-  message:'',
-  id: '',
-  createdAt: '',
-  inboxId: '',
-  subject: '',
-  body: '',
+  form_subject:'',
+  form_body:'',
+  property_id: '',
+  tenantId: '',
+  pmId: '',
+  approval_status: null,
+  property_name: '',
+  tenant_name: ''
 };
 
 /* Reducer takes two arguments, the current state and an action */
@@ -32,24 +29,27 @@ export default function(state = INITIAL_STATE, action) {
 
       /* We can add more info if we want to*/
       return {...state,
-        message: action.payload
+        maintenancerequest: action.payload
       };
 
     case GET_MAINTENANCE_REQUEST:
-    console.log(action.payload);
       return {...state,
         id: action.payload.id,
-        subject: action.payload.subject,
-        senderId: action.payload.senderId,
-        senderUsername: action.payload.senderUsername,
-        receiverId: action.payload.receiverId,
-        viewed: action.payload.body,
+        approval_status: action.payload.approval_status,
+        tenantId: action.payload.tenantId,
+        tenant_name: action.payload.tenant_name,
+        propertyId: action.payload.propertyId,
+        property_name: action.payload.property_name,
+        pmId: action.payload.pmId,
+        form_subject: action.payload.form_subject,
+        form_body: action.payload.form_body
       }
 
     case FETCH_MY_MAINTENANCE_REQUESTS:
-      console.log(action.payload);
       return {...state,
-        messages: action.payload
+        console.log(action.payload);
+        maintenancerequests: action.payload
+
       }
 
     default:

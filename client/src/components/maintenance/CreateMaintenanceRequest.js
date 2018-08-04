@@ -23,7 +23,7 @@ class CreateMaintenanceRequest extends Component{
   onSubmit = ({tenantId, propertyId, pmId, form_subject, form_body}) => {
     console.log('application: '+ propertyId + form_subject, form_body);
     this.props.create_maintenance_request({tenantId, propertyId, pmId, form_subject, form_body}, () => {
-      alert("Application was sent successfully!");
+      alert("Maintenance Request was sent successfully!");
       // this.props.router.push("/propertylisting");
     })
   //console.log(({user_type, username, email, firstname, lastname, password});
