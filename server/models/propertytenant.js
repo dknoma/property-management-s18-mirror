@@ -5,6 +5,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false
     },
+    rent:{
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
     owe: {
       type: DataTypes.INTEGER,
       allowNull: true,

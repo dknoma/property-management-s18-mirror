@@ -334,6 +334,16 @@ export const create_maintenance_request = ({tenantId, propertyId, pmId, form_sub
   }
 };
 
+export const fetch_my_maintenance_requests = ({userId}) => async dispatch => {
+  let token = localStorage.getItem('token');
+  const res = await axios.get(
+    apiBaseUrl + "auth/user/mymaintenancerequests", { headers: {"token" : token}}
+  ).then(function (res) {
+    console.log(res.data);
+    dispatch({ type: FETCH_MY_MAINTENANCE_REQUESTS, payload: res.data});
+  })
+};
+
 export const pay_rent = ({tenantId, stripeToken, amount, description}) => async dispatch => {
   const res = await axios.post(
     "/api/payments/" + tenantId + "/charge", {tenantId, stripeToken, amount, description}
