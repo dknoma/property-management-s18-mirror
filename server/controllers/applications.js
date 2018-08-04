@@ -151,6 +151,23 @@ module.exports = {
 			return res.status(401).send({message: 'Unable to authorize.'});
 		}
 	},
+	viewMySingle(req, res) {
+		var currentUser = req.currentUser;
+		if(currentUser && req.params.userId == currentUser) {
+			return Application
+				.findById(req.params.appId)
+				.then(application => {
+					if(application.tenantId == currentUser) {
+						return res.status(200).send(application)
+					} else {
+						return res.status(401).send({message: 'Unable to authorize.'});
+					}
+				})
+				.catch(error => res.status(400).send(error));
+		} else {
+			return res.status(401).send({message: 'Unable to authorize.'});
+		}
+	},
 	//updates approval status of an application and send message to applicants inbox
 	updateApprovalStatus(req, res) {
 		var currentUser = req.currentUser;
