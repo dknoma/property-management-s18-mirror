@@ -32,7 +32,7 @@ class ViewMaintenanceRequest extends React.Component {
               });
             });
           }
-          }>Approve this application</Button></div>
+        }>Approve this Maintenance Request</Button></div>
           <br/>
           <div> <Button onClick={() => {
             this.props.deny_app(this.props.params, () => {
@@ -40,7 +40,7 @@ class ViewMaintenanceRequest extends React.Component {
               this.props.router.push('/property/review/' + this.props.params.propertyId);
             });
           }
-        }>Disapprove this application</Button></div>
+        }>Disapprove this Maintenance Request</Button></div>
           <br/>
         </div>
       )

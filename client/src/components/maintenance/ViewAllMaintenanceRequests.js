@@ -13,7 +13,7 @@ class ViewAllMaintenanceRequests extends Component {
   componentDidMount() {
     console.log("fires");
     if(this.props.params.propertyId !== "undefined") {
-      this.props.fetch_my_maintenance_requests();
+      this.props.fetch_my_maintenance_requests(this.props.params);
     }
   };
 

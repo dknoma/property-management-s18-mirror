@@ -47,7 +47,6 @@ export default function(state = INITIAL_STATE, action) {
 
     case FETCH_MY_MAINTENANCE_REQUESTS:
       return {...state,
-        console.log(action.payload);
         maintenancerequests: action.payload
 
       }
