@@ -18,6 +18,7 @@ module.exports = {
                 where: {
                   propertyId: req.body.propertyId,
                   tenantId: req.body.tenantId,
+                  rent: req.body.rent,
                   owe: req.body.owe,
                   credits: req.body.credits
                 },
@@ -25,6 +26,7 @@ module.exports = {
                   propertyId: req.body.propertyId,
                   tenantId: req.body.tenantId,
                   tenant_username: user.username,
+                  rent: req.body.rent,
                   owe: 0,
                   credits: 0,
                 }
@@ -42,6 +44,9 @@ module.exports = {
                   propertyTenant: {
                     propertyId: propertyTenant.propertyId,
                     tenantId: propertyTenant.tenantId,
+                    rent: propertyTenant.rent,
+                    owe: propertyTenant.owe,
+                    credits: propertyTenant.credits,
                     tenant_username: propertyTenant.tenant_username,
                   },
                   message: 'User was added successfully!'
@@ -56,6 +61,7 @@ module.exports = {
     })
     .catch(error => res.status(400).send(error));
   },
+  
   findTenants(req, res) {
     return PropertyTenant
       .findAll({

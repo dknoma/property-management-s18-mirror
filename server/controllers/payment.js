@@ -1,5 +1,4 @@
 var User = require('../models').User;
-var Card = require('../models').Card;
 var stripe = require('stripe')('sk_test_0PHtbfBiBeysTSgQiECHmy18');
 var TenantPayment = require('../models').TenantPayment;
 var PropertyTenant = require('../models').PropertyTenant;
@@ -9,11 +8,12 @@ const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
 
 module.exports = {
-	charge(req, res) {
+	async charge(req, res) {
+		const propertyId = propertyTenant.propertyId;
 		const token = req.body.stripeToken;
 		const amt = req.body.amount;
 		var tenantId = req.params.tenantId;
-		stripe.charges.create({
+		await stripe.charges.create({
 	amount: parseInt(amt, 10),
 	currency: 'usd',
 	source: token,
@@ -35,7 +35,7 @@ module.exports = {
 						owe : propertyTenant.owe
 					}
 				)
-					return savePaymentRecord(res, charge, tenantId,req.body.propertyId,req.body.description, req.body.amount);
+					return savePaymentRecord(res, charge, tenantId,propertyId,req.body.description, req.body.amount);
 			}
 		);
 
@@ -48,7 +48,15 @@ module.exports = {
   console.log(err);
 	return res.status(401).send(err);
 });
+},
+
+list(req, res) {
+	return PropertyTenant
+		.findAll()
+		.then(propertyTenant => res.status(200).send(propertyTenant))
+		.catch(error => res.status(400).send(error));
 }
+
 };
 
 	function savePaymentRecord(res, charge, tenantId, propertyId, description, amount) {
