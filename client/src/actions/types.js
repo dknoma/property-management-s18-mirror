@@ -22,3 +22,4 @@ export const FETCH_MY_APPLICATIONS = "fetch_my_applications";
 export const CREATE_MAINTENANCE_REQUEST = "create_maintenance_request";
 export const GET_MAINTENANCE_REQUEST = "get_maintenance_request";
 export const FETCH_MY_MAINTENANCE_REQUESTS = "fetch_my_maintenance_requests";
+export const PAY_RENT = "pay_rent";

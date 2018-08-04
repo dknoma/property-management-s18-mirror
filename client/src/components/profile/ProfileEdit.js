@@ -60,7 +60,7 @@ onSubmit = ({username, email, firstname, lastname}) => {
         Edit Your Profile
         </Typography>
         <br/>
-        <Field name="username" label="Username" id="username" component = {TextField} validate={[ required, maxLength15 ]}/>
+        <Field name="username" label="Username" id="username" component = {TextField} validate={[ required, maxLength15 ]} disabled/>
         <br />
         <Field name="firstname" label="First Name" id="first_name"  component = {TextField} validate={[ required ]} />
         <br/>

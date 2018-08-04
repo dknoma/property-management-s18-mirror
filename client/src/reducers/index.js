@@ -5,11 +5,13 @@ import auth from './auth'
 import property from './property'
 import application from './application'
 import message from './message'
+import payment from './payment'
 
 export default combineReducers({
   auth,
   form: formReducer,
   property,
   application,
-  message
+  message,
+  payment
 });
