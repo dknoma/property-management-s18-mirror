@@ -32,6 +32,7 @@ module.exports = (app) => {
     app.get('/api/propertymanager/:propertyId/tenants', propertyManagementController.findTenants);
     app.post('/auth/propertymanager/add', propertyManagementController.addToProp);
 		app.delete('/auth/propertymanager/:propertyId', propertyManagementController.removeTenant);
+		app.put('/auth/propertymanager/updateRent', propertyManagementController.updateRent);
 
 	/**************************************
 	 * Application  Routes 				  *
@@ -51,7 +52,7 @@ module.exports = (app) => {
 	app.get('/auth/user/mypropertyapplications', applicationController.seeAllApplications);
 	app.get('/auth/user/:userId/myapplications', applicationController.viewMyApplications);
 	app.get('/auth/user/:userId/myapplications/:appId', applicationController.viewMySingle);
-    app.delete('/auth/user/:userId/myapplications/:appId', applicationController.deleteOwnApplication);
+  app.delete('/auth/user/:userId/myapplications/:appId', applicationController.deleteOwnApplication);
 
 
 	/******************************************
