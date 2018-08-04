@@ -55,6 +55,21 @@ list(req, res) {
 		.findAll()
 		.then(propertyTenant => res.status(200).send(propertyTenant))
 		.catch(error => res.status(400).send(error));
+},
+
+
+retrieve(req, res) {
+	return PropertyTenant
+		.findById(req.body.tenantId)
+		.then(propertyTenant => {
+			if (!propertyTenant) {
+				return res.status(404).send({
+					message: 'tenant Not Found',
+				});
+			}
+			return res.status(200).send(propertyTenant);
+		})
+		.catch(error => res.status(400).send(error));
 }
 
 };
