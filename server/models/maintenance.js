@@ -20,6 +20,10 @@ module.exports = (sequelize, DataTypes) => {
     form_body: {
       type: DataTypes.STRING,
       allowNull: false
+    },
+    process_status:{
+      type: DataTypes.BOOLEAN,
+      defaultValue: null
     }
   }, {});
   Maintenance.associate = (models) => {

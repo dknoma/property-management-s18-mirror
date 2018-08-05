@@ -61,7 +61,38 @@ module.exports = {
     })
     .catch(error => res.status(400).send(error));
   },
-  
+
+  updateRent(req, res){
+    var currentUser = req.currentUser;
+    Property.findById(req.body.propertyId)
+    .then(property => {
+      if(property.userId == currentUser) {
+        User.findById(req.body.tenantId)
+          .then(user => {
+            return PropertyTenant
+            .update({
+  						rent: req.body.rent || propertyTenant.rent,
+  					})
+                return res.status(201).send({
+                  propertyTenant: {
+                    propertyId: propertyTenant.propertyId,
+                    tenantId: propertyTenant.tenantId,
+                    rent: propertyTenant.rent,
+                    owe: propertyTenant.owe,
+                    credits: propertyTenant.credits,
+                    tenant_username: propertyTenant.tenant_username,
+                  },
+                  message: 'The rent was updated successfully!'
+                });
+          })
+          .catch(error => res.status(400).send(error));
+        } else {
+          return res.status(400).send({message: 'Unable to authenticate.'});
+        }
+    })
+    .catch(error => res.status(400).send(error));
+  },
+
   findTenants(req, res) {
     return PropertyTenant
       .findAll({
@@ -74,6 +105,7 @@ module.exports = {
       })
       .catch(error => res.status(400).send(error));
   },
+
   removeTenant(req, res) {
     //authorize if user owns the property before updating
     var currentUser = req.currentUser;
