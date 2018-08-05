@@ -32,10 +32,10 @@ class CreateMaintenanceRequest extends Component{
   render() {
     const { handleSubmit } = this.props;
     return (
-      <form className="belowNav" onSubmit={handleSubmit(data => this.onSubmit({...data, tenantId: localStorage.getItem('my_id'), propertyId: this.props.params.propertyId}))} align="center">
-      <Typography color="inherit" variant="display1">
+      <form onSubmit={handleSubmit(data => this.onSubmit({...data, tenantId: localStorage.getItem('my_id'), propertyId: this.props.params.propertyId}))} align="center">
+      <h1>
        Make Maintenance Request
-      </Typography>
+      </h1>
       <div>
         <Field name="propertyId" id="propertyId" label={'Property ID: '+this.props.params.propertyId} component={TextField} disabled />
       </div>

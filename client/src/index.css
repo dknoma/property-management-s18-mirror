@@ -1,3 +1,5 @@
+@import '~bootstrap/dist/css/bootstrap.min.css';
+
 body {
   margin: 0;
   padding: 0;
@@ -31,6 +33,16 @@ body {
 
 .nav span {
   display: inherit;
+}
+
+/* Bootstrap override */
+a:hover{
+  text-decoration: none!important;
+  color: inherit!important;
+}
+
+.button:hover{
+  color: #f1f1f1!important;
 }
 
 /* a:focus {
@@ -113,4 +125,106 @@ a {
 
 .table a{
 
+}
+
+/* Chat Stuff */
+html, body {
+  font-family: 'Montserrat', sans-serif;
+  height: 100%;
+  width: 100%;
+  margin: 0px;
+  padding: 0px;
+}
+#chat_root {
+  position: relative;
+  height: 100%;
+  width: 100%;
+}
+#chat_root .enter-chat {
+  display: block;
+  position: relative;
+  height: 100%;
+  width: 100%;
+}
+#chat_root .chat {
+  display: block;
+  position: relative;
+  height: 100%;
+  width: 100%;
+}
+#chat_root .chat .users, #chat_root .chat .messages {
+  padding: 0px;
+  float: left;
+}
+#chat_root .chat .users .user {
+  border-bottom: 1px solid #e9ebee;
+  padding: 10px;
+}
+#chat_root .chat .users .user .fa-user {
+  color: #343a40;
+}
+#chat_root .chat .messages {
+  border-left: 1px solid #e9ebee;
+  overflow: auto;
+}
+#chat_root .chat .messages .message {
+  padding: 10px;
+  display: block;
+  min-height: 50px;
+  height: auto !important;
+  clear: both;
+}
+#chat_root .chat .messages .message .username, #chat_root .chat .messages .message .data {
+  display: inline-block;
+  float: left;
+  margin-right: 10px;
+}
+#chat_root .chat .messages .no-message {
+  margin: 10px;
+}
+#chat_root .chat .chatbox, #chat_root .chat .gifbox {
+  bottom: 0px;
+  padding: 0px;
+}
+#chat_root .chat .gifbox {
+  height: 200px;
+  width: 100%;
+  border-left: 1px solid #e9ebee;
+}
+#chat_root .chat .gifbox .input-group {
+  padding: 0px;
+}
+#chat_root .chat .gifbox .gifs {
+  height: 160px !important;
+  overflow-y: scroll;
+  padding: 5px;
+}
+#chat_root .chat .gifbox .gifs .gif {
+  position: relative;
+  display: inline-block;
+  float: left;
+  margin-right: 5px;
+  padding-bottom: 5px;
+}
+#chat_root .chat .gifbox .gifs .gif:hover .share {
+  display: block;
+}
+#chat_root .chat .gifbox .gifs .gif .share {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  height: 30px;
+  width: 30px;
+  font-size: 30px;
+  cursor: pointer;
+  color: white;
+  display: none;
+}
+#chat_root .chat .gifbox .gifs .searching {
+  display: block;
+  color: grey;
+  font-size: 18px;
 }
