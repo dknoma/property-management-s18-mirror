@@ -6,7 +6,7 @@ import {
   DELETE_APPLICATION, GET_APPLICATION, APPROVE_APP, DENY_APP,
   FETCH_TENANTS, ADD_TO_PROP, FETCH_ALL_APPLICATIONS, FETCH_MY_APPLICATIONS,
   CREATE_MAINTENANCE_REQUEST, GET_MAINTENANCE_REQUEST, FETCH_MY_MAINTENANCE_REQUESTS,
-  PAY_RENT
+  PAY_RENT, VIEW_RENT, FETCH_TENANT_MY_APPLICATION
 } from './types';
 /* State Persist */
 import {loadState, saveState} from '.././localStorage.js';
@@ -292,13 +292,13 @@ export const fetch_tenants = ({propertyId}) => async dispatch => {
   })
 };
 
-export const add_to_prop = ({propertyId, tenantId}, callback) => async dispatch => {
+export const add_to_prop = ({propertyId, tenantId, rent}, callback) => async dispatch => {
   let token = localStorage.getItem('token');
   console.log("propertyId: " + propertyId);
   const res = await axios.post(
-    apiBaseUrl + "auth/propertymanager/add", {propertyId, tenantId}, { headers: {"token" : token}}
+    apiBaseUrl + "auth/propertymanager/add", {propertyId, tenantId, rent}, { headers: {"token" : token}}
   ).then(function (res) {
-    dispatch({ type: DENY_APP, payload: res.data});
+    dispatch({ type: ADD_TO_PROP, payload: res.data});
     callback();
   })
 };
@@ -349,5 +349,23 @@ export const pay_rent = ({tenantId, stripeToken, amount, description}) => async 
     "/api/payments/" + tenantId + "/charge", {tenantId, stripeToken, amount, description}
   ).then(function (res) {
     dispatch( {type: PAY_RENT, payload: res.data});
+  })
+};
+
+export const view_rent = ({tenantId}, callback) => async dispatch => {
+  const res = await axios.get(
+    apiBaseUrl + "/api/payments/getRent", {tenantId}
+  ).then(function(res) {
+    dispatch( {type: VIEW_RENT, payload: res.data });
+    callback();
+  })
+};
+
+export const fetch_tenant_my_application = ({userId, appId}) => async dispatch => {
+  let token = localStorage.getItem('token');
+  const res = await axios.get(
+    apiBaseUrl + "auth/user/" + userId + "/myapplications/" + appId, { headers: {"token" : token}}
+  ).then(function (res) {
+    dispatch({ type: FETCH_TENANT_MY_APPLICATION, payload: res.data});
   })
 };

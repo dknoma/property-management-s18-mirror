@@ -13,7 +13,7 @@ class ViewRent extends Component {
     }
   }
   render() {
-    console.log(this.props);
+    //console.log(this.props);
    return (
      <StripeProvider apiKey="pk_test_gLDIU8TBBFzSw1W4iAGRZ8dK">
        <div className="viewRent">

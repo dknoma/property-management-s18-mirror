@@ -13,8 +13,11 @@ import requireAuth from '../requireAuth';
 class ApplicationPage extends React.Component {
   componentDidMount() {
     if (this.props.params.appId !== "undefined") {
-      console.log(this.props.params);
-      this.props.get_application(this.props.params);
+      if (localStorage.getItem('user_type') ==="propertymanager") {
+          this.props.get_application(this.props.params);
+      } else {
+        this.props.fetch_tenant_my_application(this.props.params);
+      }
     }
   };
 
@@ -22,11 +25,14 @@ class ApplicationPage extends React.Component {
     if (localStorage.getItem('user_type') ==="propertymanager") {
       let propertyId = this.props.propertyId;
       let tenantId = this.props.tenantId;
+      //check with backend model
+      let rent = this.props.rent;
       return (
         <div>
           <div> <Button onClick={() => {
             this.props.approve_app(this.props.params, () => {
-              this.props.add_to_prop({propertyId, tenantId}, () => {
+
+              this.props.add_to_prop({propertyId, tenantId, rent}, () => {
                 alert("Approval Success!");
                 this.props.router.push('/property/review/' + this.props.params.propertyId);
               });

@@ -16,10 +16,6 @@ class PropertyPage extends Component {
     }
   };
 
-  renderHeader(headers) {
-
-  }
-
   renderItem() {
     const { property } = this.props;
     return (
