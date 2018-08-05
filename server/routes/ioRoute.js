@@ -1,5 +1,5 @@
-module.exports = (app) => {
-    const io = require('socket.io')(app.server);
+module.exports = (app, server) => {
+    const io = require('socket.io')(server);
     let users = {};
 
     getUsers = () => {
