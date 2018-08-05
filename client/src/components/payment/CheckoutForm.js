@@ -8,20 +8,6 @@ import {CardElement,
 import * as actions from '../../actions';
 import { withRouter } from 'react-router-dom';
 
-
-// const handleBlur = () => {
-//   console.log('[blur]');
-// };
-// const handleChange = (change) => {
-//   console.log('[change]', change);
-// };
-// const handleFocus = () => {
-//   console.log('[focus]');
-// };
-// const handleReady = () => {
-//   console.log('[ready]');
-// };
-
 const CARD_ELEMENT_OPTIONS = {
   style: {
     base: {
@@ -44,15 +30,27 @@ class CheckoutForm extends Component {
     super(props);
     //hard coding input
     this.state = {
-      complete: false,
-    amt: 2000,
+    amt: null,
     tenantId: this.props.tenantId
   };
     this.submit = this.submit.bind(this);
   }
 
+  renderRentInfo() {
+    let tenantId = this.state.tenantId
+    this.props.view_rent(tenantId);
+    const {propertyTenant} = this.props;
+    this.state.amt = propertyTenant.rent;
+    return (
+      <div className="rentInfo">
+        <p>Rent amount for : {propertyTenant.tenant_username}</p>
+        <p> {propertyTenant.rent} </p>
+      </div>
+    )
+  }
   async submit(ev) {
     let tenantId = this.state.tenantId;
+    let rent = this.state.amt;
     let {token} = await this.props.stripe.createToken({name: "Name"});
     console.log(token.id);
     //example used fetch but I couldn't see the request payload if I used fetch
@@ -64,15 +62,14 @@ class CheckoutForm extends Component {
     // })
     //console.log(token.id);
     //example used fetch but I couldn't see the request payload if I used fetch
-    this.props.pay_rent({tenantId, stripeToken: token.id, amount: 2000, description:'rent'})
+    this.props.pay_rent({tenantId, stripeToken: token.id, amount: rent, description:'rent'})
 
   }
 
   render() {
-    console.log(this.state);
-    const data = this.props.propertyTenant;
     return (
       <div className="checkout">
+       {/*this.renderRentInfo()*/}
         <CardElement
            {...CARD_ELEMENT_OPTIONS}
          />
@@ -84,7 +81,8 @@ class CheckoutForm extends Component {
 
 function mapStateToProps(state) {
   return {
-    propertyTenant: state.payment.propertyTenant
+    propertyTenant: state.payment.propertyTenant,
+    tenantPayment: state.payment.tenantPayment
   };
 }
 

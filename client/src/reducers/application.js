@@ -1,4 +1,4 @@
-import { APPLY_PROPERTY, REVIEW_APPLICATIONS, DELETE_APPLICATION, GET_APPLICATION, APPROVE_APP, DENY_APP, FETCH_ALL_APPLICATIONS, FETCH_MY_APPLICATIONS } from '../actions/types';
+import { APPLY_PROPERTY, REVIEW_APPLICATIONS, DELETE_APPLICATION, GET_APPLICATION, APPROVE_APP, DENY_APP, FETCH_ALL_APPLICATIONS, FETCH_MY_APPLICATIONS, ADD_TO_PROP, FETCH_TENANT_MY_APPLICATION } from '../actions/types';
 
 const INITIAL_STATE = {
   form_subject:'',
@@ -77,6 +77,19 @@ export default function(state = INITIAL_STATE, action) {
     case FETCH_MY_APPLICATIONS:
       return {...state,
         applications: action.payload
+      }
+
+    case FETCH_TENANT_MY_APPLICATION:
+      return{...state,
+        id: action.payload.id,
+        approval_status: action.payload.approval_status,
+        tenantId: action.payload.tenantId,
+        tenant_name: action.payload.tenant_name,
+        propertyId: action.payload.propertyId,
+        property_name: action.payload.property_name,
+        pmId: action.payload.pmId,
+        form_subject: action.payload.form_subject,
+        form_body: action.payload.form_body
       }
 
   default:
