@@ -33,7 +33,7 @@ module.exports = {
 						property_name: property.property_name,
 						form_subject: req.body.form_subject.trim(),
 						form_body: req.body.form_body.trim(),
-						rent: req.body.rent,
+						rent: property.prices,
 					}
 				})
 				.spread((application, created) => {
