@@ -3,14 +3,15 @@ import { CREATE_MAINTENANCE_REQUEST, GET_MAINTENANCE_REQUEST, FETCH_MY_MAINTENAN
 // reducer for authentication
 // we want to define an initial state constant variable
 const INITIAL_STATE = {
+  id: '',
   form_subject:'',
   form_body:'',
   property_id: '',
   tenantId: '',
   pmId: '',
   approval_status: null,
-  property_name: '',
-  tenant_name: ''
+  tenant_name: '',
+
 };
 
 /* Reducer takes two arguments, the current state and an action */
@@ -39,7 +40,6 @@ export default function(state = INITIAL_STATE, action) {
         tenantId: action.payload.tenantId,
         tenant_name: action.payload.tenant_name,
         propertyId: action.payload.propertyId,
-        property_name: action.payload.property_name,
         pmId: action.payload.pmId,
         form_subject: action.payload.form_subject,
         form_body: action.payload.form_body
@@ -47,9 +47,7 @@ export default function(state = INITIAL_STATE, action) {
 
     case FETCH_MY_MAINTENANCE_REQUESTS:
       return {...state,
-        console.log(action.payload);
         maintenancerequests: action.payload
-
       }
 
     default:

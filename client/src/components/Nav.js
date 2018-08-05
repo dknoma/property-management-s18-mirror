@@ -27,6 +27,7 @@ import AddIcon from '@material-ui/icons/Add';
 import AssignmentIcon from '@material-ui/icons/Assignment';
 import HomeIcon from '@material-ui/icons/Home';
 import Badge from '@material-ui/core/Badge';
+import BuildIcon from '@material-ui/icons/Build';
 
 const styles = {
   root: {
@@ -107,7 +108,14 @@ export class Nav extends Component {
             <AddIcon />
           </Avatar>
         </a>
+        <a href={"/user/" + localStorage.getItem('my_id') + "/maintenancerequests"}>
+          <Avatar className={classes.greenAvatar}>
+            <BuildIcon />
+          </Avatar>
+        </a>
       </span>
+
+
     )
     }
   }

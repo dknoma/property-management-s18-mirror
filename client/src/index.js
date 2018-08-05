@@ -118,15 +118,13 @@ ReactDOM.render(
           </Route>
           <Route exact path={"property/:propertyId/viewtenants"} component={ViewTenants}>
           </Route>
-          <Route exact path={"userprofile"} component={UserProfile}>
-          </Route>
           <Route exact path={"application/viewallapplications"} component={ViewAllApplications}>
           </Route>
           <Route exact path={"user/:userId/myapplications"} component={ViewMyApplication}>
           </Route>
           <Route exact path={"createmaintenancerequest"} component={CreateMaintenanceRequest}>
           </Route>
-          <Route exact path={"maintenance/:propertyId"} component={CreateMaintenanceRequest}>
+          <Route exact path={"property/:propertyId/maintenance"} component={CreateMaintenanceRequest}>
           </Route>
           <Route exact path={"user/:userId/maintenancerequests"} component={ViewAllMaintenanceRequests}>
           </Route>

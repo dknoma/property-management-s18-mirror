@@ -49,7 +49,7 @@ class CreateMaintenanceRequest extends Component{
         <Field name="form_body" id="form_body" label="Message" component={TextField} />
       </div>
       <br/>
-      <button className = "button" type="submit">Apply!</button>
+      <button className = "button" type="submit">Make Maintenance Request</button>
       <br />
     </form>
     )

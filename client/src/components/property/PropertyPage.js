@@ -66,7 +66,7 @@ class PropertyPage extends Component {
           { this.renderPotentialTenantInfo() }
           { this.renderPMInfo() }
           <br />
-          <div><a class="button" href={"/maintenance/" + this.props.params.propertyId}>Submit Maintenance Request for this property</a></div>
+          <div><a class="button" href={"/property/" + this.props.params.propertyId + "/maintenance"}>Submit Maintenance Request for this property</a></div>
       </div>
     );
   }

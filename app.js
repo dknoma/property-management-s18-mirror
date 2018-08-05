@@ -10,14 +10,23 @@
  */
 
 //include express module
-//express app
 const express = require('express');
+const http = require('http');
+//creates the express application, port, and server
+const app = express();
+const port = parseInt(process.env.PORT, 10) || 8000;
+app.set('port', port);
+
+//socket.io
+const server = http.createServer(app);
+server.listen(port);
+const io = require('socket.io')(server);
+io.on('connection', () => {});
+
+
 const logger = require('morgan');
 const bodyParser = require('body-parser');
 const authorizor = require('./server/middleware/auth-check')
-
-//creates the express application
-const app = express();
 
 // Use application-level middleware for common functionality, including
 // logging, parsing, and session handling.
