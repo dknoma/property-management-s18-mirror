@@ -11,19 +11,17 @@ import RequirePropManager from '../RequirePropManager';
 class ViewAllMaintenanceRequests extends Component {
 
   componentDidMount() {
-    console.log("fires");
     if(this.props.params.propertyId !== "undefined") {
       this.props.fetch_my_maintenance_requests(this.props.params);
     }
   };
 
   render() {
-    const data = this.props.maintenance;
-
+    const data = this.props.maintenancerequests;
     const columns = [{
-      Header: 'Property Name',
-      accessor: 'property_name',
-      Cell: props => <a href={"/property/" + props.original.propertyId + "/maintenance/" + props.original.id}>{props.value}</a>
+      Header: 'Subject',
+      accessor: 'form_subject',
+      Cell: props => <a href={"/maintenance/" + data.id}>{props.value}</a>
     }, {
       Header: 'Property ID',
       accessor: 'propertyId',
@@ -35,9 +33,6 @@ class ViewAllMaintenanceRequests extends Component {
     }, {
       Header: 'Tenant Name',
       accessor: 'tenant_name'
-    },{
-      Header: 'Subject',
-      accessor: 'form_subject'
     }, {
       Header: 'Body',
       accessor: 'form_body'

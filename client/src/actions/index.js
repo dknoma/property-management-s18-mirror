@@ -173,6 +173,7 @@ export const get_property_profile = ({propertyId}) => async dispatch => {
     apiBaseUrl +"api/"+ "property/" + propertyId,
   )  .then(function (response) {
     /* Dispatch a payload of OTHER_USER */
+    console.log(response.data);
     dispatch ({ type: GET_PROPERTY, payload: response.data });
 
   })
