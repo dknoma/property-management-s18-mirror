@@ -40,10 +40,10 @@ class SearchProperty extends Component {
   render() {
   const { handleSubmit } = this.props;
     return (
-        <form className="belowNav" onSubmit={handleSubmit(this.onSubmit)} align="center">
-        <Typography color="inherit" variant="display1">
+        <form onSubmit={handleSubmit(this.onSubmit)} align="center">
+        <h1>
         Search Property
-        </Typography>
+        </h1>
         <br />
         <div>
           <label>City &nbsp; &nbsp;</label>

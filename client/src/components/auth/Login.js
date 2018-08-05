@@ -46,7 +46,7 @@ render() {
   /* Remember to call classes here */
   const { handleSubmit } = this.props;
     return (
-      <form className="belowNav" onSubmit={handleSubmit(this.onSubmit)}>
+      <form onSubmit={handleSubmit(this.onSubmit)}>
         <br />
         <Typography color="inherit" variant="display1">
         Login
@@ -61,7 +61,7 @@ render() {
             <label>
               <input type="radio" name="user_type" value="tenant" onChange={this.handleRadioChange}/>Tenant
             </label>
-            </Field>
+          </Field>
         </div>
         <br/>
         <Field name="username" label="Username" id="username" component = {TextField} validate={[ required ]}/>

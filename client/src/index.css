@@ -1,3 +1,5 @@
+@import '~bootstrap/dist/css/bootstrap.min.css';
+
 body {
   margin: 0;
   padding: 0;
@@ -8,15 +10,90 @@ body {
   text-align: center;
 }
 
-.nav a{
+.checkout {
+  padding-left: 500px;
+  padding-right: 500px;
+}
+
+.thumbnail{
+  max-width: 400px;
+  max-height: relative;
+}
+
+.center {
+  margin: 0 auto;
+}
+
+.nav a {
   color: #fff;
   text-align: center;
   text-decoration: none;
   margin: 0 auto;
 }
 
-.belowNav {
+.nav span {
+  display: inherit;
+}
 
+/* Bootstrap override */
+a:hover{
+  text-decoration: none!important;
+  color: inherit!important;
+}
+
+.button:hover{
+  color: #f1f1f1!important;
+}
+
+/* a:focus {
+  outline:3px solid black;
+} */
+
+.images-wrap{
+  height:800px;
+}
+
+.react-slideshow-container .nav{
+}
+
+.belowNav {
+  display:inline-block;
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: auto;
+  margin-bottom: auto;
+  left: 0;
+  right: 0;
+  top:200px;
+  bottom: 0;
+  z-index: 1;
+}
+
+a {
+  text-decoration: none;
+}
+
+.card {
+  width: 300px;
+  height: 200px;
+  background-color: white;
+  opacity: .7;
+  border: 1px solid white;
+  border-radius: 10%;
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: auto;
+  margin-bottom: auto;
+  left: 0;
+  right: 0;
+  top:0;
+  bottom: 350px;
+  z-index:-1;
+}
+.ReduxForm-root-97 {
+  display:inline-block;
 }
 /* Hide weird radio button on search property page */
 /* .MuiSelect-icon-122{
@@ -38,4 +115,116 @@ body {
   font-weight: 500;
   border-radius: 4px;
   text-transform: uppercase;
+}
+
+
+
+.brand{
+  margin-left: 0!important;
+}
+
+.table a{
+
+}
+
+/* Chat Stuff */
+html, body {
+  font-family: 'Montserrat', sans-serif;
+  height: 100%;
+  width: 100%;
+  margin: 0px;
+  padding: 0px;
+}
+#chat_root {
+  position: relative;
+  height: 100%;
+  width: 100%;
+}
+#chat_root .enter-chat {
+  display: block;
+  position: relative;
+  height: 100%;
+  width: 100%;
+}
+#chat_root .chat {
+  display: block;
+  position: relative;
+  height: 100%;
+  width: 100%;
+}
+#chat_root .chat .users, #chat_root .chat .messages {
+  padding: 0px;
+  float: left;
+}
+#chat_root .chat .users .user {
+  border-bottom: 1px solid #e9ebee;
+  padding: 10px;
+}
+#chat_root .chat .users .user .fa-user {
+  color: #343a40;
+}
+#chat_root .chat .messages {
+  border-left: 1px solid #e9ebee;
+  overflow: auto;
+}
+#chat_root .chat .messages .message {
+  padding: 10px;
+  display: block;
+  min-height: 50px;
+  height: auto !important;
+  clear: both;
+}
+#chat_root .chat .messages .message .username, #chat_root .chat .messages .message .data {
+  display: inline-block;
+  float: left;
+  margin-right: 10px;
+}
+#chat_root .chat .messages .no-message {
+  margin: 10px;
+}
+#chat_root .chat .chatbox, #chat_root .chat .gifbox {
+  bottom: 0px;
+  padding: 0px;
+}
+#chat_root .chat .gifbox {
+  height: 200px;
+  width: 100%;
+  border-left: 1px solid #e9ebee;
+}
+#chat_root .chat .gifbox .input-group {
+  padding: 0px;
+}
+#chat_root .chat .gifbox .gifs {
+  height: 160px !important;
+  overflow-y: scroll;
+  padding: 5px;
+}
+#chat_root .chat .gifbox .gifs .gif {
+  position: relative;
+  display: inline-block;
+  float: left;
+  margin-right: 5px;
+  padding-bottom: 5px;
+}
+#chat_root .chat .gifbox .gifs .gif:hover .share {
+  display: block;
+}
+#chat_root .chat .gifbox .gifs .gif .share {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  height: 30px;
+  width: 30px;
+  font-size: 30px;
+  cursor: pointer;
+  color: white;
+  display: none;
+}
+#chat_root .chat .gifbox .gifs .searching {
+  display: block;
+  color: grey;
+  font-size: 18px;
 }
