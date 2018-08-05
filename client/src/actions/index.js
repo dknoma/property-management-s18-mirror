@@ -5,7 +5,8 @@ import {
   REVIEW_APPLICATIONS, CREATE_MESSAGE, GET_MESSAGE, GET_MESSAGES,
   DELETE_APPLICATION, GET_APPLICATION, APPROVE_APP, DENY_APP,
   FETCH_TENANTS, ADD_TO_PROP, FETCH_ALL_APPLICATIONS, FETCH_MY_APPLICATIONS,
-  CREATE_MAINTENANCE_REQUEST, GET_MAINTENANCE_REQUEST, FETCH_MY_MAINTENANCE_REQUESTS
+  CREATE_MAINTENANCE_REQUEST, GET_MAINTENANCE_REQUEST, FETCH_MY_MAINTENANCE_REQUESTS,
+  PAY_RENT
 } from './types';
 /* State Persist */
 import {loadState, saveState} from '.././localStorage.js';
@@ -111,8 +112,9 @@ export const edit_profile = ({username, email, firstname, lastname, id}, callbac
 };
 
 export const get_user_profile = ({id}) => async dispatch => {
+  let token = localStorage.getItem('token');
   const response = await axios.get(
-    apiBaseUrl +"auth/"+ "users/" + id,
+    apiBaseUrl +"auth/"+ "users/" + id, { headers: {"token" : token}}
   )  .then(function (response) {
     /* Dispatch a payload of OTHER_USER */
     dispatch ({ type: OTHER_USER, payload: response.data });
@@ -340,5 +342,13 @@ export const fetch_my_maintenance_requests = ({userId}) => async dispatch => {
   ).then(function (res) {
     console.log(res.data);
     dispatch({ type: FETCH_MY_MAINTENANCE_REQUESTS, payload: res.data});
+  })
+};
+
+export const pay_rent = ({tenantId, stripeToken, amount, description}) => async dispatch => {
+  const res = await axios.post(
+    "/api/payments/" + tenantId + "/charge", {tenantId, stripeToken, amount, description}
+  ).then(function (res) {
+    dispatch( {type: PAY_RENT, payload: res.data});
   })
 };

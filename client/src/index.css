@@ -8,6 +8,11 @@ body {
   text-align: center;
 }
 
+.checkout {
+  padding-left: 500px;
+  padding-right: 500px;
+}
+
 .thumbnail{
   max-width: 400px;
   max-height: relative;

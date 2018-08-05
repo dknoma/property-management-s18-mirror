@@ -5,6 +5,7 @@ import auth from './auth'
 import property from './property'
 import application from './application'
 import message from './message'
+import payment from './payment'
 import maintenance from './maintenance'
 
 export default combineReducers({
@@ -13,5 +14,6 @@ export default combineReducers({
   property,
   application,
   message,
-  maintenance
+  maintenance,
+  payment
 });
