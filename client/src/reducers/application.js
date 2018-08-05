@@ -81,7 +81,15 @@ export default function(state = INITIAL_STATE, action) {
 
     case FETCH_TENANT_MY_APPLICATION:
       return{...state,
-        applications: action.payload
+        id: action.payload.id,
+        approval_status: action.payload.approval_status,
+        tenantId: action.payload.tenantId,
+        tenant_name: action.payload.tenant_name,
+        propertyId: action.payload.propertyId,
+        property_name: action.payload.property_name,
+        pmId: action.payload.pmId,
+        form_subject: action.payload.form_subject,
+        form_body: action.payload.form_body
       }
 
   default:

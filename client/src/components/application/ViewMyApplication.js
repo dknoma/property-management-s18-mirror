@@ -11,18 +11,23 @@ import requireTenant from '../requireTenant';
 class ViewMyApplication extends Component {
 
   componentDidMount() {
-    if(this.props.params.propertyId !== "undefined") {
+    if(this.props.params.userId !== "undefined") {
       this.props.fetch_my_applications(this.props.params);
     }
   };
 
   render() {
-    const data = this.props.applications;
-
+    const data = this.props.applications
+    console.log(data);
     const columns = [{
       Header: 'Property Name',
       accessor: 'property_name',
-      Cell: props => <a href={"/property/" + props.original.propertyId + "/applications/" + props.original.id}>{props.value}</a>
+      Cell: props => {if(localStorage.getItem('user_type') == 'propertymanager') {
+        return(<a href={"/property/" + props.original.propertyId + "/applications/" + props.original.id}>{props.value}</a>)
+      } else {
+        let userId = localStorage.getItem('my_id');
+        return(<a href={"/user/" + userId + "/myapplications/" + props.original.id}>{props.value}</a>
+      )}}
     }, {
       Header: 'Property ID',
       accessor: 'propertyId',
