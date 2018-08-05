@@ -77,12 +77,11 @@ class CreateProperty extends Component {
     const { handleSubmit } = this.props;
     let userId = localStorage.getItem('id');
     return (
-      <div className="row">
-      <Typography color="inherit" variant="display1">
+      <div>
+      <h1>
       Create Property
-      </Typography>
-
-        <form className="belowNav" onSubmit={handleSubmit(this.onSubmit)} align="center">
+      </h1>
+        <form onSubmit={handleSubmit(this.onSubmit)} align="center">
         <div>
           <Field name="userId" id="userId" component={TextField} label={'Prop Manager ID: ' + userId} disabled/>
         </div>

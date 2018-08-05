@@ -54,11 +54,9 @@ onSubmit = ({username, email, firstname, lastname}) => {
     const { handleSubmit } = this.props;
     return (
       <form onSubmit={handleSubmit(this.onSubmit)}>
-        <br />
-
-        <Typography color="inherit" variant="display1">
+        <h1>
         Edit Your Profile
-        </Typography>
+        </h1>
         <br/>
         <Field name="username" label="Username" id="username" component = {TextField} validate={[ required, maxLength15 ]} disabled/>
         <br />

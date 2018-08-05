@@ -16,7 +16,7 @@ module.exports = {
 			.findById(req.params.propertyId)
 			.then(property => {
 				return Application
-	
+
 				.findOrCreate({
 					//tries to find user already has an existing application for the property
 					where: {
@@ -33,6 +33,7 @@ module.exports = {
 						property_name: property.property_name,
 						form_subject: req.body.form_subject.trim(),
 						form_body: req.body.form_body.trim(),
+						rent: property.prices,
 					}
 				})
 				.spread((application, created) => {
@@ -48,7 +49,7 @@ module.exports = {
 							message: 'An error has occurred. Please try again.'
 						});
 					}
-					
+
 					return res.status(201).send({
 							application,
 							message: 'Application was sent successfully!'
@@ -192,7 +193,7 @@ module.exports = {
 												receiverId: application.tenantId,
 												inboxId: application.tenantId,
 												subject: 'Application Status of ' + application.property_name,
-												body: 'Your application to ' + application.property_name + ' has been approved!',
+												body: 'Your application to ' + application.property_name + ' has been approved!' + 'rent is' + application.rent,
 											})
 											.then(message => {
 												return res.status(201).send({message, application})

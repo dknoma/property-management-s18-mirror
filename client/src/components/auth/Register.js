@@ -63,7 +63,7 @@ class Register extends Component {
     /* handleSubmit is provided by Redux Form */
     const { handleSubmit } = this.props;
     return (
-      <form className="belowNav" onSubmit={handleSubmit(this.onSubmit)}>
+      <form onSubmit={handleSubmit(this.onSubmit)}>
         <br />
 
         <Typography color="inherit" variant="display1">

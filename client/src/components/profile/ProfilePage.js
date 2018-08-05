@@ -114,23 +114,20 @@ class ProfilePage extends React.Component {
 
     return (
 
-      <div className="container">
-          <div className="row">
-            <div className="col-xs-12">
+      <div>
               <h1>My Profile</h1>
               <hr />
-            </div>
-          </div>
-          <div className="row">
-            <div className="col-xs-12">
+          <div>
+            <div>
               {this.renderPrivateInformation()}
               <p>First Name: {this.props.firstname}</p>
               <p>Last Name: {this.props.lastname}</p>
               <p>Email: {this.props.email}</p>
               <p>Role: {this.props.user_type} </p>
               {this.renderPMInformation()}
+              <a class="button" href="/searchproperty">Search Property</a></div>
             </div>
-            <div> <a class="button" href="/searchproperty">Search Property</a></div>
+            <div>
           </div>
       </div>
 

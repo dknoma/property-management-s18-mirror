@@ -29,6 +29,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false
     },
+    rent:{
+      type: DataTypes.INTEGER,
+      allowNull:false
+    },
     approval_status: {
       type: DataTypes.BOOLEAN,
       defaultValue: null

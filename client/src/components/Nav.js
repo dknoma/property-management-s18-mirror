@@ -28,6 +28,7 @@ import AssignmentIcon from '@material-ui/icons/Assignment';
 import HomeIcon from '@material-ui/icons/Home';
 import Badge from '@material-ui/core/Badge';
 import BuildIcon from '@material-ui/icons/Build';
+import ChatIcon from '@material-ui/icons/Chat';
 
 const styles = {
   root: {
@@ -96,27 +97,25 @@ export class Nav extends Component {
   insertPMLinks () {
     const { classes } = this.props;
     if (this.props.user_type == 'propertymanager') {
-    return (
-      <span>
-        <a href="/application/viewallapplications">
-          <Avatar className={classes.greenAvatar}>
-            <AssignmentIcon />
-          </Avatar>
-        </a>
-        <a href="/createproperty">
-          <Avatar className={classes.greenAvatar}>
-            <AddIcon />
-          </Avatar>
-        </a>
-        <a href={"/user/" + localStorage.getItem('my_id') + "/maintenancerequests"}>
-          <Avatar className={classes.greenAvatar}>
-            <BuildIcon />
-          </Avatar>
-        </a>
-      </span>
-
-
-    )
+      return (
+        <span>
+          <a href="/application/viewallapplications">
+            <Avatar className={classes.greenAvatar}>
+              <AssignmentIcon />
+            </Avatar>
+          </a>
+          <a href="/createproperty">
+            <Avatar className={classes.greenAvatar}>
+              <AddIcon />
+            </Avatar>
+          </a>
+          <a href={"/user/" + localStorage.getItem('my_id') + "/maintenancerequests"}>
+            <Avatar className={classes.greenAvatar}>
+              <BuildIcon />
+            </Avatar>
+          </a>
+        </span>
+      )
     }
   }
 
@@ -194,7 +193,7 @@ export class Nav extends Component {
     const open = Boolean(anchorEl);
     if (this.props.authenticated) {
       return (
-        <div className="nav">
+        <div>
           <div>
           Hi, {this.props.my_username}!
           </div>
@@ -210,6 +209,11 @@ export class Nav extends Component {
           <a href="/searchproperty">
             <Avatar className={classes.greenAvatar}>
               <SearchIcon />
+            </Avatar>
+          </a>
+          <a href="/chat">
+            <Avatar className={classes.greenAvatar}>
+              <ChatIcon />
             </Avatar>
           </a>
           </span>

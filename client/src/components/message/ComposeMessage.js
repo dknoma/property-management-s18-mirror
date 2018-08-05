@@ -48,11 +48,11 @@ onSubmit = ({receiverId, subject, body}) => {
     const { handleSubmit } = this.props;
     let userId = localStorage.getItem('id');
     return (
-      <div className="row">
-      <Typography color="inherit" variant="display1">
+      <div>
+      <h1>
       Compose Message
-      </Typography>
-        <form className="belowNav" onSubmit={handleSubmit(this.onSubmit)} align="center">
+      </h1>
+        <form onSubmit={handleSubmit(this.onSubmit)} align="center">
         <div>
           <Field name="userId" id="userId" component={TextField} label={'User ID: ' + userId} disabled hidden/>
         </div>

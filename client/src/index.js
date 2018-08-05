@@ -50,9 +50,10 @@ import ViewAllMaintenanceRequests from "./components/maintenance/ViewAllMaintena
 import ViewMaintenanceRequest from "./components/maintenance/ViewMaintenanceRequest.js";
 import ViewRent from "./components/payment/ViewRent.js";
 import TenantApplicationPage from "./components/application/TenantApplicationPage.js";
+import Chat from "./components/Chat/Chat.js";
 
 /* Testing */
-import UserProfile from "./components/UserProfile/UserProfile.jsx";
+// import UserProfile from "./components/UserProfile/UserProfile.jsx";
 
 var destination = document.querySelector("#container");
 
@@ -134,6 +135,8 @@ ReactDOM.render(
           <Route exact path={"rent/:tenantId/pay"} component={ViewRent}>
           </Route>
           <Route exact path={"user/:userId/myapplications/:appId"} component={TenantApplicationPage}>
+          </Route>
+          <Route exact path={"chat"} component={Chat}>
           </Route>
         </Router>
         <Footer/>
