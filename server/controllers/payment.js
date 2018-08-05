@@ -9,12 +9,11 @@ const Op = Sequelize.Op;
 
 module.exports = {
 	async charge(req, res) {
-		const propertyId = propertyTenant.propertyId;
 		const token = req.body.stripeToken;
 		const amt = req.body.amount;
-		var tenantId = req.params.tenantId;
+		var tenantId = req.body.tenantId;
 		await stripe.charges.create({
-	amount: parseInt(amt, 10),
+	amount: amt,
 	currency: 'usd',
 	source: token,
 	description: req.body.description,
@@ -23,12 +22,15 @@ module.exports = {
 	console.log(charge);
 	console.log('finished logging charge');
 	if(charge.paid === true){
-			PropertyTenant.findById(req.params.tenantId)
-			.then(propertyTenant => {
+            PropertyTenant.find({
+                where: {tenantId: req.body.tenantId},
+                    })
+            .then(propertyTenant => {
 				console.log(PropertyTenant);
 				console.log('finish find log');
-				propertyTenant.credits = propertyTenant.credits + (req.body.amount/100);
-				propertyTenant.owe = propertyTenant.owe - (req.body.amount/100);
+				const propertyId = propertyTenant.propertyId;
+				propertyTenant.credits = propertyTenant.credits + (req.body.amount);
+				propertyTenant.owe = propertyTenant.rent + propertyTenant.owe - (req.body.amount);
 				propertyTenant.update(
 					{
 						credits : propertyTenant.credits,
@@ -57,19 +59,20 @@ list(req, res) {
 		.catch(error => res.status(400).send(error));
 },
 
-
 retrieve(req, res) {
-	return PropertyTenant
-		.findById(req.body.tenantId)
-		.then(propertyTenant => {
-			if (!propertyTenant) {
-				return res.status(404).send({
-					message: 'tenant Not Found',
-				});
-			}
-			return res.status(200).send(propertyTenant);
-		})
-		.catch(error => res.status(400).send(error));
+    return PropertyTenant
+    .find({
+        where: {tenantId: req.body.tenantId},
+            })
+        .then(propertyTenant => {
+            if (!propertyTenant) {
+                return res.status(404).send({
+                    message: 'tenant Not Found',
+                });
+            }
+            return res.status(200).send(propertyTenant);
+        })
+        .catch(error => res.status(400).send(error));
 }
 
 };

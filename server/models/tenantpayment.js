@@ -1,10 +1,6 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   const TenantPayment = sequelize.define('TenantPayment', {
-    tenantId: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-    },
     propertyId: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -27,7 +23,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }, {});
   TenantPayment.associate = function(models) {
-    TenantPayment.belongsTo(models.PropertyTenant, {
+    TenantPayment.belongsTo(models.User, {
       foreignKey: 'tenantId',
       onDelete: 'CASCADE',
     })
