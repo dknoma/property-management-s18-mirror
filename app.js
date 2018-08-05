@@ -35,8 +35,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false}));
 app.use('/auth', authorizor);
 
-// Require our various routes into the application.
-require('./server/routes/ioRoute')(app);
+// Require app and server into routes
+require('./server/routes/ioRoute')(app, server);
+// Require app into routes
 require('./server/routes/authenticationRoutes')(app);
 require('./server/routes/propRoutes')(app);
 require('./server/routes/messageRoutes')(app);
