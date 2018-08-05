@@ -28,6 +28,7 @@ module.exports = (app) => {
 
 	 //list all payment records
 	 app.get('/api/payments/viewall', paymentController.list);
+	 app.post('/api/payments/getRent', paymentController.retrieve);
 
 
 	//  // Update the default card of the user
