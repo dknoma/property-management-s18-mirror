@@ -1,3 +1,5 @@
+const User = require('../models').User;
+
 module.exports = (app, server) => {
     const io = require('socket.io')(server);
     let users = {};
@@ -63,8 +65,7 @@ module.exports = (app, server) => {
         if(users[user.uid] !== undefined){
             createSocket(user);
             socket.emit('updateUsersList', getUsers());
-        }
-        else{
+        } else {
             createUser(user);
             io.emit('updateUsersList', getUsers());
         }
@@ -82,4 +83,46 @@ module.exports = (app, server) => {
             io.emit('updateUsersList', getUsers());
         });
     });
+
+    // app.get('/chat/pm/:senderId/:receiverId', (req, res, io) => {
+    //     io.sockets.on('connection', (socket) => {
+    //         socket.on('join', data => {
+    //             socket.join(data.senderId + '+' + data.receiverId);
+    //         })
+    //         User.findById(req.params.receiverId)
+    //         .then(user => {
+    //             let query = socket.request._query,
+    //             // receiver = users[user.id];
+    //             receiver = {
+    //                 username : user.username,
+    //                 uid : user.id,
+    //                 socket_id : socket.id
+    //             };
+
+    //             if(users[user.uid] !== undefined){
+    //                 createSocket(receiver);
+    //                 socket.emit('updateUsersList', getUsers());
+    //             } else {
+    //                 createUser(receiver);
+    //                 io.emit('updateUsersList', getUsers());
+    //                 // newChat.to(`${receiver.socket_Id}`).emit('updateUsersList', getUsers());
+    //             }
+
+
+    //             socket.on('message', (data) => {
+    //                 socket.broadcast.emit('message', {
+    //                     username : data.username,
+    //                     message : data.message,
+    //                     uid : data.uid
+    //                 });
+    //             });
+        
+    //             socket.on('disconnect', () => {
+    //                 removeSocket(socket.id);
+    //                 io.emit('updateUsersList', getUsers());
+    //             });
+    //         })
+	// 		.catch(error => res.status(400).send(error));
+    //     });
+    // });
 }
