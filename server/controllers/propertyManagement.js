@@ -18,7 +18,7 @@ module.exports = {
                 where: {
                   propertyId: req.body.propertyId,
                   tenantId: req.body.tenantId,
-                  rent: req.body.rent,
+                  rent: property.prices,
                   owe: req.body.owe,
                   credits: req.body.credits
                 },
@@ -26,7 +26,7 @@ module.exports = {
                   propertyId: req.body.propertyId,
                   tenantId: req.body.tenantId,
                   tenant_username: user.username,
-                  rent: req.body.rent,
+                  rent: property.prices,
                   owe: 0,
                   credits: 0,
                 }

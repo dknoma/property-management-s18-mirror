@@ -36,18 +36,29 @@ class CheckoutForm extends Component {
     this.submit = this.submit.bind(this);
   }
 
-  renderRentInfo() {
-    let tenantId = this.state.tenantId
-    this.props.view_rent(tenantId);
-    const {propertyTenant} = this.props;
-    this.state.amt = propertyTenant.rent;
+  componentDidMount() {
+    let tenantId = this.props.tenantId;
+    console.log(tenantId);
+    this.props.view_rent({tenantId}, () => {
+      const propertyTenant = this.props.propertyTenant;
+      console.log(propertyTenant);
+      this.setState( {
+        amt : propertyTenant.rent
+      })
+      console.log(this.state)
+    });
+  }
+
+  renderInfo() {
+    console.log(this.state.amt);
     return (
       <div className="rentInfo">
-        <p>Rent amount for : {propertyTenant.tenant_username}</p>
-        <p> {propertyTenant.rent} </p>
+        <p>Rent Amount: {this.state.amt}</p>
       </div>
     )
+
   }
+
   async submit(ev) {
     let tenantId = this.state.tenantId;
     let rent = this.state.amt;
@@ -61,7 +72,7 @@ class CheckoutForm extends Component {
     //   console.log('BACK!');
     // })
     //console.log(token.id);
-    //example used fetch but I couldn't see the request payload if I used fetch
+
     this.props.pay_rent({tenantId, stripeToken: token.id, amount: rent, description:'rent'})
 
   }
@@ -69,7 +80,7 @@ class CheckoutForm extends Component {
   render() {
     return (
       <div className="checkout">
-       {/*this.renderRentInfo()*/}
+      { this.renderInfo()}
         <CardElement
            {...CARD_ELEMENT_OPTIONS}
          />

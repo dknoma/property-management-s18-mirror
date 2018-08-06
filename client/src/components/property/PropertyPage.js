@@ -17,7 +17,6 @@ class PropertyPage extends Component {
   };
 
   renderItem() {
-    const { property } = this.props;
     return (
       <div>
       <h2>{this.props.property_name}</h2>

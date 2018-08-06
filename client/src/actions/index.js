@@ -354,8 +354,9 @@ export const pay_rent = ({tenantId, stripeToken, amount, description}) => async 
 };
 
 export const view_rent = ({tenantId}, callback) => async dispatch => {
-  const res = await axios.get(
-    apiBaseUrl + "/api/payments/getRent", {tenantId}
+  const res = await axios.post(
+
+    apiBaseUrl + "api/payments/getRent", {tenantId}
   ).then(function(res) {
     dispatch( {type: VIEW_RENT, payload: res.data });
     callback();

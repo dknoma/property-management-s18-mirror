@@ -1,8 +1,8 @@
 import { PAY_RENT, VIEW_RENT } from '../actions/types';
 
 const INITIAL_STATE = {
-  propertyTenant : null,
-  tenantPayment: null
+  propertyTenant : '',
+  tenantPayment: ''
 };
 
 export default function(state = INITIAL_STATE, action) {
