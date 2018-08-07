@@ -22,7 +22,7 @@ class ViewMyApplication extends Component {
     const columns = [{
       Header: 'Property Name',
       accessor: 'property_name',
-      Cell: props => {if(localStorage.getItem('user_type') == 'propertymanager') {
+      Cell: props => {if(localStorage.getItem('user_type') === 'propertymanager') {
         return(<a href={"/property/" + props.original.propertyId + "/applications/" + props.original.id}>{props.value}</a>)
       } else {
         let userId = localStorage.getItem('my_id');

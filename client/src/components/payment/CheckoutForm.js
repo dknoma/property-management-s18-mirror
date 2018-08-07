@@ -28,7 +28,6 @@ class CheckoutForm extends Component {
 
   constructor(props) {
     super(props);
-    //hard coding input
     this.state = {
     amt: null,
     tenantId: this.props.tenantId
@@ -37,20 +36,16 @@ class CheckoutForm extends Component {
   }
 
   componentDidMount() {
-    let tenantId = this.props.tenantId;
-    console.log(tenantId);
+    let tenantId = this.props.params.tenantId;
     this.props.view_rent({tenantId}, () => {
       const propertyTenant = this.props.propertyTenant;
-      console.log(propertyTenant);
       this.setState( {
         amt : propertyTenant.rent
       })
-      console.log(this.state)
     });
   }
 
   renderInfo() {
-    console.log(this.state.amt);
     return (
       <div className="rentInfo">
         <p>Rent Amount: {this.state.amt}</p>
@@ -60,20 +55,14 @@ class CheckoutForm extends Component {
   }
 
   async submit(ev) {
-    let tenantId = this.state.tenantId;
+    let tenantId = this.props.params.tenantId;
     let rent = this.state.amt;
     let {token} = await this.props.stripe.createToken({name: "Name"});
-    console.log(token.id);
-    //example used fetch but I couldn't see the request payload if I used fetch
-    // let response = await axios.post("/api/payments/" + this.state.tenantId + "/charge",
-    // {stripeToken: token.id, amount: this.state.amt, tenantId: this.state.tenantId, description: "rent"}
-    //
-    // ).then (function(response) {
-    //   console.log('BACK!');
-    // })
-    //console.log(token.id);
 
-    this.props.pay_rent({tenantId, stripeToken: token.id, amount: rent, description:'rent'})
+    this.props.pay_rent({tenantId, stripeToken: token.id, amount: rent, description:'rent'}, () => {
+      alert("Payment Successful!");
+      this.props.router.push('/profile/'+ localStorage.getItem("my_id"));
+    })
 
   }
 
@@ -91,7 +80,7 @@ class CheckoutForm extends Component {
 }
 
 function mapStateToProps(state) {
-  return {
+  return {...state,
     propertyTenant: state.payment.propertyTenant,
     tenantPayment: state.payment.tenantPayment
   };

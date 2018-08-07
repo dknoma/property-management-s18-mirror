@@ -13,13 +13,12 @@ class ViewRent extends Component {
     }
   }
   render() {
-    //console.log(this.props);
    return (
      <StripeProvider apiKey="pk_test_gLDIU8TBBFzSw1W4iAGRZ8dK">
        <div className="viewRent">
          <h1>Pay Rent</h1>
          <Elements>
-           <CheckoutForm {...this.state}/>
+           <CheckoutForm {...this.props}/>
          </Elements>
        </div>
      </StripeProvider>

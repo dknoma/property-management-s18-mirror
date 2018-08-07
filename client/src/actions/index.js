@@ -69,7 +69,6 @@ export const login =
       /* Need both so info shows up correctly on login */
       localStorage.setItem('my_id', response.data.user.userId);
       localStorage.setItem('id', response.data.user.userId);
-      console.log(response.data.user.userId);
       /* This says to redirect */
       callback();
       /* Should also save user data to state so we don't have to ping db every time */
@@ -118,7 +117,6 @@ export const get_user_profile = ({id}) => async dispatch => {
   )  .then(function (response) {
     /* Dispatch a payload of OTHER_USER */
     dispatch ({ type: OTHER_USER, payload: response.data });
-    //console.log(response.data.user);
   })
 };
 
@@ -128,7 +126,6 @@ export const get_users = () => async dispatch => {
   )  .then(function (response) {
     /* Dispatch a payload of OTHER_USER */
       dispatch ({ type: ALL_USERS, payload: response.data });
-      console.log(response.data);
   })
 };
 
@@ -162,7 +159,6 @@ export const search_property = ({price_gte, number_of_bedrooms, number_of_bathro
      apiBaseUrl +"api/"+ "property/filter", {price_gte, number_of_bedrooms, number_of_bathrooms, prices, city, state, zip, allows_pets, property_type});
 
   dispatch({ type: SEARCH_PROPERTY, payload: response.data});
-  console.log(response.data);
   callback();
 
  } catch (e) {
@@ -175,7 +171,6 @@ export const get_property_profile = ({propertyId}) => async dispatch => {
     apiBaseUrl +"api/"+ "property/" + propertyId,
   )  .then(function (response) {
     /* Dispatch a payload of OTHER_USER */
-    console.log(response.data);
     dispatch ({ type: GET_PROPERTY, payload: response.data });
 
   })
@@ -183,8 +178,11 @@ export const get_property_profile = ({propertyId}) => async dispatch => {
 
 export const apply_property = ({propertyId, form_subject, form_body, pmId, tenantId}, callback) => async dispatch => {
   try {
+<<<<<<< HEAD
     console.log('apply_prop: '+ propertyId + form_subject, form_body);
     console.log(pmId);
+=======
+>>>>>>> a0b1c0fd86bf7dd8a10ddb4d439668ea3e5d68f9
     const response = await axios.post(
       apiBaseUrl +"api/"+ "property/" + propertyId + "/apply", {propertyId, form_subject, form_body, pmId, tenantId}
     );
@@ -198,7 +196,6 @@ export const apply_property = ({propertyId, form_subject, form_body, pmId, tenan
 export const review_applications = ({propertyId}) => async dispatch => {
   try {
     let token = localStorage.getItem('token');
-    console.log('propId: '+ propertyId);
     const response = await axios.get(
       apiBaseUrl +"auth/"+ "property/" + propertyId + "/applications", { headers: {"token" : token}}
     )  .then(function (response) {
@@ -296,7 +293,6 @@ export const fetch_tenants = ({propertyId}) => async dispatch => {
 
 export const add_to_prop = ({propertyId, tenantId, rent}, callback) => async dispatch => {
   let token = localStorage.getItem('token');
-  console.log("propertyId: " + propertyId);
   const res = await axios.post(
     apiBaseUrl + "auth/propertymanager/add", {propertyId, tenantId, rent}, { headers: {"token" : token}}
   ).then(function (res) {
@@ -357,11 +353,13 @@ export const get_maintenance_request = ({propertyId, appId}) => async dispatch =
 
 };
 
-export const pay_rent = ({tenantId, stripeToken, amount, description}) => async dispatch => {
+export const pay_rent = ({tenantId, stripeToken, amount, description}, callback) => async dispatch => {
+
   const res = await axios.post(
     "/api/payments/" + tenantId + "/charge", {tenantId, stripeToken, amount, description}
   ).then(function (res) {
     dispatch( {type: PAY_RENT, payload: res.data});
+    callback();
   })
 };
 
