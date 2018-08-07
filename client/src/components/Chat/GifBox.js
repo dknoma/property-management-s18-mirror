@@ -56,6 +56,7 @@ class GifBox extends React.Component{
     }
 
 
+/* Connect to Giphy API */
     getGIFs(){
         this.removeScrollEvent();
         this.setState({

@@ -21,7 +21,7 @@ class ViewAllMaintenanceRequests extends Component {
     const columns = [{
       Header: 'Subject',
       accessor: 'form_subject',
-      Cell: props => <a href={"/maintenance/" + data.id}>{props.value}</a>
+      Cell: props => <a href={"/maintenance/" + props.original.id}>{props.value}</a>
     }, {
       Header: 'Property ID',
       accessor: 'propertyId',

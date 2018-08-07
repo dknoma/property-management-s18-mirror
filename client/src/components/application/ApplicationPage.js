@@ -51,15 +51,15 @@ class ApplicationPage extends React.Component {
 
 render() {
   return (
-    <div className="container">
-        <div className="row">
-          <div className="col-xs-12">
+    <div>
+        <div>
+          <div>
             <h1>Application Detail</h1>
             <hr />
           </div>
         </div>
-        <div className="row">
-          <div className="col-xs-12">
+        <div>
+          <div>
             <p>Property Name: {this.props.property_name}</p>
             <p>Property ID: {this.props.propertyId}</p>
             <p>Applicant Name: {this.props.tenant_name}</p>

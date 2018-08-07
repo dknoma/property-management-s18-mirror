@@ -65,7 +65,6 @@ render() {
             <p>Body: {this.props.form_body}</p>
             <p>Approval Status: {this.props.approval_status === null ? 'Pending' : this.props.approval_status === true ? 'Approved' : 'Denied'}</p>
             {this.renderPMInformation()}
-            {this.renderTenantInformation()}
           </div>
         </div>
     </div>

@@ -6,11 +6,14 @@ import socketIOClient from 'socket.io-client';
 /* Higher Order Components */
 import requireAuth from '../requireAuth';
 
+import { connect } from 'react-redux';
+import * as actions from '../../actions';
+
 /* CSS */
 import 'bootstrap';
 import "../../index.css";
 
-class Chat extends React.Component {
+class PrivateChat extends React.Component {
 
     constructor(props){
         super(props);
@@ -25,6 +28,9 @@ class Chat extends React.Component {
         }
     }
 
+    componenentWillMount(){
+      this.props.start_chat(localStorage.getItem("my_id"));
+    }
     componentDidMount(){
         if(this.state.username.length) {
             this.initChat();
@@ -44,6 +50,7 @@ class Chat extends React.Component {
     }
 
     sendMessage(message, e){
+        var receiverId = localStorage.getItem('my_id');
         console.log(message);
         this.setState({
             messages : this.state.messages.concat([{
@@ -52,11 +59,13 @@ class Chat extends React.Component {
                message : message,
            }])
         });
-        this.socket.emit('message', {
-            username : localStorage.getItem('username'),
-            uid : localStorage.getItem('uid'),
-            message : message,
+
+        this.socket.emit('join', localStorage.getItem('my_id'));
+        this.socket.emit('send message', {
+            room: localStorage.getItem('my_id'),
+            message: "Some message"
         });
+
         this.scrollToBottom();
     }
 
@@ -71,9 +80,8 @@ class Chat extends React.Component {
         this.setState({
             chat_ready : true,
         });
-        this.socket = socketIOClient('ws://localhost:8000', {
-            query : 'username='+this.state.username+'&uid='+this.state.uid
-        });
+        /* This is how we're getting information from the backend */
+        this.socket = socketIOClient('ws://localhost:8000');
 
         this.socket.on('updateUsersList', function (users) {
             console.log(users);
@@ -114,4 +122,10 @@ class Chat extends React.Component {
     }
 }
 
-export default requireAuth(Chat);
+function mapStateToProps(state) {
+  return {
+    chats: state.chat.chats
+  }
+}
+
+export default connect(mapStateToProps, actions)(requireAuth(PrivateChat));

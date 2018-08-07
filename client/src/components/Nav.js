@@ -29,6 +29,7 @@ import HomeIcon from '@material-ui/icons/Home';
 import Badge from '@material-ui/core/Badge';
 import BuildIcon from '@material-ui/icons/Build';
 import ChatIcon from '@material-ui/icons/Chat';
+import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 
 const styles = {
   root: {
@@ -128,6 +129,11 @@ export class Nav extends Component {
       <a href={"/user/" + localStorage.getItem('my_id') + "/myapplications"}>
         <Avatar className={classes.greenAvatar}>
           <AssignmentIcon />
+        </Avatar>
+      </a>
+      <a href={"/rent/" + localStorage.getItem('my_id') + "/pay"}>
+        <Avatar className={classes.greenAvatar}>
+          <AttachMoneyIcon />
         </Avatar>
       </a>
       </span>
