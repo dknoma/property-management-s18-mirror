@@ -178,11 +178,6 @@ export const get_property_profile = ({propertyId}) => async dispatch => {
 
 export const apply_property = ({propertyId, form_subject, form_body, pmId, tenantId}, callback) => async dispatch => {
   try {
-<<<<<<< HEAD
-    console.log('apply_prop: '+ propertyId + form_subject, form_body);
-    console.log(pmId);
-=======
->>>>>>> a0b1c0fd86bf7dd8a10ddb4d439668ea3e5d68f9
     const response = await axios.post(
       apiBaseUrl +"api/"+ "property/" + propertyId + "/apply", {propertyId, form_subject, form_body, pmId, tenantId}
     );
