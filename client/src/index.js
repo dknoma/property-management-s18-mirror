@@ -21,6 +21,7 @@ import throttle from "lodash/throttle";
 /* Components */
 import reducers from "./reducers";
 import "./index.css";
+import 'font-awesome/css/font-awesome.css';
 import Nav from "./components/Nav.js";
 import Footer from "./components/Footer.js";
 import Home from "./components/Home.js";
@@ -51,6 +52,7 @@ import ViewMaintenanceRequest from "./components/maintenance/ViewMaintenanceRequ
 import ViewRent from "./components/payment/ViewRent.js";
 import TenantApplicationPage from "./components/application/TenantApplicationPage.js";
 import Chat from "./components/Chat/Chat.js";
+import PrivateChat from "./components/Chat/PrivateChat.js";
 
 /* Testing */
 // import UserProfile from "./components/UserProfile/UserProfile.jsx";
@@ -138,10 +140,11 @@ ReactDOM.render(
           </Route>
           <Route exact path={"chat"} component={Chat}>
           </Route>
+          <Route exact path={"privatechat"} component={PrivateChat}>
+          </Route>
         </Router>
         <Footer/>
     </div>
-
     </Provider>
     ,
     destination

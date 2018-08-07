@@ -195,7 +195,7 @@ html, body {
   padding: 0px;
 }
 #chat_root .chat .gifbox .gifs {
-  height: 160px !important;
+  height: 300px !important;
   overflow-y: scroll;
   padding: 5px;
 }

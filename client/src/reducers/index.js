@@ -7,6 +7,7 @@ import application from './application'
 import message from './message'
 import payment from './payment'
 import maintenance from './maintenance'
+import chat from './chat'
 
 export default combineReducers({
   auth,
@@ -15,5 +16,6 @@ export default combineReducers({
   application,
   message,
   maintenance,
-  payment
+  payment,
+  chat
 });

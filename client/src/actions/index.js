@@ -6,7 +6,7 @@ import {
   DELETE_APPLICATION, GET_APPLICATION, APPROVE_APP, DENY_APP,
   FETCH_TENANTS, ADD_TO_PROP, FETCH_ALL_APPLICATIONS, FETCH_MY_APPLICATIONS,
   CREATE_MAINTENANCE_REQUEST, GET_MAINTENANCE_REQUEST, FETCH_MY_MAINTENANCE_REQUESTS,
-  PAY_RENT, VIEW_RENT, FETCH_TENANT_MY_APPLICATION
+  PAY_RENT, VIEW_RENT, FETCH_TENANT_MY_APPLICATION, START_CHAT
 } from './types';
 /* State Persist */
 import {loadState, saveState} from '.././localStorage.js';
@@ -317,6 +317,7 @@ export const fetch_my_applications = ({userId}) => async dispatch => {
 export const create_maintenance_request = ({tenantId, propertyId, pmId, form_subject, form_body}, callback) => async dispatch => {
   try {
     console.log('apply_prop: '+ propertyId + form_subject, form_body);
+    console.log(pmId);
     const response = await axios.post(
       apiBaseUrl +"api/"+ "property/" + propertyId + "/maintain", {tenantId, propertyId, pmId, form_subject, form_body}
     );
@@ -337,7 +338,18 @@ export const fetch_my_maintenance_requests = ({userId}) => async dispatch => {
   })
 };
 
+export const get_maintenance_request = ({propertyId, appId}) => async dispatch => {
+    let token = localStorage.getItem('token');
+    const res = await axios.get(
+      apiBaseUrl + "auth/user/" + propertyId + "/applications/" + appId, { headers: {"token" : token}}
+    ).then(function (res) {
+      dispatch({ type: GET_APPLICATION, payload: res.data});
+    })
+
+};
+
 export const pay_rent = ({tenantId, stripeToken, amount, description}, callback) => async dispatch => {
+
   const res = await axios.post(
     "/api/payments/" + tenantId + "/charge", {tenantId, stripeToken, amount, description}
   ).then(function (res) {
@@ -362,5 +374,14 @@ export const fetch_tenant_my_application = ({userId, appId}) => async dispatch =
     apiBaseUrl + "auth/user/" + userId + "/myapplications/" + appId, { headers: {"token" : token}}
   ).then(function (res) {
     dispatch({ type: FETCH_TENANT_MY_APPLICATION, payload: res.data});
+  })
+};
+
+export const start_chat = ({senderId}, callback) => async dispatch => {
+  const res = await axios.get(
+    apiBaseUrl + "chat/" + senderId
+  ).then(function(res) {
+    dispatch( {type: START_CHAT, payload: res.data });
+    callback();
   })
 };
