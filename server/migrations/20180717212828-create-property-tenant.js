@@ -38,7 +38,7 @@ module.exports = {
       },
     });
   },
-  down: (queryInterface, Sequelize) => {
+  down: (queryInterface/*, Sequelize*/) => {
     return queryInterface.dropTable('PropertyTenants');
   }
 };

@@ -1,7 +1,6 @@
 const Property = require('../models').Property;
 const User = require('../models').User;
 const Maintenance = require('../models').Maintenance;
-const config = require('./config');
 const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
 

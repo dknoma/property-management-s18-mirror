@@ -19,9 +19,6 @@ module.exports = (app) => {
     app.get('/auth/user/:userId/inbox/:messageId', messageController.viewMessage);
     app.delete('/auth/user/:userId/message/:messageId', messageController.delete);
 
-    //testing
-    app.get('/messages', messageController.listM);
-
 	app.all('/auth/users', (req, res) =>
 		res.status(405).send({
 			message: 'Method Not Allowed',

@@ -1,5 +1,5 @@
 const User = require('../models').User;
-const config = require('../controllers/config');
+const config = require('../config/config.js');
 const jwt = require('jsonwebtoken');
 
 module.exports = function authorize(req, res, next) {

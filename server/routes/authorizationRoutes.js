@@ -16,11 +16,6 @@ module.exports = (app) => {
 	/* Update profile info */
 	app.put('/auth/users/:userId', usersController.update);
 
-
-
-    //testing
-    app.get('/messages', messageController.listM);
-
 	app.all('/auth/users', (req, res) =>
 		res.status(405).send({
 			message: 'Method Not Allowed',
