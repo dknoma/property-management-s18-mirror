@@ -7,7 +7,7 @@ This app allows property owners and tenants to manage profiles and payments all 
 
 ### Authentication Tokens with JWT
 This application uses JSON Web Tokens for user authentication. Below is a helper function that is designed to attempt to give the user a token.
-```
+```js
 function generateToken(user) {
   //payload to create token; does not contain sensitive info
   const payload = {
@@ -30,7 +30,7 @@ Given a User object, the function then attempts to create a payload from the use
 
 ### User Authentication
 Below is a function inside one of the pieces of middleware in our application. It attempts to authenticate the user via the user's JWT.
-```
+```js
 function authorize(req, res, next) {
   if(!req.header('token')
     || req.header('token') == null
