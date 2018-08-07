@@ -3,6 +3,8 @@
 
 This app allows property owners and tenants to manage profiles and payments all in one location. For tenants, rather than having to fill out their information everytime they want to move to a new apartment they only need to make a profile with their information one time, streamlining the application process.
 
+# Backend Documentation
+
 ## Authentication Tokens with JWT
 This application uses JSON Web Tokens for user authentication. Below is a helper function that is designed to attempt to give the user a token.
 ```
