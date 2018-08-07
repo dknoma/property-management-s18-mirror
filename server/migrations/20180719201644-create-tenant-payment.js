@@ -14,7 +14,7 @@ module.exports = {
       tenantId: {
         type: Sequelize.INTEGER,
         references: {
-          model: 'PropertyTenants',
+          model: 'User',
           key: 'id',
           as: 'tenantId',
         },
