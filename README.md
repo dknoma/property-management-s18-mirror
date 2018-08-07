@@ -55,9 +55,8 @@ function authorize(req, res, next) {
       req.currentUser = false;
       next();
     }
-  } catch (error) {
-      req.currentUser = false;
-      next();
+  } catch (err) {
+    return res.status(401).send({message: 'Unable to authenticate', err});
   }
 }
 ```
