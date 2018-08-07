@@ -61,7 +61,7 @@ class Chat extends React.Component {
     }
 
     /* Calculate height of messages */
-    scrollToBottom(){
+    scrollToBottom() {
         let messages = document.getElementsByClassName('messages')[0];
         messages.scrollTop = messages.scrollHeight - messages.clientHeight;
     }
@@ -93,7 +93,7 @@ class Chat extends React.Component {
     render() {
         return (
           <div id="chat_root">
-          <h1> Chat </h1>
+            <h1> Chat </h1>
             <div className="chat">
                 {this.state.chat_ready ? (
                     <React.Fragment>

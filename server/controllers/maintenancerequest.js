@@ -3,8 +3,6 @@ const User = require('../models').User;
 const PropertyTenant = require('../models').PropertyTenant;
 const Maintenance = require('../models').Maintenance;
 const Message = require('../models').Message;
-const Sequelize = require('sequelize');
-const Op = Sequelize.Op;
 
 module.exports = {
 	create(req, res) {
@@ -67,11 +65,10 @@ module.exports = {
 		/* if user_type === propertymanager, move on, else 403 restricted */
 		var currentUser = req.currentUser;
 		if(currentUser) {
-		//	console.log(currentUser);
-			Property.findById(req.params.propertyId)
+			return Property
+			.findById(req.params.propertyId)
 			.then(property => {
 				if(property.userId == currentUser) {
-					console.log("prop owner: " + property.userId);
 					return Maintenance
 						.findAll({
 							where: {

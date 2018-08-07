@@ -37,15 +37,4 @@ Object.keys(db).forEach(modelName => {
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
-// var force = true ;
-// /*
-// 	will reset the database
-//   remove this for production
-// */
-// db.sequelize.sync({
-//     force: true
-// }).then(function() {
-//     console.log('Forced migration');
-// });
-
 module.exports = db;
