@@ -1,27 +1,17 @@
 /*
- * Description: TODO test server. This app will let the user create and delete TODO items
- *
+ * Description: Property Management Express Application
  * Start application: npm run start:dev
- * Start postgres: pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start
- * Postman:
- * 			- to create items: 127.0.0.1:8000/api/todos/1/items
- *
- * Create model: sequelize model:create --name <Name> --attributes <name of attribute>:<type>
  */
 
 //include express module
 const express = require('express');
 const http = require('http');
-//creates the express application, port, and server
 const app = express();
-const port = parseInt(process.env.PORT, 10) || 8080;
-app.set('port', port);
 
-//socket.io
+const port = parseInt(process.env.PORT, 10) || 8000;
+app.set('port', port);
 const server = http.createServer(app);
 server.listen(port);
-// const io = require('socket.io')(server);
-// io.on('connection', () => {});
 
 const logger = require('morgan');
 const bodyParser = require('body-parser');

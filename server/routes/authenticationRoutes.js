@@ -19,8 +19,6 @@ module.exports = (app) => {
 	app.post('/api/tenant/login', usersController.tlogin);
 	app.put('/auth/users/:userId', usersController.update);
 
-	/* temp db testing */
-	app.get('/api/users', usersController.list);
 	app.get('/auth/users/:userId', usersController.retrieve);
 	app.delete('/api/users/:userId', usersController.destroy);
 
