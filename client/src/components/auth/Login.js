@@ -36,8 +36,8 @@ constructor(props){
        alert("Please select the user type!");
        return;
      }
-     console.log({user_type, username, password});
      this.props.login({user_type, username, password}, () => {
+       console.log(this.props);
        this.props.router.push("/profile/" + localStorage.getItem("my_id"));
      });
    };

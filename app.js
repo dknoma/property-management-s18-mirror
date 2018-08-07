@@ -14,7 +14,7 @@ const express = require('express');
 const http = require('http');
 //creates the express application, port, and server
 const app = express();
-const port = parseInt(process.env.PORT, 10) || 8080;
+const port = parseInt(process.env.PORT, 10) || 8000;
 app.set('port', port);
 
 //socket.io

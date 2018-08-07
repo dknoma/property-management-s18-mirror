@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 
 /* Redux */
-import { createStore, compose } from 'redux';
 import { connect } from 'react-redux';
 import * as actions from '../../actions';
 
@@ -12,8 +10,6 @@ import requireAnon from '../requireAnon';
 /* Using Redux form, material UI, and redux-form-material-ui for forms */
 import {Field, reduxForm} from 'redux-form';
 import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
-
 import { RadioGroup, TextField } from 'redux-form-material-ui';
 
 const required = value => value ? undefined : 'Required'
@@ -101,9 +97,7 @@ class Register extends Component {
     );
   }
 }
-const style = {
-  margin: 15,
-};
+
 
 function mapStateToProps(state) {
   return {

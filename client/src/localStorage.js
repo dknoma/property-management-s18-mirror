@@ -13,7 +13,7 @@ export const loadState = () => {
   try {
     const serializedState = localStorage.getItem('state');
     /* Turn string into an object and update state */
-    const newState = JSON.parse(serializedState);
+    // const newState = JSON.parse(serializedState);
     if (serializedState === null) {
       return undefined;
     }
