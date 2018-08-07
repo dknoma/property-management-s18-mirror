@@ -3,9 +3,9 @@
 
 This app allows property owners and tenants to manage profiles and payments all in one location. For tenants, rather than having to fill out their information everytime they want to move to a new apartment they only need to make a profile with their information one time, streamlining the application process.
 
-# Backend Documentation
+## Backend Documentation
 
-## Authentication Tokens with JWT
+### Authentication Tokens with JWT
 This application uses JSON Web Tokens for user authentication. Below is a helper function that is designed to attempt to give the user a token.
 ```
 function generateToken(user) {
@@ -28,7 +28,7 @@ function generateToken(user) {
 
 Given a User object, the function then attempts to create a payload from the user's information. This payload is then used to try and generate a token. If token creation fails, then the function returns an error message.
 
-## User Authentication
+### User Authentication
 Below is a function inside one of the pieces of middleware in our application. It attempts to authenticate the user via the user's JWT.
 ```
 function authorize(req, res, next) {
