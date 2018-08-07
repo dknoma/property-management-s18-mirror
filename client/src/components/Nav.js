@@ -2,11 +2,9 @@ import React, { Component } from "react";
 import "../index.css";
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
-
 /* Redux */
 import { connect } from 'react-redux';
 import { createStore, compose } from 'redux';
-
 /* Material UI */
 import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -62,7 +60,6 @@ const styles = {
     // The border color match the background color.
   },
 };
-
 export class Nav extends Component {
   state = {
     auth: true,
@@ -70,31 +67,25 @@ export class Nav extends Component {
     mailmenu: null,
     unviewedMessages: this.props.unviewedMessages
   };
-
   handleChange = (event, checked) => {
     this.setState({ auth: checked });
   };
-
   /* Shifts focus of anchor element */
   handleProfileMenu = event => {
     this.setState({ anchorEl: event.currentTarget });
   };
-
   /* Closes the menu */
   handleProfileMenuClose = () => {
     this.setState({ anchorEl: null });
   };
-
   /* Shifts focus of anchor element */
   handleMailMenu = event => {
     this.setState({ anchorEl2: event.currentTarget });
   };
-
   /* Closes the menu */
   handleMailMenuClose = () => {
     this.setState({ anchorEl2: null });
   };
-
   insertPMLinks () {
     const { classes } = this.props;
     if (this.props.user_type == 'propertymanager') {
@@ -119,7 +110,6 @@ export class Nav extends Component {
       )
     }
   }
-
   insertTenantLinks () {
     const { classes } = this.props;
     console.log(this.props.user_type);
@@ -140,7 +130,6 @@ export class Nav extends Component {
     )
     }
   }
-
   insertNotifications () {
     const { classes } = this.props;
     const { anchorEl2 } = this.state;
@@ -192,7 +181,6 @@ export class Nav extends Component {
       );
     }
   }
-
   renderLinks() {
     const { classes } = this.props;
     const { anchorEl } = this.state;
@@ -253,7 +241,6 @@ export class Nav extends Component {
                 <a href={"/edit"} ><MenuItem>Edit Profile</MenuItem></a>
                 <a href="/logout"><MenuItem>Logout</MenuItem></a>
             </Menu>
-
             </span>
           </div>
         </div>
@@ -263,10 +250,8 @@ export class Nav extends Component {
       <a href="/login">Login</a></div>
     }
   }
-
   render() {
     const { classes } = this.props;
-
     return (
       <div className={classes.root}>
         <AppBar position="static" className="nav">
@@ -283,7 +268,6 @@ export class Nav extends Component {
     );
   }
 }
-
 function mapStateToProps(state) {
   return {
     authenticated: state.auth.authenticated,
@@ -293,11 +277,8 @@ function mapStateToProps(state) {
     unviewedMessages: state.auth.unviewedMessages
   };
 }
-
 Nav.propTypes = {
   classes: PropTypes.object.isRequired,
 };
-
 /* This syntax exports with the styles. Syntax is weird */
-
 export default connect(mapStateToProps)(withStyles(styles)(Nav));
