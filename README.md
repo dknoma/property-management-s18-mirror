@@ -9,7 +9,6 @@ This app allows property owners and tenants to manage profiles and payments all 
 This application uses JSON Web Tokens for user authentication. Below is a helper function that is designed to attempt to give the user a token.
 ```js
 function generateToken(user) {
-  //payload to create token; does not contain sensitive info
   const payload = {
     userId: user.id, 
     user_type: user.user_type
@@ -70,7 +69,6 @@ Being middleware, the function can take in request and response objects and mani
 
 ## Authors
 * **Jose Alvarado** - *Sponsor* - [GitHub](https://github.com/sfdevshop)
-
 * **Nick Kebbas** - *Frontend* - [GitHub](https://github.com/nicholas-kebbas)
 * **Soo Jung Kim** - *Frontend* - [GitHub](https://github.com/soojkim0306)
 * **Yuxin Huang** - *Backend* - [GitHub](https://github.com/huan0750)
