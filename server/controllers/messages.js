@@ -1,9 +1,6 @@
 const Message = require('../models').Message;
 const Inbox = require('../models').Inbox;
 const User = require('../models').User;
-const config = require('./config');
-const jwt = require('jsonwebtoken');
-const authorizor = require('../middleware/auth-check')
 
 module.exports = {
     list(req, res) {
@@ -41,14 +38,6 @@ module.exports = {
         } else {
             return res.status(401).send({message: 'Unable to authenticate.'});
         }
-    },
-    listM(req, res) {
-        return Message
-        .findAll()
-        .then(messages => {
-            return res.status(200).send(messages);
-        })
-        .catch(error => res.status(401).send(error));
     },
     allMessages(req ,res) {
         //verify if user is owner of inbox trying to view

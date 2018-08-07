@@ -82,7 +82,6 @@ module.exports = {
 	//allows pm to view applications to a property
 	reviewApplications(req, res) {
 		//verify if PM
-		/* if user_type === propertymanager, move on, else 403 restricted */
 		var currentUser = req.currentUser;
 		if(currentUser) {
 			//find property by propId

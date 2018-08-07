@@ -31,8 +31,8 @@ module.exports = (app) => {
     app.post('/auth/property/create', propertiesController.create);
     app.get('/api/propertymanager/:propertyId/tenants', propertyManagementController.findTenants);
     app.post('/auth/propertymanager/add', propertyManagementController.addToProp);
-		app.delete('/auth/propertymanager/:propertyId', propertyManagementController.removeTenant);
-		app.put('/auth/propertymanager/updateRent', propertyManagementController.updateRent);
+	app.delete('/auth/propertymanager/:propertyId', propertyManagementController.removeTenant);
+	app.put('/auth/propertymanager/updateRent', propertyManagementController.updateRent);
 
 	/**************************************
 	 * Application  Routes 				  *
@@ -52,7 +52,7 @@ module.exports = (app) => {
 	app.get('/auth/user/mypropertyapplications', applicationController.seeAllApplications);
 	app.get('/auth/user/:userId/myapplications', applicationController.viewMyApplications);
 	app.get('/auth/user/:userId/myapplications/:appId', applicationController.viewMySingle);
-  app.delete('/auth/user/:userId/myapplications/:appId', applicationController.deleteOwnApplication);
+	app.delete('/auth/user/:userId/myapplications/:appId', applicationController.deleteOwnApplication);
 
 
 	/******************************************
@@ -73,9 +73,6 @@ module.exports = (app) => {
 	app.delete('/auth/property/:propertyId/maintenancerequests/:mrId', maintenanceController.deleteMaintenanceRequest);
 	app.get('/auth/user/mymaintenancerequests', maintenanceController.viewMyMaintenanceRequest);
 	app.delete('/auth/user/mymaintenancerequests/:mrId', maintenanceController.deleteOwnMaintenanceRequest);
-
-	//testing
-	app.get('/api/:userId/inboxes', messageController.list);
 
 	app.all('/api/users', (req, res) =>
 		res.status(405).send({

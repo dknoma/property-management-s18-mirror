@@ -3,8 +3,7 @@ const Property = require('../models').Property;
 const Inbox = require('../models').Inbox;
 const Message = require('../models').Message;
 const Sequelize = require('sequelize');
-const jwt = require('jsonwebtoken');
-const config = require('./config');
+const config = require('../config/config');
 const Op = Sequelize.Op;
 const bcrypt = require('bcrypt');
 // const passport = require('passport');
@@ -28,26 +27,6 @@ function generateToken(user) {
 }
 
 module.exports = {
-	//dont really need this function, mostly for testing
-	/* List all users; Need to return only non-sensitive info ie. username, first and last name */
-	list(req, res) {
-		return User
-			.findAll({
-				include: [{
-					model: Property,
-					as: 'properties',
-				},{
-					model: Inbox,
-					as: 'inboxes',
-					include: [{
-						model: Message,
-						as: 'messages',
-					}]
-				}]
-			})
-			.then(users => res.status(200).send(users))
-			.catch(error => res.status(400).send(error));
-	},
 	pmsignup(req, res) {
 		return User
 		.findOrCreate({
@@ -326,7 +305,6 @@ module.exports = {
 				}
 				return user
 					.destroy()
-					//status(204).send()) : 204 No Content
 					.then(() => res.status(200).send({ message: 'User successfully deleted'}))
 					.catch(error => res.status(400).send(error));
 			})
