@@ -60,10 +60,10 @@ render() {
           <div className="col-xs-12">
             <p>Property Name: {this.props.property_name}</p>
             <p>Property ID: {this.props.propertyId}</p>
-            <p>Applicant Name: {this.props.tenant_name}</p>
+            <p>Maintenance Requestor Name: {this.props.tenant_name}</p>
             <p>Subject: {this.props.form_subject}</p>
             <p>Body: {this.props.form_body}</p>
-            <p>Approval Status: {this.props.approval_status === null ? 'Pending' : this.props.approval_status === true ? 'Approved' : 'Denied'}</p>
+            <p>Request Approval Status: {this.props.approval_status === null ? 'Pending' : this.props.approval_status === true ? 'Approved' : 'Denied'}</p>
             {this.renderPMInformation()}
           </div>
         </div>
