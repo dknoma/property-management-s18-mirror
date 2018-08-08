@@ -24,6 +24,7 @@ const CARD_ELEMENT_OPTIONS = {
   },
 };
 
+
 class CheckoutForm extends Component {
 
   constructor(props) {
