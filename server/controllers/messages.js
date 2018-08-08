@@ -3,18 +3,7 @@ const Inbox = require('../models').Inbox;
 const User = require('../models').User;
 
 module.exports = {
-    list(req, res) {
-        return Inbox
-            .findAll({
-                where: {
-                    userId: req.params.userId
-                }
-            })
-            .then(inboxes => {
-                return res.status(201).send(inboxes)
-            })
-            .catch(error => res.status(400).send(error));
-    },
+    //allows user to create a message
     create(req, res) {
         var currentUser = req.currentUser;
         if(currentUser) {
@@ -39,6 +28,7 @@ module.exports = {
             return res.status(401).send({message: 'Unable to authenticate.'});
         }
     },
+    //allows user to view all their messages
     allMessages(req ,res) {
         //verify if user is owner of inbox trying to view
         var currentUser = req.currentUser;
@@ -63,6 +53,7 @@ module.exports = {
 			return res.status(401).send({message: 'Unable to authenticate.'});
 		}
     },
+    //alows user to view single message from their inbox
     viewMessage(req, res) {
         var currentUser = req.currentUser;
 
@@ -96,6 +87,7 @@ module.exports = {
 			return res.status(401).send({message: 'Unable to authenticate.'});
 		}
     },
+    //allows user to delete on of their messages
     delete(req, res) {
         var currentUser = req.currentUser;
 
@@ -111,7 +103,6 @@ module.exports = {
                         }
                         return message
                             .destroy()
-                            //status(204).send()) : 204 No Content
                             .then(() => res.status(200).send({ message: 'Message successfully deleted'}))
                             .catch(error => res.status(400).send(error));
                     })

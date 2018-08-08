@@ -6,14 +6,10 @@ module.exports = (app) => {
 		message: 'Welcome to the Todos API!',
 	}));
 
-	/***********************************
-	 * Authorization related requests *
-	 ***********************************/
-    app.post('/api/user/message', messageController.create);
-    app.delete('/auth/user/:userId/message/:messageId', messageController.delete);
-    app.get('/auth/user/:userId/inbox', messageController.allMessages);
-
-	/* Update profile info */
+	/************************************
+	 * Authorization related requests   *
+	 * 	-	Update profile info			*
+	 ************************************/
 	app.put('/auth/users/:userId', usersController.update);
 
 	app.all('/auth/users', (req, res) =>
