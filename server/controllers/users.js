@@ -204,10 +204,12 @@ module.exports = {
 		return User
 			.find({
 				where: {id: req.params.userId},
+				//include properties in search
 				include: [{
 					model: Property,
 					as: 'properties',
 				},{
+					//include inbox and messages in search; nested include
 					model: Inbox,
 					as: 'inboxes',
 					include: [{
@@ -222,7 +224,7 @@ module.exports = {
 						message: 'User Not Found',
 					});
 				}
-
+				//if user is owner of profile, allow to view properties and inbox, else can only view profile page
 				if(req.params.userId == currentUser) {
 					return res.status(200).send({
 						user: {
@@ -255,7 +257,6 @@ module.exports = {
 	update(req, res) {
 		//verify if can update a profile by checking if has valid token
 		var currentUser = req.currentUser;
-		// console.log(currentUser.userId);
 		if(req.params.userId == currentUser) {
 			return User
 			.findById(currentUser)
@@ -266,15 +267,14 @@ module.exports = {
 					});
 				}
 				return user
+					//allows user to update any valid fields in their account
+					//also need checks when changing email or username; notify pm
+					//of any changes to their tenants accounts
 					.update({
 						email: req.body.email || user.email,
 						firstname: req.body.firstname || user.firstname,
 						lastname: req.body.lastname || user.lastname,
 					})
-					//allows user to update any valid fields in their account
-					//will need to consider securely resetting/changing passwords
-					//also need checks when changing email or username; notify pm
-					//of any changes to their tenants accounts
 					.then(() => res.status(200).send({
 						user: {
 							user_type: user.user_type,

@@ -25,6 +25,7 @@ module.exports = {
 							{propertyId: req.params.propertyId}
 						]
 					},
+					//if not found, then will create a property with these parameters
 					defaults: {
 						tenantId: req.body.tenantId,
 						tenant_name: tenant_name,
@@ -63,6 +64,7 @@ module.exports = {
 	},
 	viewMyApplications(req, res) {
 		var currentUser = req.currentUser;
+		//if authenticated and user ids match, view users applications
 		if(currentUser && req.params.userId == currentUser) {
 			return Application
 				.findAll({
@@ -151,6 +153,7 @@ module.exports = {
 			return res.status(401).send({message: 'Unable to authorize.'});
 		}
 	},
+	//allows tenant to view a single application they have
 	viewMySingle(req, res) {
 		var currentUser = req.currentUser;
 		if(currentUser && req.params.userId == currentUser) {
@@ -176,6 +179,7 @@ module.exports = {
 			.then(property => {
 				//compare owner of prop to the current user
 				if(property.userId == currentUser) {
+					//find application by id, then update the approval status of the application
 					return Application
 						.findById(req.params.appId)
 						.then(application => {
@@ -185,6 +189,7 @@ module.exports = {
 								.then(application => {
 									User.findById(currentUser)
 									.then(user => {
+										//if approved, send approval message, else send denied message
 										if(application.approval_status) {
 											Message.create({
 												senderId: currentUser,
@@ -197,7 +202,7 @@ module.exports = {
 											.then(message => {
 												return res.status(201).send({message, application})
 											})
-											.catch(error => res.status(401).send(error));
+											.catch(error => res.status(400).send(error));
 										} else {
 											Message.create({
 												senderId: currentUser,
@@ -210,7 +215,7 @@ module.exports = {
 											.then(message => {
 												return res.status(201).send({message, application})
 											})
-											.catch(error => res.status(401).send(error));
+											.catch(error => res.status(400).send(error));
 										}
 									})
 								})
@@ -254,12 +259,15 @@ module.exports = {
 			return res.status(401).send({message: 'Unable to authorize.'});
 		}
 	},
+	//allows tenant to delete an application of theirs
 	deleteOwnApplication(req, res) {
 		var currentUser = req.currentUser;
+		//users authentication
 		if(currentUser) {
 			return Application
 				.findById(req.params.appId)
 				.then(application => {
+					//authorize user if ids match
 					if(req.params.userId == currentUser && application.tenantId == currentUser) {
 						return application
 						.destroy()
