@@ -60,7 +60,7 @@ module.exports = (app) => {
 	*  -	create new maintenance request	  *
 	* 	 +-+ Authorization required +-+	  	  *
 	*  -	view all maintenance request of	  *
-	*			a property					  *
+	*		a property						  *
 	*  -	delete a maintenance request	  *
 	*******************************************/
 	app.post('/api/property/:propertyId/maintain', maintenanceController.create);
