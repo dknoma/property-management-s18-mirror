@@ -83,3 +83,4 @@ module.exports = (app, server) => {
             io.emit('updateUsersList', getUsers());
         });
     });
+  }

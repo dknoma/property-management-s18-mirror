@@ -7,12 +7,6 @@
 const express = require('express');
 const http = require('http');
 const app = express();
-<<<<<<< HEAD
-const port = parseInt(process.env.PORT, 10) || 8000;
-app.set('port', port);
-=======
->>>>>>> backend
-
 const port = parseInt(process.env.PORT, 10) || 8000;
 app.set('port', port);
 const server = http.createServer(app);
