@@ -4,6 +4,7 @@ const Inbox = require('../models').Inbox;
 const Message = require('../models').Message;
 const Sequelize = require('sequelize');
 const config = require('../config/config');
+const jwt = require('jsonwebtoken');
 const Op = Sequelize.Op;
 const bcrypt = require('bcrypt');
 // const passport = require('passport');
