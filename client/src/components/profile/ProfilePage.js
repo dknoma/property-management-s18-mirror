@@ -10,10 +10,6 @@ import Button from '@material-ui/core/Button';
 
 
 // core components
-import GridItem from "../Grid/GridItem.jsx";
-import GridContainer from "../Grid/GridContainer.jsx";
-import Card from "../Card/Card.jsx";
-import CardBody from "../Card/CardBody.jsx";
 import "../../index.css";
 /* Higher Order Components */
 import requireAuth from '../requireAuth';
@@ -56,29 +52,21 @@ class ProfilePage extends React.Component {
  renderProfile() {
     const { classes } = this.props;
     <div className="center">
-      <GridContainer>
-        <GridItem xs={12} sm={12} md={4}>
-          <Card profile>
-            <CardBody profile>
-              <h6 className={classes.cardCategory}>Role</h6>
-              <h4 className={classes.cardTitle}>Username</h4>
-              <p className={classes.description}>
-              First Name
-              </p>
-              <p className={classes.description}>
-              Last Name
-              </p>
-              <p className={classes.description}>
-              Email
-              </p>
-              <p className={classes.description}>
-              </p>
-              <Button color="primary" round>
-              </Button>
-            </CardBody>
-          </Card>
-        </GridItem>
-      </GridContainer>
+      <h6>Role</h6>
+      <h4>Username</h4>
+      <p className={classes.description}>
+      First Name
+      </p>
+      <p className={classes.description}>
+      Last Name
+      </p>
+      <p className={classes.description}>
+      Email
+      </p>
+      <p className={classes.description}>
+      </p>
+      <Button color="primary" round>
+      </Button>
     </div>
   }
 

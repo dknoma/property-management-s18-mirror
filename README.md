@@ -3,6 +3,21 @@
 
 This app allows property owners and tenants to manage profiles and payments all in one location. For tenants, rather than having to fill out their information everytime they want to move to a new apartment they only need to make a profile with their information one time, streamlining the application process.
 
+Property Managers can do the following:
+- Create and Post Properties on the Application
+- Process Property Applications
+- Process Maintenance Requests
+- Message Tenants
+- Join a Live Chatroom
+
+Tenants can do the following:
+- Apply to Properties
+- Submit Maintenance Requests
+- Search and Filter Properties
+- Message Property Managers
+- Join a Live Chatroom
+- Pay their rent through the application
+
 ## Backend Documentation
 
 ### Authentication Tokens with JWT
@@ -10,7 +25,7 @@ This application uses JSON Web Tokens for user authentication. Below is a helper
 ```js
 function generateToken(user) {
   const payload = {
-    userId: user.id, 
+    userId: user.id,
     user_type: user.user_type
   };
   try {
@@ -62,9 +77,59 @@ function authorize(req, res, next) {
 ```
 Being middleware, the function can take in request and response objects and manipulate them. The function will try and find the user's token and attempt to return the id from the token. If no valid token is present the function returns false, indicating that authentication has failed. If no token is present or an error occurs, authentication terminates and the function returns an error message through the response.
 
+## Frontend Documentation
+
+This application uses React to manage the Frontend view, and Redux to manage the application state. It communicates with the backend via axios. Below are some of the core packages in use.
+
+- React
+- Redux
+- React-Redux
+- Material UI
+- React-Router
+- Lodash
+- Axios
+- Babel
+- React Table
+- Redux Form
+
+### Persistent Storage
+
+State persists through page reload through the localStorage.js class, where state is automatically saved to local storage.
+
+localStorage.js
+```js
+
+/* Save state to local Storage */
+export const saveState = (state) => {
+  try {
+    /* Turn object into string and save to localstorage */
+    const serializedState = JSON.stringify(state);
+    localStorage.setItem('state', serializedState);
+  } catch (err) {
+
+  }
+}
+
+export const loadState = () => {
+  try {
+    const serializedState = localStorage.getItem('state');
+    /* Turn string into an object and update state */
+    // const newState = JSON.parse(serializedState);
+    if (serializedState === null) {
+      return undefined;
+    }
+    return JSON.parse(serializedState);
+  } catch (err) {
+    return undefined;
+  }
+}
+
+```
+
 ## Starting the Application
-1. Run locally: From /server, create /config/config.json and enter local postgres db credentials.
-2. Run server with ``npm run start:dev``. In new terminal window, cd into client and run ``npm start``.
+1. Run npm install from root directory, and from /client directory
+2. Run locally: From /server, create /config/config.json and enter local postgres db credentials.
+3. Run server with ``npm run start:dev``. In new terminal window, cd into client and run ``npm start``.
 
 ## Authors
 * **Jose Alvarado** - *Sponsor* - [GitHub](https://github.com/sfdevshop)
