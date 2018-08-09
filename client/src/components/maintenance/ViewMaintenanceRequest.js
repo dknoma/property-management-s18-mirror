@@ -11,9 +11,9 @@ import * as actions from '../../actions';
 import requireAuth from '../requireAuth';
 
 class ViewMaintenanceRequest extends React.Component {
-  componentDidMount() {
-    if (this.props.params.appId !== "undefined") {
-      console.log(this.props.params);
+  componentWillMount() {
+    if (this.props.params.maintenanceId !== "undefined") {
+      console.log(this.props.params.propertyId);
       this.props.get_maintenance_request(this.props.params);
     }
   };
@@ -25,7 +25,7 @@ class ViewMaintenanceRequest extends React.Component {
       return (
         <div>
           <div> <Button onClick={() => {
-            this.props.approve_app(this.props.params, () => {
+            this.props.approve_maintenance(this.props.params, () => {
               this.props.add_to_prop({propertyId, tenantId}, () => {
                 alert("Approval Success!");
                 this.props.router.push('/property/review/' + this.props.params.propertyId);
@@ -35,7 +35,7 @@ class ViewMaintenanceRequest extends React.Component {
         }>Approve this Maintenance Request</Button></div>
           <br/>
           <div> <Button onClick={() => {
-            this.props.deny_app(this.props.params, () => {
+            this.props.deny_maintenance(this.props.params, () => {
               alert("Application Denied");
               this.props.router.push('/property/review/' + this.props.params.propertyId);
             });
@@ -49,18 +49,18 @@ class ViewMaintenanceRequest extends React.Component {
 
 render() {
   return (
-    <div className="container">
-        <div className="row">
-          <div className="col-xs-12">
+    <div>
+        <div>
+          <div>
             <h1>Maintenance Request Information</h1>
             <hr />
           </div>
         </div>
-        <div className="row">
-          <div className="col-xs-12">
-            <p>Property Name: {this.props.property_name}</p>
+        <div>
+          <div>
+            <p>Property Manager Id: {this.props.pmId}</p>
             <p>Property ID: {this.props.propertyId}</p>
-            <p>Maintenance Requestor Name: {this.props.tenant_name}</p>
+            <p>Maintenance Requestor ID: {this.props.tenantId}</p>
             <p>Subject: {this.props.form_subject}</p>
             <p>Body: {this.props.form_body}</p>
             <p>Request Approval Status: {this.props.approval_status === null ? 'Pending' : this.props.approval_status === true ? 'Approved' : 'Denied'}</p>
@@ -75,15 +75,15 @@ render() {
 
 function mapStateToProps(state) {
   return {
-    approval_status: state.application.approval_status,
-    id: state.application.id,
-    tenantId: state.application.tenantId,
-    tenant_name: state.application.tenant_name,
-    propertyId: state.application.propertyId,
-    property_name: state.application.property_name,
-    pmId: state.application.pmId,
-    form_subject: state.application.form_subject,
-    form_body: state.application.form_body
+    approval_status: state.maintenance.approval_status,
+    id: state.maintenance.id,
+    tenantId: state.maintenance.tenantId,
+    tenant_name: state.maintenance.tenant_name,
+    propertyId: state.maintenance.propertyId,
+    property_name: state.maintenance.property_name,
+    pmId: state.maintenance.pmId,
+    form_subject: state.maintenance.form_subject,
+    form_body: state.maintenance.form_body
   };
 }
 

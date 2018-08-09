@@ -137,6 +137,8 @@ ReactDOM.render(
           </Route>
           <Route exact path={"maintenance/:requestId"} component={ViewMaintenanceRequest}>
           </Route>
+          <Route exact path={"property/:propertyId/maintenance/:maintenanceId"} component={ViewMaintenanceRequest}>
+          </Route>
           <Route exact path={"rent/:tenantId/pay"} component={ViewRent}>
           </Route>
           <Route exact path={"user/:userId/myapplications/:appId"} component={TenantApplicationPage}>

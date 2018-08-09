@@ -125,6 +125,7 @@ module.exports = {
 					return Maintenance
 						.findById(req.params.appId)
 						.then(maintenance => {
+
 							if(maintenance.process_status == null) {
 								maintenance
 								.update({process_status: req.body.processed})

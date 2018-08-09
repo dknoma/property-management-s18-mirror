@@ -14,12 +14,12 @@ import house6 from '../assets/img/house6.jpg';
 
 /* Slideshow */
 const images = [
-house1,
-house2,
-house3,
-house4,
-house5,
-house6
+  house1,
+  house2,
+  house3,
+  house4,
+  house5,
+  house6
 ];
 
 const Slideshow = () => {
