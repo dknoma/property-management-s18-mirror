@@ -59,14 +59,17 @@ import PrivateChat from "./components/Chat/PrivateChat.js";
 
 var destination = document.querySelector("#container");
 
-/* Runs this every time on application page load */
+
 const persistedState = loadState();
+
+/* Runs this every time on application page load */
 const store = createStore(
   reducers,
   persistedState,
   applyMiddleware(reduxThunk)
 );
 
+/* Use lodash throttle to maintain high performance */
 store.subscribe(throttle(() => {
   saveState({
     auth: store.getState().auth,

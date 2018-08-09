@@ -11,15 +11,6 @@ import { TextField, RadioGroup } from 'redux-form-material-ui';
 import SelectField from 'material-ui/SelectField'
 import 'react-widgets/dist/css/react-widgets.css'
 
-
-/*
-const colors = [ { color: 'Red', value: 'ff0000' },
-  { color: 'Green', value: '00ff00' },
-  { color: 'Blue', value: '0000ff' } ]
-
-const renderDropdownList = ({ input, ...rest }) =>
-  <DropdownList {...input} {...rest}/>
-*/
 class SearchProperty extends Component {
   constructor(props) {
     super(props);

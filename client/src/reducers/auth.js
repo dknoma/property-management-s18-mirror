@@ -30,11 +30,12 @@ export default function(state = INITIAL_STATE, action) {
         return {...state, authenticated: '', username: ''};
       }
 
+      
       /* We can add more info if we want to*/
       return {...state,
         authenticated: action.payload.token,
-        my_id: action.payload.user.id,
-        id: action.payload.user.id,
+        my_id: action.payload.user.userId,
+        id: action.payload.user.userId,
         email: action.payload.user.email,
         username: action.payload.user.username,
         my_username: action.payload.user.username,

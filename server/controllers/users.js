@@ -4,6 +4,7 @@ const Inbox = require('../models').Inbox;
 const Message = require('../models').Message;
 const Sequelize = require('sequelize');
 const config = require('../config/config');
+const jwt = require('jsonwebtoken');
 const Op = Sequelize.Op;
 const bcrypt = require('bcrypt');
 // const passport = require('passport');
@@ -12,7 +13,7 @@ const bcrypt = require('bcrypt');
 function generateToken(user) {
 	//payload to create token; does not contain sensitive info
 	const payload = {
-		userId: user.id, 
+		userId: user.id,
 		user_type: user.user_type
 	};
 	try {

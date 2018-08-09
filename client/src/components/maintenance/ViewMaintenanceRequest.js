@@ -52,7 +52,7 @@ render() {
     <div className="container">
         <div className="row">
           <div className="col-xs-12">
-            <h1>Application Detail</h1>
+            <h1>Maintenance Request Information</h1>
             <hr />
           </div>
         </div>

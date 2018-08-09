@@ -86,6 +86,10 @@ export class Nav extends Component {
   handleMailMenuClose = () => {
     this.setState({ anchorEl2: null });
   };
+
+  componentDidMount () {
+    console.log(this.props);
+  }
   insertPMLinks () {
     const { classes } = this.props;
     if (this.props.user_type == 'propertymanager') {
@@ -101,7 +105,7 @@ export class Nav extends Component {
               <AddIcon />
             </Avatar>
           </a>
-          <a href={"/user/" + localStorage.getItem('my_id') + "/maintenancerequests"}>
+          <a href={"/user/" + this.props.my_id + "/maintenancerequests"}>
             <Avatar className={classes.greenAvatar}>
               <BuildIcon />
             </Avatar>
@@ -110,18 +114,19 @@ export class Nav extends Component {
       )
     }
   }
+
   insertTenantLinks () {
     const { classes } = this.props;
     console.log(this.props.user_type);
     if (this.props.user_type == 'tenant') {
       return (
       <span>
-      <a href={"/user/" + localStorage.getItem('my_id') + "/myapplications"}>
+      <a href={"/user/" + this.props.my_id + "/myapplications"}>
         <Avatar className={classes.greenAvatar}>
           <AssignmentIcon />
         </Avatar>
       </a>
-      <a href={"/rent/" + localStorage.getItem('my_id') + "/pay"}>
+      <a href={"/rent/" + this.props.my_id + "/pay"}>
         <Avatar className={classes.greenAvatar}>
           <AttachMoneyIcon />
         </Avatar>
@@ -137,7 +142,7 @@ export class Nav extends Component {
     console.log(this.props.unviewedMessages);
     if (this.props.unviewedMessages > 0){
       return (
-      <a href={"/inbox/" + localStorage.getItem('my_id')}>
+      <a href={"/inbox/" + this.props.my_id}>
         <IconButton aria-label="Email">
           <Badge badgeContent={this.props.unviewedMessages} classes={{ badge: classes.orangeAvatar }}>
           <Avatar className={classes.greenAvatar}>
@@ -174,7 +179,7 @@ export class Nav extends Component {
             open={open}
             onClose={this.handleMailMenuClose}
           >
-              <a href={"/inbox/" + localStorage.getItem('my_id')} ><MenuItem>Inbox</MenuItem></a>
+              <a href={"/inbox/" + this.props.my_id} ><MenuItem>Inbox</MenuItem></a>
               <a href={"/composeMessage"} ><MenuItem>New Message</MenuItem></a>
           </Menu>
         </div>
@@ -237,7 +242,7 @@ export class Nav extends Component {
               open={open}
               onClose={this.handleProfileMenuClose}
             >
-                <a href={"/profile/" + localStorage.getItem('my_id')} ><MenuItem>Profile</MenuItem></a>
+                <a href={"/profile/" + this.props.my_id} ><MenuItem>Profile</MenuItem></a>
                 <a href={"/edit"} ><MenuItem>Edit Profile</MenuItem></a>
                 <a href="/logout"><MenuItem>Logout</MenuItem></a>
             </Menu>

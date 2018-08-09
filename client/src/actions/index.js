@@ -61,12 +61,8 @@ export const login =
 
       /* This stores the token and other info into localStorage*/
       localStorage.setItem('token', response.data.token);
-      localStorage.setItem('my_username', response.data.user.username);
-      localStorage.setItem('firstname', response.data.user.firstname);
-      localStorage.setItem('lastname', response.data.user.lastname);
-      localStorage.setItem('email', response.data.user.email);
-      localStorage.setItem('user_type', response.data.user.user_type);
       /* Need both so info shows up correctly on login */
+      localStorage.setItem('my_username', response.data.user.username);
       localStorage.setItem('my_id', response.data.user.userId);
       localStorage.setItem('id', response.data.user.userId);
       /* This says to redirect */
